@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="py-5 bg-light min-vh-100">
+    <div class="container">
+        
+        <div class="text-center mb-5 animate-text">
+            <a href="/katalog" class="text-decoration-none text-muted small mb-2 d-inline-block">
+                ← Kembali ke Menu Utama
+            </a>
+            <h1 class="fw-bold mt-2">{{ judul }}</h1>
+            <p class="text-muted">Pilih jenis layanan di bawah ini untuk melihat koleksi kami.</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            {% for item in items %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden card-service">
+                    
+                    <div class="thumb-wrapper">
+                        
+                        <div class="thumb-badge">Premium</div>
+
+                        <img src="{{ url_for('static', filename='img/' + item.gambar) }}" 
+                             class="thumb-img" 
+                             alt="{{ item.judul }}">
+                    </div>
+
+                    <div class="card-body text-center p-4">
+                        <h5 class="card-title fw-bold mb-2 text-dark">{{ item.judul }}</h5>
+                        <p class="card-text text-muted small mb-4">{{ item.deskripsi }}</p>
+                        
+                        <div class="d-grid gap-2">
+                            <a href="{{ url_for('showcase_page', id_layanan=item.id) }}" class="btn btn-orange rounded-pill py-2 fw-bold">
+                                Lihat Pilihan Referensi ➜
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+{% endblock %}

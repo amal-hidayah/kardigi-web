@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="hero-section position-relative overflow-hidden">
+    <div class="container-fluid px-4 px-lg-5">
+        
+        <div class="row align-items-center min-vh-75 gy-5">
+            
+            <div class="col-lg-6 py-5 order-2 order-lg-1 ps-lg-5 position-relative" style="z-index: 10;">
+                <div class="animate-text text-center text-lg-start">
+                    <span class="badge bg-soft-blue text-primary fw-bold px-3 py-2 rounded-pill mb-3">
+                        🚀 Solusi Digital No. #1 Indonesia
+                    </span>
+                    <h1 class="display-4 fw-bold mb-3" style="color: var(--primary-navy); line-height: 1.2;">
+                        Bikin Website & CV <br>
+                        <span style="color: var(--accent-orange);">Profesional & Cepat.</span>
+                    </h1>
+                    <p class="lead text-muted mb-4 mx-auto mx-lg-0" style="font-size: 1.1rem; max-width: 600px;">
+                        Tingkatkan kredibilitas bisnis dan peluang karir Anda dengan desain modern yang memikat. Tanpa ribet, harga bersahabat, dan hasil memuaskan.
+                    </p>
+                    
+                    <div class="d-flex gap-3 justify-content-center justify-content-lg-start animate-delay">
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#modalCaraPesan" class="btn btn-orange rounded-pill px-4 py-3 shadow-lg">
+                            Mulai Pesan Sekarang ➜
+                        </a>
+                        <a href="/katalog" class="btn btn-outline-secondary rounded-pill px-4 py-3">
+                            Lihat Portofolio
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 order-1 order-lg-2 mb-0 mb-lg-0 text-center position-relative">
+                
+                <img src="{{ url_for('static', filename='img/hero_illustration.png') }}" 
+                     alt="Jasa Pembuatan Website dan CV KARDIGI" 
+                     class="img-fluid animate-img"
+                     style="width: 100%; transform: scale(2.2); transform-origin: bottom center; margin-top: -50px;">
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold" style="color: var(--primary-navy);">Layanan Unggulan</h2>
+            <p class="text-muted">Pilih solusi digital yang Anda butuhkan saat ini</p>
+        </div>
+        
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-5 col-lg-4">
+                <div class="card card-service h-100 p-4 border-0 shadow-sm text-center">
+                    <div class="mb-3 display-4">💻</div>
+                    <h4 class="fw-bold mb-3" style="color: var(--primary-navy);">Website Profesional</h4>
+                    <p class="text-muted mb-4 small">Cocok untuk UMKM, Sekolah, atau Company Profile agar terlihat lebih bonafit dan terpercaya.</p>
+                    <a href="/katalog/website" class="btn btn-card-action w-100">Lihat Koleksi Web</a>
+                </div>
+            </div>
+            
+            <div class="col-md-5 col-lg-4">
+                <div class="card card-service h-100 p-4 border-0 shadow-sm text-center">
+                    <div class="mb-3 display-4">📄</div>
+                    <h4 class="fw-bold mb-3" style="color: var(--primary-navy);">CV & Lamaran</h4>
+                    <p class="text-muted mb-4 small">Desain CV ATS Friendly atau Kreatif yang bikin HRD langsung melirik lamaran Anda.</p>
+                    <a href="/katalog/cv" class="btn btn-card-action w-100">Lihat Koleksi CV</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

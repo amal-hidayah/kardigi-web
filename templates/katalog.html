@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mb-4">
+    <a href="/katalog" class="text-decoration-none text-muted">← Kembali ke Kategori</a>
+</div>
+
+<div class="text-center mb-5">
+    <h1 class="fw-bold display-5">{{ judul }}</h1>
+    <p class="text-muted">Klik gambar untuk melihat detail.</p>
+</div>
+
+{% if not items %}
+    <div class="alert alert-warning text-center">
+        Belum ada produk di kategori ini. Silakan Upload lewat Admin.
+    </div>
+{% else %}
+
+<div class="row g-4">
+    {% for item in items %}
+    <div class="col-md-4 col-sm-6">
+        <div class="card h-100 shadow-sm border-0 card-service p-0 overflow-hidden">
+            
+            <div style="height: 250px; overflow: hidden; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modal{{ item.id }}">
+                <img src="{{ url_for('static', filename='uploads/' + item.gambar) }}" class="w-100 h-100" style="object-fit: cover; transition: 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            </div>
+            
+            <div class="card-body p-4 text-center">
+                <span class="badge bg-primary bg-opacity-10 text-primary mb-2">{{ item.kategori_detail }}</span>
+                <h5 class="card-title fw-bold">{{ item.judul }}</h5>
+                <p class="small text-muted">{{ item.deskripsi }}</p>
+
+                <div class="d-grid gap-2 mt-3">
+                    {% if item.link_demo %}
+                    <a href="/demo/{{ item.link_demo }}" target="_blank" class="btn btn-success btn-sm fw-bold">👁️ Live Demo</a>
+                    {% endif %}
+                    
+                    <a href="/order?ref={{ item.judul }}" class="btn btn-outline-primary btn-sm fw-bold">Pesan Ini ➜</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal{{ item.id }}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ item.judul }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <img src="{{ url_for('static', filename='uploads/' + item.gambar) }}" class="w-100">
+                </div>
+                <div class="modal-footer">
+                    <a href="/order?ref={{ item.judul }}" class="btn btn-primary w-100">Saya Mau Pesan Desain Ini</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endif %}
+{% endblock %}
