@@ -1,0 +1,5 @@
+# Abaikan database SQLite
+*.db
+# Abaikan folder virtual environment
+venv/
+__pycache__/

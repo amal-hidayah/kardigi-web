@@ -1,38 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="text-center mb-5">
-    <h1 class="fw-bold display-5">Katalog Layanan</h1>
-    <p class="text-muted">Pilih kategori layanan yang Anda butuhkan</p>
-</div>
+<section class="py-5 bg-light" style="min-height: 100vh;">
+    <div class="container py-lg-5">
+        <div class="text-center mb-5 animate-text">
+            <h1 class="fw-bold display-5" style="color: var(--primary-navy);">Katalog Layanan</h1>
+            <p class="text-muted mx-auto" style="max-width: 500px;">Pilih kategori solusi digital yang ingin Anda kembangkan bersama KARDIGI</p>
+        </div>
 
-<div class="row justify-content-center g-4">
-    
-    <div class="col-md-5">
-        <a href="/katalog/website" class="text-decoration-none">
-            <div class="card h-100 shadow card-service text-center p-5 border-0">
-                <div class="mb-4 text-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-laptop" viewBox="0 0 16 16"><path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5h11zm-11-1A1.5 1.5 0 0 0 1 2.5V11.122A1.5 1.5 0 0 0 2.5 12.622h11a1.5 1.5 0 0 0 1.5-1.5V2.5A1.5 1.5 0 0 0 13.5 1H2.5zm5.5 10a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1zm-9-9A2.5 2.5 0 0 1 2.5.5h11A2.5 2.5 0 0 1 16 3v8.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 11.5V3z"/><path d="M5 12.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/></svg>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card card-service h-100 border-0 shadow-sm overflow-hidden">
+                    <div class="thumb-wrapper">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" class="thumb-img" alt="Website & Bisnis">
+                        <div class="thumb-badge">Best Seller</div>
+                    </div>
+                    <div class="card-body p-4 p-lg-5 text-center">
+                        <h3 class="fw-bold mb-3" style="color: var(--primary-navy);">Website & Bisnis</h3>
+                        <p class="text-muted mb-4">Layanan pembuatan Company Profile, Toko Online, hingga Landing Page yang responsif dan SEO Friendly.</p>
+                        <a href="/katalog/website" class="btn btn-orange w-100 rounded-pill py-2">Lihat Koleksi Web</a>
+                    </div>
                 </div>
-                <h2 class="fw-bold text-dark">Website & Bisnis</h2>
-                <p class="text-muted">Company Profile, Toko Online, Web Sekolah, & Branding.</p>
-                <span class="btn btn-primary rounded-pill px-4 mt-3">Lihat Koleksi ➜</span>
             </div>
-        </a>
-    </div>
 
-    <div class="col-md-5">
-        <a href="/katalog/cv" class="text-decoration-none">
-            <div class="card h-100 shadow card-service text-center p-5 border-0">
-                <div class="mb-4 text-danger">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-file-earmark-person" viewBox="0 0 16 16"><path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V9.255A5.5 5.5 0 0 0 9.5 3V3z"/></svg>
+            <div class="col-md-6 col-lg-5">
+                <div class="card card-service h-100 border-0 shadow-sm overflow-hidden">
+                    <div class="thumb-wrapper">
+                        <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=800" class="thumb-img" alt="CV & Surat Lamaran">
+                    </div>
+                    <div class="card-body p-4 p-lg-5 text-center">
+                        <h3 class="fw-bold mb-3" style="color: var(--primary-navy);">CV & Surat Lamaran</h3>
+                        <p class="text-muted mb-4">Tingkatkan peluang kerja dengan CV ATS Friendly atau Kreatif yang didesain secara profesional dan modern.</p>
+                        <a href="/katalog/cv" class="btn btn-orange w-100 rounded-pill py-2">Lihat Koleksi CV</a>
+                    </div>
                 </div>
-                <h2 class="fw-bold text-dark">CV & Surat Lamaran</h2>
-                <p class="text-muted">Curriculum Vitae ATS, Cover Letter, & LinkedIn.</p>
-                <span class="btn btn-danger rounded-pill px-4 mt-3">Lihat Koleksi ➜</span>
             </div>
-        </a>
+        </div>
     </div>
-
-</div>
+</section>
 {% endblock %}

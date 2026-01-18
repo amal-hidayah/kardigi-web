@@ -6,6 +6,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 from functools import wraps
+from PIL import Image  # Tambahan: Untuk optimasi gambar agar website kencang
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'rahasia_dapur_kardigi_2025_secure'
@@ -58,51 +59,14 @@ class Referensi(db.Model):
 with app.app_context():
     db.create_all()
 
-# --- DATA STATIS LAYANAN (SUDAH DIPERBAIKI) ---
-# Bagian ini yang menyebabkan error sebelumnya karena kurang 'gambar'
+# --- DATA STATIS LAYANAN ---
 DATA_LAYANAN = [
-    {
-        'id': 'company-profile', 
-        'kategori': 'website', 
-        'judul': 'Website Company Profile', 
-        'deskripsi': 'Desain elegan untuk kredibilitas PT/CV.', 
-        'gambar': 'web_compro.jpg'
-    },
-    {
-        'id': 'toko-online', 
-        'kategori': 'website', 
-        'judul': 'Toko Online UMKM', 
-        'deskripsi': 'Fitur keranjang belanja & checkout WA.', 
-        'gambar': 'web_toko.jpg'
-    },
-    {
-        'id': 'web-sekolah', 
-        'kategori': 'website', 
-        'judul': 'Website Sekolah', 
-        'deskripsi': 'Portal akademik & PPDB Online.', 
-        'gambar': 'web_sekolah.jpg'
-    },
-    {
-        'id': 'cv-ats', 
-        'kategori': 'cv', 
-        'judul': 'CV ATS Friendly', 
-        'deskripsi': 'Lolos sistem HRD & terbaca mesin.', 
-        'gambar': 'cv_ats.jpg'
-    },
-    {
-        'id': 'cv-kreatif', 
-        'kategori': 'cv', 
-        'judul': 'CV Kreatif', 
-        'deskripsi': 'Desain visual menarik & estetik.', 
-        'gambar': 'cv_kreatif.jpg'
-    },
-    {
-        'id': 'surat-lamaran', 
-        'kategori': 'cv', 
-        'judul': 'Surat Lamaran', 
-        'deskripsi': 'Kata-kata profesional pemikat HRD.', 
-        'gambar': 'cv_english.jpg'
-    }
+    {'id': 'company-profile', 'kategori': 'website', 'judul': 'Website Company Profile', 'deskripsi': 'Desain elegan untuk kredibilitas PT/CV.', 'gambar': 'web_compro.jpg'},
+    {'id': 'toko-online', 'kategori': 'website', 'judul': 'Toko Online UMKM', 'deskripsi': 'Fitur keranjang belanja & checkout WA.', 'gambar': 'web_toko.jpg'},
+    {'id': 'web-sekolah', 'kategori': 'website', 'judul': 'Website Sekolah', 'deskripsi': 'Portal akademik & PPDB Online.', 'gambar': 'web_sekolah.jpg'},
+    {'id': 'cv-ats', 'kategori': 'cv', 'judul': 'CV ATS Friendly', 'deskripsi': 'Lolos sistem HRD & terbaca mesin.', 'gambar': 'cv_ats.jpg'},
+    {'id': 'cv-kreatif', 'kategori': 'cv', 'judul': 'CV Kreatif', 'deskripsi': 'Desain visual menarik & estetik.', 'gambar': 'cv_kreatif.jpg'},
+    {'id': 'surat-lamaran', 'kategori': 'cv', 'judul': 'Surat Lamaran', 'deskripsi': 'Kata-kata profesional pemikat HRD.', 'gambar': 'cv_english.jpg'}
 ]
 
 # --- DEKORATOR: Cek Login ---
@@ -121,15 +85,12 @@ def login_page():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        
         if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
             session['admin_logged_in'] = True
             flash("Selamat datang, Bos!", "success")
             return redirect(url_for('admin_page'))
         else:
             flash("Username atau Password salah!", "danger")
-            return redirect(url_for('login_page'))
-            
     return render_template('login.html')
 
 @app.route('/logout')
@@ -147,7 +108,6 @@ def katalog_home(): return render_template('katalog_home.html')
 
 @app.route('/katalog/<kategori_pilihan>')
 def katalog_detail(kategori_pilihan):
-    # Filter data berdasarkan kategori
     items = [item for item in DATA_LAYANAN if item['kategori'] == kategori_pilihan]
     judul = "Koleksi Website" if kategori_pilihan == 'website' else "Koleksi CV & Lamaran"
     return render_template('katalog_list.html', items=items, judul=judul, kategori=kategori_pilihan)
@@ -156,11 +116,15 @@ def katalog_detail(kategori_pilihan):
 def showcase_page(id_layanan):
     layanan_info = next((item for item in DATA_LAYANAN if item['id'] == id_layanan), None)
     if not layanan_info: return "Layanan tidak ditemukan", 404
-    
     daftar_referensi = Referensi.query.filter_by(layanan_id=id_layanan).all()
     return render_template('showcase.html', layanan=layanan_info, referensi=daftar_referensi)
 
-# --- ROUTE ADMIN (DIPROTEKSI LOGIN) ---
+# Tambahan: Route CV Generator Freemium
+@app.route('/generator')
+def cv_generator():
+    return render_template('generator_cv.html')
+
+# --- ROUTE ADMIN ---
 @app.route('/admin')
 @login_required
 def admin_page():
@@ -175,14 +139,21 @@ def upload_referensi():
         layanan_id = request.form.get('layanan_id')
         judul = request.form.get('judul')
         deskripsi = request.form.get('deskripsi')
-        
         kategori_item = next((item['kategori'] for item in DATA_LAYANAN if item['id'] == layanan_id), 'website')
 
         file_img = request.files.get('gambar')
         filename_img = None
         if file_img and allowed_file(file_img.filename, ALLOWED_EXTENSIONS_IMG):
             filename_img = secure_filename(file_img.filename)
-            file_img.save(os.path.join(app.config['UPLOAD_FOLDER'], filename_img))
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename_img)
+            
+            # --- Tambahan: Optimasi Gambar Sebelum Simpan ---
+            img = Image.open(file_img)
+            if img.mode in ("RGBA", "P"): img = img.convert("RGB")
+            if img.width > 1200:
+                img.thumbnail((1200, 1200), Image.Resampling.LANCZOS)
+            img.save(filepath, optimize=True, quality=75)
+            # -----------------------------------------------
         else:
             flash("Thumbnail wajib diupload!", "danger"); return redirect(url_for('admin_page'))
 
@@ -195,56 +166,44 @@ def upload_referensi():
             if kategori_item == 'website' and filename_project.endswith('.zip'):
                 folder_name = filename_project.rsplit('.', 1)[0]
                 target_extract_path = os.path.join(app.config['DEMO_FOLDER'], folder_name)
-                
                 if os.path.exists(target_extract_path): shutil.rmtree(target_extract_path)
                 try:
                     with zipfile.ZipFile(file_project, 'r') as zip_ref: zip_ref.extractall(target_extract_path)
-                    
-                    # Logic Handle Nested Folder
                     if not os.path.exists(os.path.join(target_extract_path, 'index.html')):
                         subitems = os.listdir(target_extract_path)
                         if len(subitems) == 1 and os.path.isdir(os.path.join(target_extract_path, subitems[0])):
                             nested_folder = os.path.join(target_extract_path, subitems[0])
                             for item in os.listdir(nested_folder): shutil.move(os.path.join(nested_folder, item), target_extract_path)
                             os.rmdir(nested_folder)
-                            
                     folder_demo_name = folder_name
                 except zipfile.BadZipFile: flash("File ZIP rusak!", "danger"); return redirect(url_for('admin_page'))
             elif kategori_item == 'cv': 
                 file_project.save(os.path.join(app.config['CV_FOLDER'], filename_project))
-            else: 
-                if kategori_item == 'website': flash("Website wajib .ZIP!", "warning"); return redirect(url_for('admin_page'))
 
         baru = Referensi(layanan_id=layanan_id, kategori=kategori_item, judul=judul, deskripsi=deskripsi, gambar=filename_img, file_path=filename_project, demo_folder=folder_demo_name)
-        db.session.add(baru)
-        db.session.commit()
+        db.session.add(baru); db.session.commit()
         flash("Upload sukses!", "success")
-        return redirect(url_for('admin_page'))
+    return redirect(url_for('admin_page'))
 
 @app.route('/hapus_referensi/<int:id>')
 @login_required
 def hapus_referensi(id):
     item = Referensi.query.get(id)
     if item:
-        try:
-            if item.gambar: os.remove(os.path.join(app.config['UPLOAD_FOLDER'], item.gambar))
+        try: os.remove(os.path.join(app.config['UPLOAD_FOLDER'], item.gambar))
         except: pass
-        try:
-            if item.demo_folder: shutil.rmtree(os.path.join(app.config['DEMO_FOLDER'], item.demo_folder))
+        try: shutil.rmtree(os.path.join(app.config['DEMO_FOLDER'], item.demo_folder))
         except: pass
-        try:
-            if item.kategori == 'cv' and item.file_path: os.remove(os.path.join(app.config['CV_FOLDER'], item.file_path))
+        try: os.remove(os.path.join(app.config['CV_FOLDER'], item.file_path))
         except: pass
-        db.session.delete(item)
-        db.session.commit()
+        db.session.delete(item); db.session.commit()
         flash("Data dihapus.", "success")
     return redirect(url_for('admin_page'))
 
 @app.route('/hapus_order/<int:id>')
 @login_required
 def hapus_pesanan(id):
-    item = Order.query.get(id)
-    if item: db.session.delete(item); db.session.commit()
+    item = Order.query.get(id); db.session.delete(item); db.session.commit()
     return redirect(url_for('admin_page'))
 
 # --- ORDER ---
@@ -253,25 +212,20 @@ def order():
     referensi_pilihan = request.args.get('ref', '')
     if request.method == 'POST':
         nama = request.form.get('nama'); wa = request.form.get('whatsapp'); jasa = request.form.get('service'); design_ref = request.form.get('design_ref'); ket_umum = request.form.get('keterangan')
-        
         detail_msg = ""
         if jasa == 'website':
-            bisnis = request.form.get('web_bisnis', '-'); domain = request.form.get('web_domain', '-'); warna = request.form.get('web_warna', '-')
-            detail_msg = f"--- DATA WEBSITE ---\n🏢 Nama Bisnis: {bisnis}\n🌐 Rencana Domain: {domain}\n🎨 Warna Dominan: {warna}"
+            detail_msg = f"--- DATA WEBSITE ---\n🏢 Bisnis: {request.form.get('web_bisnis', '-')}\n🌐 Domain: {request.form.get('web_domain', '-')}\n🎨 Warna: {request.form.get('web_warna', '-')}"
         elif jasa == 'cv':
-            posisi = request.form.get('cv_posisi', '-'); pendidikan = request.form.get('cv_pendidikan', '-'); pengalaman = request.form.get('cv_pengalaman', '-'); skill = request.form.get('cv_skill', '-')
-            detail_msg = f"--- DATA CV ---\n💼 Posisi: {posisi}\n🎓 Pendidikan: {pendidikan}\n🏢 Pengalaman: {pengalaman}\n⭐ Skill: {skill}"
+            detail_msg = f"--- DATA CV ---\n💼 Posisi: {request.form.get('cv_posisi', '-')}\n🎓 Pendidikan: {request.form.get('cv_pendidikan', '-')}\n🏢 Pengalaman: {request.form.get('cv_pengalaman', '-')}\n⭐ Skill: {request.form.get('cv_skill', '-')}"
         
         deskripsi_lengkap = f"Design Ref: {design_ref}\n\n{detail_msg}\n\nCatatan: {ket_umum}"
         pesanan_baru = Order(nama_klien=nama, whatsapp=wa, jenis_jasa=jasa, deskripsi=deskripsi_lengkap)
-        db.session.add(pesanan_baru)
-        db.session.commit()
+        db.session.add(pesanan_baru); db.session.commit()
         
         nomor_admin = "6289509951772"
-        pesan_wa = f"Halo Admin KARDIGI, order baru!\n\n👤 *DATA PEMESAN*\nNama: {nama}\nWA: {wa}\nLayanan: {jasa.upper()}\nDesign Pilihan: *{design_ref}*\n\n{detail_msg}\n\n📝 *CATATAN*: {ket_umum}\n\nMohon diproses."
+        pesan_wa = f"Halo Admin KARDIGI, order baru!\n\n👤 *DATA PEMESAN*\nNama: {nama}\nWA: {wa}\nLayanan: {jasa.upper()}\nDesign Pilihan: *{design_ref}*\n\n{detail_msg}\n\n📝 *CATATAN*: {ket_umum}"
         return redirect(f"https://wa.me/{nomor_admin}?text={urllib.parse.quote(pesan_wa)}")
-        
     return render_template('order.html', referensi=referensi_pilihan)
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)

@@ -2,70 +2,167 @@
 
 {% block content %}
 
+<!-- Hero Section: Updated to Fixed Container for better spacing -->
 <section class="hero-section position-relative overflow-hidden">
-    <div class="container-fluid px-4 px-lg-5">
-        
-        <div class="row align-items-center min-vh-75 gy-5">
+    <!-- Pake 'container' biasa biar rapi di tengah -->
+    <div class="container">
+        <div class="row align-items-center" style="min-height: 80vh;">
             
-            <div class="col-lg-6 py-5 order-2 order-lg-1 ps-lg-5 position-relative" style="z-index: 10;">
-                <div class="animate-text text-center text-lg-start">
+            <!-- KOLOM KIRI: TEKS HERO -->
+            <div class="col-lg-6 py-5 position-relative" style="z-index: 10;">
+                <div class="animate-text text-center text-lg-start reveal active">
                     <span class="badge bg-soft-blue text-primary fw-bold px-3 py-2 rounded-pill mb-3">
                         🚀 Solusi Digital No. #1 Indonesia
                     </span>
-                    <h1 class="display-4 fw-bold mb-3" style="color: var(--primary-navy); line-height: 1.2;">
+                    
+                    <h1 class="display-4 fw-800 mb-3" style="color: var(--primary-navy); line-height: 1.1; font-weight: 800;">
                         Bikin Website & CV <br>
                         <span style="color: var(--accent-orange);">Profesional & Cepat.</span>
                     </h1>
-                    <p class="lead text-muted mb-4 mx-auto mx-lg-0" style="font-size: 1.1rem; max-width: 600px;">
-                        Tingkatkan kredibilitas bisnis dan peluang karir Anda dengan desain modern yang memikat. Tanpa ribet, harga bersahabat, dan hasil memuaskan.
+
+                    <div class="price-hook-wrapper d-flex align-items-center justify-content-center justify-content-lg-start gap-3 mb-4">
+                        <span class="badge bg-danger text-white rounded-pill px-3 py-2" style="font-size: 0.8rem;">Promo Terbatas</span>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="price-original text-muted small text-decoration-line-through">Mulai Rp 50rb</span>
+                            <span class="price-promo fw-bold text-orange fs-4">Cuma Rp 20rb!</span>
+                        </div>
+                    </div>
+
+                    <p class="lead text-muted mb-5 mx-auto mx-lg-0" style="font-size: 1.1rem; max-width: 500px; line-height: 1.6;">
+                        Tingkatkan kredibilitas bisnis dan peluang karir Anda dengan desain modern yang memikat. Tanpa ribet, harga bersahabat.
                     </p>
                     
-                    <div class="d-flex gap-3 justify-content-center justify-content-lg-start animate-delay">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#modalCaraPesan" class="btn btn-orange rounded-pill px-4 py-3 shadow-lg">
-                            Mulai Pesan Sekarang ➜
+                    <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start animate-delay">
+                        
+                       <!-- TOMBOL UTAMA (Orange Solid) -->
+                        <a href="{{ url_for('order') }}" 
+                           class="btn btn-orange rounded-pill px-5 py-3 shadow-lg fw-bold d-flex align-items-center gap-2"
+                           style="transition: transform 0.2s ease-in-out;">
+                            <span>Isi Formulir Sekarang</span> 
+                            <i class="fas fa-arrow-right"></i>
                         </a>
-                        <a href="/katalog" class="btn btn-outline-secondary rounded-pill px-4 py-3">
-                            Lihat Portofolio
+                        
+                        <!-- TOMBOL CV (Outline Mewah / Card Style) -->
+                        <a href="{{ url_for('cv_generator') }}" 
+                           class="btn bg-white rounded-pill pe-4 ps-2 py-2 shadow-sm d-flex align-items-center gap-3" 
+                           style="border: 1px solid #e2e8f0; transition: transform 0.2s ease-in-out;"
+                           onmouseover="this.style.transform='translateY(-3px)'" 
+                           onmouseout="this.style.transform='translateY(0)'">
+                            
+                            <!-- Icon Circle -->
+                            <div class="bg-soft-blue text-primary rounded-circle d-flex align-items-center justify-content-center shadow-sm" 
+                                 style="width: 48px; height: 48px;">
+                                <i class="fa-solid fa-wand-magic-sparkles fs-5"></i>
+                            </div>
+                            
+                            <!-- Text Label -->
+                            <div class="text-start">
+                                <div class="text-muted fw-semibold" style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px;">Tanpa Login</div>
+                                <div class="fw-bold fs-6 text-dark">Bikin CV Gratis</div>
+                            </div>
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-6 order-1 order-lg-2 mb-0 mb-lg-0 text-center position-relative">
-                
+            <!-- KOLOM KANAN: GAMBAR HERO -->
+            <div class="col-lg-6 mb-0 text-center position-relative">
                 <img src="{{ url_for('static', filename='img/hero_illustration.png') }}" 
                      alt="Jasa Pembuatan Website dan CV KARDIGI" 
-                     class="img-fluid animate-img"
-                     style="width: 100%; transform: scale(2.2); transform-origin: bottom center; margin-top: -50px;">
+                     class="img-fluid animate-img reveal active"
+                     style="width: 100%; max-width: 650px;">
             </div>
             
         </div>
     </div>
 </section>
 
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="text-center mb-5">
+<!-- LAYANAN UNGGULAN -->
+<section class="py-5 bg-light" id="layanan">
+    <div class="container py-lg-4">
+        <div class="text-center mb-5 reveal">
             <h2 class="fw-bold" style="color: var(--primary-navy);">Layanan Unggulan</h2>
             <p class="text-muted">Pilih solusi digital yang Anda butuhkan saat ini</p>
         </div>
         
         <div class="row g-4 justify-content-center">
-            <div class="col-md-5 col-lg-4">
-                <div class="card card-service h-100 p-4 border-0 shadow-sm text-center">
-                    <div class="mb-3 display-4">💻</div>
-                    <h4 class="fw-bold mb-3" style="color: var(--primary-navy);">Website Profesional</h4>
-                    <p class="text-muted mb-4 small">Cocok untuk UMKM, Sekolah, atau Company Profile agar terlihat lebih bonafit dan terpercaya.</p>
-                    <a href="/katalog/website" class="btn btn-card-action w-100">Lihat Koleksi Web</a>
+            <!-- Card 1: Website -->
+            <div class="col-md-5 col-lg-4 reveal reveal-delay-100">
+                <div class="card card-service h-100 border-0 shadow-sm overflow-hidden">
+                    <div class="thumb-wrapper">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=500" class="thumb-img" alt="Website Service">
+                        <div class="thumb-badge">Best Seller</div>
+                    </div>
+                    <div class="card-body p-4 text-center">
+                        <h4 class="fw-bold mb-3" style="color: var(--primary-navy);">Website Profesional</h4>
+                        <p class="text-muted mb-4 small">Cocok untuk UMKM, Sekolah, atau Company Profile agar terlihat lebih bonafit.</p>
+                        <a href="/katalog/website" class="btn btn-card-action w-100">Lihat Koleksi Web</a>
+                    </div>
                 </div>
             </div>
             
-            <div class="col-md-5 col-lg-4">
-                <div class="card card-service h-100 p-4 border-0 shadow-sm text-center">
-                    <div class="mb-3 display-4">📄</div>
-                    <h4 class="fw-bold mb-3" style="color: var(--primary-navy);">CV & Lamaran</h4>
-                    <p class="text-muted mb-4 small">Desain CV ATS Friendly atau Kreatif yang bikin HRD langsung melirik lamaran Anda.</p>
-                    <a href="/katalog/cv" class="btn btn-card-action w-100">Lihat Koleksi CV</a>
+            <!-- Card 2: CV -->
+            <div class="col-md-5 col-lg-4 reveal reveal-delay-200">
+                <div class="card card-service h-100 border-0 shadow-sm overflow-hidden">
+                    <div class="thumb-wrapper">
+                        <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=500" class="thumb-img" alt="CV Service">
+                    </div>
+                    <div class="card-body p-4 text-center">
+                        <h4 class="fw-bold mb-3" style="color: var(--primary-navy);">CV & Lamaran</h4>
+                        <p class="text-muted mb-4 small">Desain CV ATS Friendly atau Kreatif yang bikin HRD langsung melirik lamaran Anda.</p>
+                        
+                        <div class="d-grid gap-2">
+                            <a href="/katalog/cv" class="btn btn-card-action">Pesan CV Premium (Rp 20rb)</a>
+                            <a href="{{ url_for('cv_generator') }}" class="btn btn-sm text-primary fw-bold">Atau Buat Versi Gratis ➜</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHY US / CTA SECTION -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <!-- Kolom Fitur -->
+            <div class="col-lg-6">
+                <h2 class="fw-bold mb-4 reveal" style="color: var(--primary-navy);">Kenapa Pilih KARDIGI?</h2>
+                
+                <div class="d-flex mb-4 reveal reveal-delay-100">
+                    <div class="me-3"><span class="badge bg-soft-blue text-primary p-3 rounded-circle">⚡</span></div>
+                    <div>
+                        <h5 class="fw-bold mb-1">Proses Super Cepat</h5>
+                        <p class="text-muted small">CV selesai dalam 24 jam, Website selesai dalam 3-7 hari kerja.</p>
+                    </div>
+                </div>
+                
+                <div class="d-flex mb-4 reveal reveal-delay-200">
+                    <div class="me-3"><span class="badge bg-soft-blue text-primary p-3 rounded-circle">🎨</span></div>
+                    <div>
+                        <h5 class="fw-bold mb-1">Desain Eksklusif</h5>
+                        <p class="text-muted small">Bukan sekadar template, kami memastikan desain sesuai karakter brand Anda.</p>
+                    </div>
+                </div>
+                
+                <div class="d-flex reveal reveal-delay-300">
+                    <div class="me-3"><span class="badge bg-soft-blue text-primary p-3 rounded-circle">💰</span></div>
+                    <div>
+                        <h5 class="fw-bold mb-1">Harga Bersahabat</h5>
+                        <p class="text-muted small">Kualitas agensi profesional dengan harga yang tetap ramah di kantong mahasiswa.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kolom CTA Box -->
+            <div class="col-lg-6 text-center reveal reveal-delay-200">
+                <div class="p-4 bg-soft-blue rounded-4 shadow-sm">
+                    <h3 class="fw-bold mb-3" style="color: var(--primary-navy);">Siap Menjadi Profesional?</h3>
+                    <p class="text-muted mb-4">Ribuan orang telah mempercayakan kehadiran digital mereka kepada kami. Giliran Anda sekarang!</p>
+                    <a href="https://wa.me/6289509951772?text=Halo%20Admin%20KARDIGI,%20saya%20ingin%20konsultasi%20mengenai%20layanan%20digitalnya" 
+                       target="_blank" 
+                       class="btn btn-orange rounded-pill px-5 py-2 shadow">Hubungi Admin via WA</a>
                 </div>
             </div>
         </div>

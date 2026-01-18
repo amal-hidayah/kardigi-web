@@ -19,37 +19,51 @@ body {
 }
 
 /* =========================================
-   SMART MARQUEE (RE-DESIGN: ELEGANT STYLE)
+   SMART MARQUEE (PREMIUM DARK STYLE)
    ========================================= */
 .promo-bar {
-    background-color: var(--bg-soft-blue); /* Background Bar jadi Biru Muda */
-    height: 40px;
+    background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%); /* Gradasi Navy */
+    height: 48px; /* Sedikit lebih tinggi agar lega */
     display: flex;
     align-items: center;
     overflow: hidden;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     position: relative;
     z-index: 1050;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    border-bottom: 1px solid #e2e8f0;
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .promo-static {
-    background-color: var(--primary-navy); /* Label jadi Navy */
-    color: #ffffff;                        /* Teks Putih */
-    font-weight: 700;
-    padding: 0 25px;
+    background: transparent;
+    padding: 0 0 0 20px; /* Hapus background block tajam */
     height: 100%;
     display: flex;
     align-items: center;
     position: relative;
-    z-index: 20; 
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.75rem;
-    /* Membuat sisi kanan miring agar dinamis */
-    clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
-    padding-right: 35px; 
+    z-index: 20;
+    clip-path: none; /* Hapus efek miring */
+}
+
+/* Label PROMO TODAY jadi tombol kecil merah/badge */
+.promo-static::before {
+    content: 'LIVE INFO';
+    background-color: #dc2626; /* Merah menyala */
+    color: white;
+    font-weight: 700;
+    font-size: 0.65rem;
+    padding: 4px 10px;
+    border-radius: 50px; /* Bentuk Pill/Rounded */
+    margin-right: 12px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 0 10px rgba(220, 38, 38, 0.5); /* Efek glowing merah */
+    animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(220, 38, 38, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
 }
 
 .promo-marquee-wrapper {
@@ -59,19 +73,23 @@ body {
     overflow: hidden;
     display: flex;
     align-items: center;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); /* Efek fade di pinggir */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
 }
 
 .promo-marquee-content {
     display: inline-block;
     white-space: nowrap;
     padding-left: 100%;
-    animation: running-text 45s linear infinite;
-    color: var(--primary-navy); /* Teks berjalan jadi warna gelap */
-    font-weight: 500;
+    animation: running-text 40s linear infinite; /* Sedikit lebih cepat & smooth */
+    color: #cbd5e1; /* Putih agak abu biar soft */
+    font-weight: 400;
 }
 
 .promo-marquee-content strong {
-    color: var(--accent-orange); /* Highlight kata penting */
+    color: var(--accent-orange); /* Kuning/Emas stand out */
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
 }
 
 @keyframes running-text {
@@ -79,14 +97,10 @@ body {
     100% { transform: translateX(-100%); }
 }
 
-/* Responsif Marquee di HP */
 @media (max-width: 768px) {
-    .promo-static {
-        padding: 0 15px;
-        padding-right: 25px;
-        font-size: 0.7rem;
-        width: auto;
-    }
+    .promo-bar { height: 40px; font-size: 0.75rem; }
+    .promo-static { padding-left: 15px; }
+    .promo-static::before { padding: 3px 8px; font-size: 0.6rem; }
 }
 
 /* =========================================
@@ -125,7 +139,7 @@ body {
 .hero-section {
     position: relative;
     background: #ffffff;
-    padding-top: 0px; 
+    padding-top: 0px;
     padding-bottom: 80px;
     z-index: 1;
 }
@@ -167,9 +181,9 @@ body {
    ========================================= */
 .admin-card {
     border: 1px solid #e2e8f0;
-    border-radius: 16px; 
+    border-radius: 16px;
     background: white;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.03); 
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
     overflow: hidden;
 }
 .admin-card-header { background-color: white; padding: 25px 30px 15px 30px; border-bottom: none; }
@@ -182,39 +196,29 @@ body {
 /* =========================================
    STYLE KHUSUS KATALOG ITEM (FULL COVER)
    ========================================= */
-
-/* Wadah Gambar (Kotak Atas) */
 .thumb-wrapper {
     position: relative;
-    height: 250px;           /* Tinggi area gambar yang pas */
-    width: 100%;             /* Lebar penuh */
-    overflow: hidden;        /* Agar saat di-zoom tidak keluar kotak */
-    background-color: #f1f5f9; /* Warna placeholder jika gambar loading */
-    border-bottom: 1px solid #e2e8f0; /* Garis tipis pemisah dengan teks */
+    height: 250px;
+    width: 100%;
+    overflow: hidden;
+    background-color: #f1f5f9;
+    border-bottom: 1px solid #e2e8f0;
 }
-
-/* Gambar Produk (Full Size) */
 .thumb-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;       /* PENTING: Memaksa gambar memenuhi kotak */
-    object-position: center; /* Fokus ke tengah gambar */
-    transition: transform 0.5s ease; /* Transisi halus untuk efek zoom */
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s ease;
 }
-
-/* Efek Hover pada Card */
 .card-service:hover {
-    transform: translateY(-5px); /* Card naik sedikit */
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important; /* Bayangan makin tebal */
-    border-color: var(--accent-orange); /* Border jadi oranye */
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+    border-color: var(--accent-orange);
 }
-
-/* Efek Zoom Gambar saat Hover */
 .card-service:hover .thumb-img {
-    transform: scale(1.1);   /* Gambar membesar 10% */
+    transform: scale(1.1);
 }
-
-/* Badge Kategori */
 .thumb-badge {
     position: absolute;
     top: 15px;
@@ -227,4 +231,236 @@ body {
     color: var(--primary-navy);
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     z-index: 2;
+}
+
+/* =========================================
+   RESPONSIVE MOBILE FIX (FINAL: TARIK PAKSA)
+   ========================================= */
+@media (max-width: 991px) {
+
+    /* 1. RESET CONTAINER */
+    .hero-section {
+        padding-top: 40px !important;
+        padding-bottom: 20px !important;
+        text-align: center;
+        height: auto !important;
+    }
+
+    /* 2. FLEXBOX SETUP */
+    .hero-section .row {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 3. POSISI KOLOM GAMBAR (URUTAN 1) */
+    .hero-section .row > div:nth-child(2) {
+        order: 1;
+        margin-top: 0 !important;
+
+        /* === KUNCI RAPATKAN JARAK === */
+        /* Tarik teks di bawahnya ke atas sejauh 50px */
+        margin-bottom: -70px !important;
+
+        z-index: 1;
+    }
+
+    /* 4. POSISI KOLOM TEKS (URUTAN 2) */
+    .hero-section .row > div:nth-child(1) {
+        order: 2;
+        position: relative;
+        z-index: 2; /* Teks tampil di atas gambar jika overlapping */
+    }
+
+    /* 5. STYLING GAMBAR */
+    .hero-section img {
+        width: 100% !important;
+        max-width: 380px !important;
+        height: auto !important;
+        margin: 0 auto !important;
+        display: block;
+        /* Tarik gambar ke atas (nempel navbar) */
+        margin-top: -10px !important;
+    }
+
+    /* 6. RESET MARGIN BADGE */
+    .hero-section .badge,
+    .hero-section span.rounded-pill {
+        margin-top: 0 !important;
+        display: inline-block;
+    }
+
+    /* 7. JUDUL UTAMA */
+    .hero-section h1 {
+        font-size: 1.8rem !important;
+        line-height: 1.2;
+        margin-top: 15px !important; /* Jarak Badge ke Judul */
+        margin-bottom: 15px !important;
+    }
+
+    /* 8. PARAGRAF */
+    .hero-section p {
+        font-size: 0.9rem !important;
+        padding: 0 15px;
+        margin-bottom: 25px !important;
+    }
+
+    /* 9. TOMBOL */
+    .hero-section .d-flex {
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .navbar-toggler { border: none; outline: none; }
+}
+
+/* =========================================
+   TAMBAHAN: STYLE HARGA CORET (PRICE HOOK)
+   ========================================= */
+
+/* Wadah untuk harga */
+.price-hook-wrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; /* Agar aman di layar kecil banget */
+    gap: 10px;       /* Jarak antar elemen harga */
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Harga Asli (Yang dicoret) */
+.price-original {
+    text-decoration: line-through; /* Garis coret */
+    color: var(--text-grey);       /* Warna abu-abu */
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Harga Promo (Yang oranye besar) */
+.price-promo {
+    color: var(--accent-orange);   /* Warna oranye */
+    font-size: 1.5rem;             /* Lebih besar */
+    font-weight: 800;              /* Sangat tebal */
+    letter-spacing: -0.5px;        /* Rapat biar nendang */
+}
+
+
+/* --- PENYESUAIAN KHUSUS MOBILE --- */
+/* Tambahkan ini DI DALAM media query (max-width: 991px) yang sudah ada di paling bawah file CSS kamu */
+
+@media (max-width: 991px) {
+    /* ... kode mobile yang lama ada di atas sini ... */
+
+    /* 1. Agar wadah harga rata tengah di HP */
+    .price-hook-wrapper {
+        justify-content: center;
+        margin-bottom: 20px !important; /* Jarak ke deskripsi di bawahnya */
+    }
+
+    /* 2. Sedikit mengecilkan ukuran font harga di HP biar proporsional */
+    .price-original {
+        font-size: 0.9rem;
+    }
+    .price-promo {
+        font-size: 1.3rem;
+    }
+
+    /* 3. Mengurangi jarak bawah Judul H1 agar tidak terlalu jauh ke harga */
+    .hero-section h1 {
+        /* Cari rule h1 yang sudah ada di dalam @media, ubah margin-bottom nya jadi kecil */
+        margin-bottom: 5px !important;
+    }
+}
+
+/* =========================================
+   TAMBAHAN: FLOATING WHATSAPP BUTTON
+   ========================================= */
+.floating-wa {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25d366;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.floating-wa:hover {
+    background-color: #128c7e;
+    color: #FFF;
+    transform: scale(1.1);
+}
+
+/* =========================================
+   TAMBAHAN: LUXURY PHOTO EFFECTS (KATALOG)
+   ========================================= */
+/* Memberikan efek overlay gelap tipis agar teks lebih terbaca jika ada teks di atas gambar */
+.thumb-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 100%);
+    pointer-events: none;
+}
+
+/* Animasi khusus untuk gambar di katalog agar lebih mewah */
+.card-service:hover .thumb-img {
+    transform: scale(1.08);
+    filter: brightness(0.9);
+}
+
+/* =========================================
+   TAMBAHAN: FORM & INPUT POLISHING
+   ========================================= */
+input.form-control, textarea.form-control {
+    border-radius: 10px;
+    padding: 12px 15px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+input.form-control:focus, textarea.form-control:focus {
+    border-color: var(--accent-orange);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+/* =========================================
+   TAMBAHAN: UTILITY CLASSES
+   ========================================= */
+.text-orange { color: var(--accent-orange) !important; }
+.bg-navy { background-color: var(--primary-navy) !important; }
+.shadow-premium { box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08) !important; }
+
+/* Animasi Fade In Up untuk elemen baru */
+.reveal {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* =========================================
+   PENYEMPURNAAN MODAL
+   ========================================= */
+.modal-content {
+    border-radius: 20px;
+    border: none;
+}
+
+.modal-header {
+    border-bottom: 1px solid #f1f5f9;
+    padding: 20px 30px;
+}
+
+.modal-body {
+    padding: 30px;
 }
