@@ -6,19 +6,21 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 from functools import wraps
-from PIL import Image  # Tambahan: Untuk optimasi gambar agar website kencang
+from PIL import Image
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'rahasia_dapur_kardigi_2025_secure'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///amaljaya.db'
+
+# --- 1. DEFINISI BASE_DIR (PINDAH KE ATAS) ---
+# Didefinisikan di awal agar bisa dipakai di config database & folder
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+# --- 2. KONFIGURASI DATABASE ---
+# Menggunakan path absolut agar file .db tetap terbaca di server Azure
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(BASE_DIR, 'amaljaya.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# --- CONFIG ADMIN (Ganti Password di Sini) ---
-ADMIN_USERNAME = 'admin'
-ADMIN_PASSWORD = 'kardigi123'
-
-# --- KONFIGURASI FOLDER ---
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+# --- 3. KONFIGURASI FOLDER ---
 UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static/uploads')
 DEMO_FOLDER = os.path.join(BASE_DIR, 'static/demos')
 CV_FOLDER = os.path.join(BASE_DIR, 'static/files_cv')
@@ -27,10 +29,13 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['DEMO_FOLDER'] = DEMO_FOLDER
 app.config['CV_FOLDER'] = CV_FOLDER
 
-# Pastikan folder tersedia
+# Pastikan folder tersedia otomatis
 for folder in [UPLOAD_FOLDER, DEMO_FOLDER, CV_FOLDER]:
     if not os.path.exists(folder): os.makedirs(folder)
 
+# --- CONFIG ADMIN ---
+ADMIN_USERNAME = 'admin'
+ADMIN_PASSWORD = 'kardigi123'
 ALLOWED_EXTENSIONS_IMG = {'png', 'jpg', 'jpeg', 'gif'}
 
 def allowed_file(filename, extensions):
@@ -69,7 +74,6 @@ DATA_LAYANAN = [
     {'id': 'surat-lamaran', 'kategori': 'cv', 'judul': 'Surat Lamaran', 'deskripsi': 'Kata-kata profesional pemikat HRD.', 'gambar': 'cv_english.jpg'}
 ]
 
-# --- DEKORATOR: Cek Login ---
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -119,7 +123,6 @@ def showcase_page(id_layanan):
     daftar_referensi = Referensi.query.filter_by(layanan_id=id_layanan).all()
     return render_template('showcase.html', layanan=layanan_info, referensi=daftar_referensi)
 
-# Tambahan: Route CV Generator Freemium
 @app.route('/generator')
 def cv_generator():
     return render_template('generator_cv.html')
@@ -147,13 +150,12 @@ def upload_referensi():
             filename_img = secure_filename(file_img.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename_img)
             
-            # --- Tambahan: Optimasi Gambar Sebelum Simpan ---
+            # --- Optimasi Gambar Sebelum Simpan ---
             img = Image.open(file_img)
             if img.mode in ("RGBA", "P"): img = img.convert("RGB")
             if img.width > 1200:
                 img.thumbnail((1200, 1200), Image.Resampling.LANCZOS)
             img.save(filepath, optimize=True, quality=75)
-            # -----------------------------------------------
         else:
             flash("Thumbnail wajib diupload!", "danger"); return redirect(url_for('admin_page'))
 
@@ -168,6 +170,7 @@ def upload_referensi():
                 target_extract_path = os.path.join(app.config['DEMO_FOLDER'], folder_name)
                 if os.path.exists(target_extract_path): shutil.rmtree(target_extract_path)
                 try:
+                    # --- Ekstraksi ZIP untuk Demo Website ---
                     with zipfile.ZipFile(file_project, 'r') as zip_ref: zip_ref.extractall(target_extract_path)
                     if not os.path.exists(os.path.join(target_extract_path, 'index.html')):
                         subitems = os.listdir(target_extract_path)
@@ -206,7 +209,6 @@ def hapus_pesanan(id):
     item = Order.query.get(id); db.session.delete(item); db.session.commit()
     return redirect(url_for('admin_page'))
 
-# --- ORDER ---
 @app.route('/order', methods=['GET', 'POST'])
 def order():
     referensi_pilihan = request.args.get('ref', '')

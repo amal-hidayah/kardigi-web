@@ -32,33 +32,46 @@
                         Tingkatkan kredibilitas bisnis dan peluang karir Anda dengan desain modern yang memikat. Tanpa ribet, harga bersahabat.
                     </p>
                     
+                    <!-- NEW LUXURY BUTTONS GROUP -->
                     <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start animate-delay">
                         
-                       <!-- TOMBOL UTAMA (Orange Solid) -->
+                       <!-- TOMBOL 1: CTA UTAMA (Gradient & Glowing) -->
                         <a href="{{ url_for('order') }}" 
-                           class="btn btn-orange rounded-pill px-5 py-3 shadow-lg fw-bold d-flex align-items-center gap-2"
-                           style="transition: transform 0.2s ease-in-out;">
-                            <span>Isi Formulir Sekarang</span> 
-                            <i class="fas fa-arrow-right"></i>
+                           class="btn rounded-pill px-4 py-3 shadow-lg d-flex align-items-center gap-3 position-relative overflow-hidden"
+                           style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); 
+                                  box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4) !important;
+                                  border: 2px solid rgba(255,255,255,0.2);
+                                  transition: transform 0.3s ease;"
+                           onmouseover="this.style.transform='translateY(-5px) scale(1.02)'"
+                           onmouseout="this.style.transform='translateY(0) scale(1)'">
+                            
+                            <!-- Icon Box Bulat -->
+                            <div class="bg-white rounded-circle d-flex align-items-center justify-content-center shadow-sm" 
+                                 style="width: 45px; height: 45px; color: #d97706;">
+                                <i class="fas fa-bolt fs-5"></i>
+                            </div>
+
+                            <!-- Teks CTA Ganda -->
+                            <div class="text-start lh-1 me-2">
+                                <div class="text-white small mb-1" style="font-size: 0.7rem; font-weight: 600; opacity: 0.9;">PROMO TERBATAS HARI INI</div>
+                                <div class="fw-800 text-white fs-6" style="font-weight: 800; letter-spacing: 0.5px;">
+                                    AMBIL DISKON 60% <i class="fas fa-arrow-right ms-1"></i>
+                                </div>
+                            </div>
                         </a>
                         
-                        <!-- TOMBOL CV (Outline Mewah / Card Style) -->
+                        <!-- TOMBOL 2: CV GRATIS (Clean Premium Style) -->
                         <a href="{{ url_for('cv_generator') }}" 
-                           class="btn bg-white rounded-pill pe-4 ps-2 py-2 shadow-sm d-flex align-items-center gap-3" 
-                           style="border: 1px solid #e2e8f0; transition: transform 0.2s ease-in-out;"
-                           onmouseover="this.style.transform='translateY(-3px)'" 
-                           onmouseout="this.style.transform='translateY(0)'">
+                           class="btn bg-white rounded-pill px-4 py-3 shadow-sm d-flex align-items-center gap-3" 
+                           style="border: 1px solid #e2e8f0; transition: all 0.3s ease;"
+                           onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='var(--accent-orange)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.05)'" 
+                           onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
                             
-                            <!-- Icon Circle -->
-                            <div class="bg-soft-blue text-primary rounded-circle d-flex align-items-center justify-content-center shadow-sm" 
-                                 style="width: 48px; height: 48px;">
-                                <i class="fa-solid fa-wand-magic-sparkles fs-5"></i>
-                            </div>
-                            
-                            <!-- Text Label -->
-                            <div class="text-start">
-                                <div class="text-muted fw-semibold" style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px;">Tanpa Login</div>
-                                <div class="fw-bold fs-6 text-dark">Bikin CV Gratis</div>
+                            <div class="text-start lh-1">
+                                <div class="text-muted small mb-1" style="font-size: 0.7rem;">Mau coba dulu?</div>
+                                <div class="fw-bold fs-6 text-dark" style="color: var(--primary-navy) !important;">
+                                    Tes Bikin CV Gratis <i class="fa-solid fa-wand-magic-sparkles text-orange ms-1"></i>
+                                </div>
                             </div>
                         </a>
                     </div>
