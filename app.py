@@ -66,9 +66,9 @@ with app.app_context():
 
 # --- DATA STATIS LAYANAN ---
 DATA_LAYANAN = [
-    {'id': 'company-profile', 'kategori': 'website', 'judul': 'Website Company Profile', 'deskripsi': 'Desain elegan untuk kredibilitas PT/CV.', 'gambar': 'web_compro.jpg'},
-    {'id': 'toko-online', 'kategori': 'website', 'judul': 'Toko Online UMKM', 'deskripsi': 'Fitur keranjang belanja & checkout WA.', 'gambar': 'web_toko.jpg'},
-    {'id': 'web-sekolah', 'kategori': 'website', 'judul': 'Website Sekolah', 'deskripsi': 'Portal akademik & PPDB Online.', 'gambar': 'web_sekolah.jpg'},
+    {'id': 'company-profile', 'kategori': 'website', 'judul': 'Website Company Profile', 'deskripsi': 'Desain elegan untuk kredibilitas PT/CV.', 'gambar': 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80'},
+    {'id': 'toko-online', 'kategori': 'website', 'judul': 'Toko Online UMKM', 'deskripsi': 'Fitur keranjang belanja & checkout WA.', 'gambar': 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&q=80'},
+    {'id': 'web-sekolah', 'kategori': 'website', 'judul': 'Website Sekolah', 'deskripsi': 'Portal akademik & PPDB Online.', 'gambar': 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80'},
     {'id': 'cv-ats', 'kategori': 'cv', 'judul': 'CV ATS Friendly', 'deskripsi': 'Lolos sistem HRD & terbaca mesin.', 'gambar': 'cv_ats.jpg'},
     {'id': 'cv-kreatif', 'kategori': 'cv', 'judul': 'CV Kreatif', 'deskripsi': 'Desain visual menarik & estetik.', 'gambar': 'cv_kreatif.jpg'},
     {'id': 'surat-lamaran', 'kategori': 'cv', 'judul': 'Surat Lamaran', 'deskripsi': 'Kata-kata profesional pemikat HRD.', 'gambar': 'cv_english.jpg'}

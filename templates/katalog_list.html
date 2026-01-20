@@ -4,7 +4,7 @@
 <section class="py-5 bg-light min-vh-100">
     <div class="container">
         
-        <div class="text-center mb-5 animate-text">
+        <div class="text-center mb-5 reveal-on-scroll">
             <a href="/katalog" class="text-decoration-none text-muted small mb-2 d-inline-block">
                 ← Kembali ke Menu Utama
             </a>
@@ -14,14 +14,14 @@
 
         <div class="row g-4 justify-content-center">
             {% for item in items %}
-            <div class="col-md-6 col-lg-4">
+            <div class="col-md-6 col-lg-4 reveal-on-scroll">
                 <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden card-service">
                     
                     <div class="thumb-wrapper">
                         
                         <div class="thumb-badge">Premium</div>
 
-                        <img src="{{ url_for('static', filename='img/' + item.gambar) }}" 
+                        <img src="{% if item.gambar.startswith('http') %}{{ item.gambar }}{% else %}{{ url_for('static', filename='img/' + item.gambar) }}{% endif %}" 
                              class="thumb-img" 
                              alt="{{ item.judul }}">
                     </div>

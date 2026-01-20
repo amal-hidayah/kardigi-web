@@ -14,7 +14,7 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-    <div class="promo-bar">
+    <div class="promo-bar" style="margin-bottom: 0;">
         <div class="promo-static">PROMO TODAY</div>
         <div class="promo-marquee-wrapper">
             <div class="promo-marquee-content">
@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-expand-lg navbar-light sticky-top shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="background-color: white; position: sticky; top: 48px; z-index: 1050; margin-top: 0; padding-top: 0.5rem; padding-bottom: 0.5rem;">
         <div class="container-fluid px-4 px-lg-5">
 
             <a class="navbar-brand py-0" href="/">
@@ -64,18 +64,35 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <footer class="footer-minimal">
-        <div class="container">
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-                <div class="mb-3 mb-md-0 text-center text-md-start">
-                    &copy; 2025 <strong>KARDIGI</strong>. All rights reserved.
+    <footer class="footer-modern">
+        <div class="container py-4">
+            <div class="row align-items-center g-4">
+                <div class="col-md-4 text-center text-md-start">
+                    <div class="d-flex align-items-center justify-content-center justify-content-md-start gap-2 mb-2">
+                        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="KARDIGI" style="height: 35px;">
+                        <span class="fw-bold fs-5" style="background: linear-gradient(135deg, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">KARDIGI</span>
+                    </div>
+                    <p class="small mb-0" style="color: #94a3b8;">&copy; 2025 KARDIGI. All rights reserved.</p>
                 </div>
-                <div class="d-flex align-items-center">
-                    <a href="#" class="footer-minimal-link d-none d-sm-inline-block">Privacy Policy</a>
-                    <a href="#" class="footer-minimal-link d-none d-sm-inline-block">Terms of Service</a>
-                    <a href="https://instagram.com/kardigi.id" target="_blank" class="footer-minimal-link footer-icon-link">
-                        <i class="fab fa-instagram fs-4"></i>
-                    </a>
+                <div class="col-md-4 text-center">
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="https://instagram.com/kardigi.id" target="_blank" class="footer-social-icon" style="width: 45px; height: 45px; background: linear-gradient(135deg, #e1306c, #fd1d1d, #f77737); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(225, 48, 108, 0.3);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 25px rgba(225, 48, 108, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(225, 48, 108, 0.3)'">
+                            <i class="fab fa-instagram fs-5"></i>
+                        </a>
+                        <a href="https://wa.me/6289509951772" target="_blank" class="footer-social-icon" style="width: 45px; height: 45px; background: linear-gradient(135deg, #25d366, #128c7e); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 25px rgba(37, 211, 102, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(37, 211, 102, 0.3)'">
+                            <i class="fab fa-whatsapp fs-5"></i>
+                        </a>
+                        <a href="mailto:info@kardigi.id" class="footer-social-icon" style="width: 45px; height: 45px; background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 25px rgba(245, 158, 11, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(245, 158, 11, 0.3)'">
+                            <i class="fas fa-envelope fs-5"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center text-md-end">
+                    <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-md-end gap-3 align-items-center">
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                        <span class="text-muted d-none d-sm-inline">•</span>
+                        <a href="#" class="footer-link">Terms of Service</a>
+                    </div>
                 </div>
             </div>
         </div>
