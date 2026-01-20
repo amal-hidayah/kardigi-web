@@ -3,7 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KARDIGI - Solusi Digital Terpercaya</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>KARDIGI - Jasa Pembuatan Website & CV Profesional Sukabumi | Murah & Cepat</title>
+    <meta name="description" content="Wujudkan website impian Anda bersama KARDIGI. Jasa pembuatan website profesional, CV ATS, desain web Sukabumi. Harga mulai Rp20.000. Konsultasi gratis!">
+    <meta name="keywords" content="jasa website sukabumi, buat website murah sukabumi, jasa pembuatan website sukabumi, web design sukabumi, bikin website sukabumi, jasa cv ats sukabumi, cv profesional sukabumi, website company profile sukabumi, website toko online sukabumi, jasa website murah, kardigi sukabumi, web developer sukabumi">
+    <meta name="author" content="KARDIGI">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <link rel="canonical" href="https://kardigi.tech{{ request.path }}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kardigi.tech{{ request.path }}">
+    <meta property="og:title" content="KARDIGI - Jasa Website & CV Profesional Sukabumi">
+    <meta property="og:description" content="Wujudkan website impian Anda bersama KARDIGI. Solusi pembuatan website profesional & produk digital inovatif. Harga mulai Rp20.000!">
+    <meta property="og:image" content="https://kardigi.tech{{ url_for('static', filename='img/logo.png') }}">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:site_name" content="KARDIGI">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://kardigi.tech{{ request.path }}">
+    <meta name="twitter:title" content="KARDIGI - Jasa Website & CV Profesional Sukabumi">
+    <meta name="twitter:description" content="Wujudkan website impian Anda bersama KARDIGI. Solusi pembuatan website profesional & produk digital inovatif. Harga mulai Rp20.000!">
+    <meta name="twitter:image" content="https://kardigi.tech{{ url_for('static', filename='img/logo.png') }}">
+    
+    <!-- Geo Tags -->
+    <meta name="geo.region" content="ID-JB">
+    <meta name="geo.placename" content="Sukabumi">
+    <meta name="geo.position" content="-6.9282;106.9278">
+    <meta name="ICBM" content="-6.9282, 106.9278">
+    
+    <!-- Contact Info -->
+    <meta name="contact" content="kardigi.id@gmail.com">
+    <meta name="coverage" content="Worldwide">
+    <meta name="distribution" content="Global">
+    <meta name="rating" content="General">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -11,6 +47,78 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
+    
+    <!-- JSON-LD Schema Markup untuk Local Business -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "KARDIGI - Solusi Digital Sukabumi",
+      "image": "https://kardigi.tech{{ url_for('static', filename='img/logo.png') }}",
+      "@id": "https://kardigi.tech",
+      "url": "https://kardigi.tech",
+      "telephone": "+6289509951772",
+      "email": "kardigi.id@gmail.com",
+      "priceRange": "Rp20.000 - Rp5.000.000",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Cibolang Kaler, Kecamatan Cisaat",
+        "addressLocality": "Sukabumi",
+        "addressRegion": "Jawa Barat",
+        "postalCode": "43512",
+        "addressCountry": "ID"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -6.9282,
+        "longitude": 106.9278
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "opens": "06:00",
+        "closes": "20:00"
+      },
+      "sameAs": [
+        "https://instagram.com/kardigi.id",
+        "https://wa.me/6289509951772"
+      ],
+      "description": "Wujudkan website impian Anda bersama KARDIGI. Solusi pembuatan website profesional & produk digital inovatif untuk tingkatkan kredibilitas serta omzet bisnis Anda.",
+      "areaServed": {
+        "@type": "City",
+        "name": "Sukabumi"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Layanan Digital",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Jasa Pembuatan Website Profesional",
+              "description": "Website Company Profile, Toko Online, Website Sekolah dengan desain modern dan responsif"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Desain CV ATS Friendly & Kreatif",
+              "description": "CV profesional yang lolos sistem ATS HRD dengan desain menarik"
+            }
+          }
+        ]
+      }
+    }
+    </script>
 </head>
 <body class="d-flex flex-column min-vh-100">
 

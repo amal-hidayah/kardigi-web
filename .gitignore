@@ -3,3 +3,6 @@
 # Abaikan folder virtual environment
 venv/
 __pycache__/
+
+static/uploads/
+static/demos/

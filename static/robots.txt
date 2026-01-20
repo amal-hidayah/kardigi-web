@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /login
+
+# Sitemap
+Sitemap: https://kardigi.tech/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1

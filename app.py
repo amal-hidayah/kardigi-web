@@ -2,7 +2,7 @@ import os
 import zipfile
 import shutil
 import urllib.parse
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 from functools import wraps
@@ -228,6 +228,15 @@ def order():
         pesan_wa = f"Halo Admin KARDIGI, order baru!\n\n👤 *DATA PEMESAN*\nNama: {nama}\nWA: {wa}\nLayanan: {jasa.upper()}\nDesign Pilihan: *{design_ref}*\n\n{detail_msg}\n\n📝 *CATATAN*: {ket_umum}"
         return redirect(f"https://wa.me/{nomor_admin}?text={urllib.parse.quote(pesan_wa)}")
     return render_template('order.html', referensi=referensi_pilihan)
+
+# --- ROUTE SEO: ROBOTS.TXT & SITEMAP.XML ---
+@app.route('/robots.txt')
+def robots():
+    return send_from_directory(app.static_folder, 'robots.txt', mimetype='text/plain')
+
+@app.route('/sitemap.xml')
+def sitemap():
+    return send_from_directory(app.static_folder, 'sitemap.xml', mimetype='application/xml')
 
 if __name__ == '__main__':
     app.run(debug=True)
