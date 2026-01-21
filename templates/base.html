@@ -47,7 +47,7 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}">
     
     <!-- JSON-LD Schema Markup untuk Local Business -->
     <script type="application/ld+json">
@@ -227,6 +227,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('cv_generator') }}">
                             <i class="fas fa-wand-magic-sparkles me-1"></i> CV Generator
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('blog_list') }}">
+                            <i class="fas fa-blog me-1"></i> Blog
                         </a>
                     </li>
 

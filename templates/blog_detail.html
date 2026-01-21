@@ -1,0 +1,870 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} - KARDIGI{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{ post.meta_description or post.excerpt }}">
+<meta name="keywords" content="{{ post.meta_keywords }}">
+
+<!-- Open Graph -->
+<meta property="og:title" content="{{ post.title }}">
+<meta property="og:description" content="{{ post.meta_description or post.excerpt }}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{ request.url }}">
+{% if post.image_url %}
+<meta property="og:image" content="{{ request.url_root.rstrip('/') }}{{ post.image_url }}">
+{% endif %}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ post.title }}">
+<meta name="twitter:description" content="{{ post.meta_description or post.excerpt }}">
+{% if post.image_url %}
+<meta name="twitter:image" content="{{ request.url_root.rstrip('/') }}{{ post.image_url }}">
+{% endif %}
+
+<!-- Article metadata -->
+<meta property="article:published_time" content="{{ post.created_at.isoformat() }}">
+<meta property="article:modified_time" content="{{ post.updated_at.isoformat() }}">
+
+<!-- Schema.org structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ post.title }}",
+  "description": "{{ post.meta_description or post.excerpt }}",
+  "image": "{{ request.url_root.rstrip('/') }}{{ post.image_url or '' }}",
+  "datePublished": "{{ post.created_at.isoformat() }}",
+  "dateModified": "{{ post.updated_at.isoformat() }}",
+  "author": {
+    "@type": "Organization",
+    "name": "KARDIGI"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "KARDIGI",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ request.url_root.rstrip('/') }}/static/img/logo.png"
+    }
+  }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<section class="breadcrumb-section">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb-custom">
+                <li class="breadcrumb-item">
+                    <a href="{{ url_for('home') }}">
+                        <i class="bi bi-house-door"></i> Beranda
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ url_for('blog_list') }}">Blog</a>
+                </li>
+                <li class="breadcrumb-item active">{{ post.title[:50] }}...</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Article Header -->
+<section class="article-header">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="article-meta-badges">
+                    <span class="meta-badge badge-featured">
+                        <i class="bi bi-star-fill"></i> Featured
+                    </span>
+                    <span class="meta-badge badge-date">
+                        <i class="bi bi-calendar3"></i> {{ post.created_at.strftime('%d %B %Y') }}
+                    </span>
+                    <span class="meta-badge badge-reading">
+                        <i class="bi bi-clock"></i> {{ ((post.content|length / 200) | int) + 1 }} min read
+                    </span>
+                </div>
+                
+                <h1 class="article-title">{{ post.title }}</h1>
+                
+                <p class="article-excerpt">{{ post.excerpt }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Image -->
+{% if post.image_url %}
+<section class="featured-image-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="featured-image-wrapper">
+                    <img src="{{ post.image_url }}" alt="{{ post.title }}" class="featured-image">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Article Content -->
+<section class="article-content-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="article-content">
+                    {{ post.content | safe }}
+                </div>
+
+                <!-- Tags -->
+                {% if post.meta_keywords %}
+                <div class="article-tags">
+                    <div class="tags-label">
+                        <i class="bi bi-tags"></i> Tags:
+                    </div>
+                    <div class="tags-list">
+                        {% for tag in post.meta_keywords.split(',') %}
+                        <span class="tag-item">{{ tag.strip() }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Social Share -->
+                <div class="social-share">
+                    <div class="share-label">
+                        <i class="bi bi-share"></i> Bagikan Artikel:
+                    </div>
+                    <div class="share-buttons">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url }}" target="_blank" class="share-btn share-fb">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?url={{ request.url }}&text={{ post.title }}" target="_blank" class="share-btn share-tw">
+                            <i class="bi bi-twitter-x"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.url }}" target="_blank" class="share-btn share-ln">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                        <a href="https://wa.me/?text={{ post.title }}%20{{ request.url }}" target="_blank" class="share-btn share-wa">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                        <button onclick="copyToClipboard('{{ request.url }}')" class="share-btn share-copy">
+                            <i class="bi bi-link-45deg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Posts -->
+{% if related_posts %}
+<section class="related-posts-section">
+    <div class="container">
+        <div class="section-header text-center">
+            <h2 class="section-title">Artikel Terkait</h2>
+            <p class="section-subtitle">Baca juga artikel menarik lainnya</p>
+        </div>
+        
+        <div class="row g-4">
+            {% for related in related_posts %}
+            <div class="col-md-6 col-lg-4">
+                <div class="related-card">
+                    <div class="related-image-wrapper">
+                        {% if related.image_url %}
+                        <img src="{{ related.image_url }}" alt="{{ related.title }}" class="related-image">
+                        {% else %}
+                        <div class="related-placeholder">
+                            <div class="placeholder-gradient"></div>
+                            <i class="bi bi-file-text placeholder-icon"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="related-content">
+                        <div class="related-meta">
+                            <span class="related-date">
+                                <i class="bi bi-calendar3"></i> 
+                                {{ related.created_at.strftime('%d %b %Y') }}
+                            </span>
+                        </div>
+                        <h3 class="related-title">
+                            <a href="{{ url_for('blog_detail', slug=related.slug) }}">
+                                {{ related.title }}
+                            </a>
+                        </h3>
+                        <p class="related-excerpt">{{ related.excerpt[:100] }}...</p>
+                        <a href="{{ url_for('blog_detail', slug=related.slug) }}" class="related-link">
+                            Baca Selengkapnya <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- CTA Section -->
+<section class="cta-article-section">
+    <div class="container">
+        <div class="cta-article-card">
+            <div class="row align-items-center">
+                <div class="col-lg-8 mb-4 mb-lg-0">
+                    <h2 class="cta-title">Wujudkan Impian Digital Anda!</h2>
+                    <p class="cta-text">Butuh website atau CV profesional? Kami siap membantu mewujudkannya dengan hasil yang memukau!</p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <div class="d-flex flex-column gap-3">
+                        <a href="{{ url_for('jasa_website') }}" class="btn-cta-primary">
+                            <i class="bi bi-globe2"></i>
+                            Jasa Website
+                        </a>
+                        <a href="{{ url_for('jasa_cv') }}" class="btn-cta-secondary">
+                            <i class="bi bi-file-person"></i>
+                            Jasa CV
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Breadcrumb */
+.breadcrumb-section {
+    padding: 2rem 0 1rem;
+    background: #f8f9fa;
+}
+
+.breadcrumb-custom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+}
+
+.breadcrumb-custom .breadcrumb-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.breadcrumb-custom .breadcrumb-item a {
+    color: var(--text-grey);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.breadcrumb-custom .breadcrumb-item a:hover {
+    color: var(--accent-orange);
+}
+
+.breadcrumb-custom .breadcrumb-item + .breadcrumb-item::before {
+    content: '/';
+    color: var(--text-grey);
+    margin-right: 0.5rem;
+}
+
+.breadcrumb-custom .breadcrumb-item.active {
+    color: var(--primary-navy);
+    font-weight: 500;
+}
+
+/* Article Header */
+.article-header {
+    padding: 3rem 0 2rem;
+    background: white;
+}
+
+.article-meta-badges {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.meta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.badge-featured {
+    background: linear-gradient(135deg, var(--accent-orange) 0%, #dc2626 100%);
+    color: white;
+}
+
+.badge-date {
+    background: rgba(15, 23, 42, 0.05);
+    color: var(--primary-navy);
+}
+
+.badge-reading {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--accent-orange);
+}
+
+.article-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    color: var(--primary-navy);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+.article-excerpt {
+    font-size: 1.25rem;
+    color: var(--text-grey);
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+/* Featured Image */
+.featured-image-section {
+    padding: 2rem 0;
+    background: white;
+}
+
+.featured-image-wrapper {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.featured-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Article Content */
+.article-content-section {
+    padding: 3rem 0;
+    background: white;
+}
+
+.article-content {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: #334155;
+}
+
+.article-content h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-navy);
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.article-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary-navy);
+    margin-top: 2.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.article-content h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-navy);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.article-content p {
+    margin-bottom: 1.5rem;
+}
+
+.article-content a {
+    color: var(--accent-orange);
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.article-content a:hover {
+    color: var(--accent-orange-hover);
+}
+
+.article-content ul,
+.article-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+}
+
+.article-content li {
+    margin-bottom: 0.75rem;
+}
+
+.article-content blockquote {
+    border-left: 4px solid var(--accent-orange);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--text-grey);
+    background: rgba(245, 158, 11, 0.05);
+    padding: 1.5rem;
+    border-radius: 0 12px 12px 0;
+}
+
+.article-content code {
+    background: rgba(15, 23, 42, 0.05);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    color: var(--accent-orange);
+}
+
+.article-content pre {
+    background: var(--primary-navy);
+    padding: 1.5rem;
+    border-radius: 12px;
+    overflow-x: auto;
+    margin: 2rem 0;
+}
+
+.article-content pre code {
+    background: transparent;
+    color: #e2e8f0;
+    padding: 0;
+}
+
+.article-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin: 2rem 0;
+}
+
+/* Tags */
+.article-tags {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 16px;
+}
+
+.tags-label {
+    font-weight: 600;
+    color: var(--primary-navy);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tags-label i {
+    color: var(--accent-orange);
+}
+
+.tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.tag-item {
+    padding: 0.5rem 1rem;
+    background: white;
+    border: 2px solid rgba(245, 158, 11, 0.2);
+    border-radius: 8px;
+    color: var(--primary-navy);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.tag-item:hover {
+    background: var(--accent-orange);
+    border-color: var(--accent-orange);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Social Share */
+.social-share {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--primary-navy) 0%, #1e40af 100%);
+    border-radius: 16px;
+}
+
+.share-label {
+    font-weight: 600;
+    color: white;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.share-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.share-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.25rem;
+    border: none;
+    cursor: pointer;
+}
+
+.share-fb {
+    background: #1877f2;
+    color: white;
+}
+
+.share-fb:hover {
+    background: #0d5fca;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(24, 119, 242, 0.4);
+}
+
+.share-tw {
+    background: #000000;
+    color: white;
+}
+
+.share-tw:hover {
+    background: #333333;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.share-ln {
+    background: #0077b5;
+    color: white;
+}
+
+.share-ln:hover {
+    background: #005885;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 119, 181, 0.4);
+}
+
+.share-wa {
+    background: #25d366;
+    color: white;
+}
+
+.share-wa:hover {
+    background: #1da851;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+.share-copy {
+    background: var(--accent-orange);
+    color: white;
+}
+
+.share-copy:hover {
+    background: var(--accent-orange-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+}
+
+/* Related Posts */
+.related-posts-section {
+    padding: 4rem 0;
+    background: #f8f9fa;
+}
+
+.section-header {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary-navy);
+    margin-bottom: 0.75rem;
+}
+
+.section-subtitle {
+    color: var(--text-grey);
+    font-size: 1.1rem;
+}
+
+.related-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.related-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.related-image-wrapper {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.related-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.related-card:hover .related-image {
+    transform: scale(1.1);
+}
+
+.related-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-navy) 0%, #1e40af 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.placeholder-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--accent-orange) 0%, #dc2626 100%);
+    opacity: 0.3;
+}
+
+.placeholder-icon {
+    font-size: 3rem;
+    color: white;
+    opacity: 0.5;
+    position: relative;
+    z-index: 1;
+}
+
+.related-content {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.related-meta {
+    margin-bottom: 0.75rem;
+}
+
+.related-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-grey);
+    font-size: 0.85rem;
+}
+
+.related-date i {
+    color: var(--accent-orange);
+}
+
+.related-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.related-title a {
+    color: var(--primary-navy);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.related-title a:hover {
+    color: var(--accent-orange);
+}
+
+.related-excerpt {
+    color: var(--text-grey);
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    flex: 1;
+}
+
+.related-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-orange);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+}
+
+.related-link:hover {
+    gap: 0.75rem;
+    color: var(--accent-orange-hover);
+}
+
+.related-link i {
+    transition: transform 0.3s ease;
+}
+
+.related-link:hover i {
+    transform: translateX(5px);
+}
+
+/* CTA Section */
+.cta-article-section {
+    padding: 4rem 0;
+    background: var(--primary-navy);
+}
+
+.cta-article-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.cta-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.cta-text {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    margin-bottom: 0;
+}
+
+.btn-cta-primary,
+.btn-cta-secondary {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    justify-content: center;
+}
+
+.btn-cta-primary {
+    background: var(--accent-orange);
+    color: white;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+}
+
+.btn-cta-primary:hover {
+    background: var(--accent-orange-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.6);
+    color: white;
+}
+
+.btn-cta-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-cta-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-3px);
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .article-title {
+        font-size: 1.75rem;
+    }
+    
+    .article-excerpt {
+        font-size: 1rem;
+    }
+    
+    .article-content {
+        font-size: 1rem;
+    }
+    
+    .article-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .article-meta-badges {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .meta-badge {
+        width: fit-content;
+    }
+    
+    .share-buttons {
+        justify-content: center;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .cta-article-card {
+        padding: 2rem;
+    }
+    
+    .cta-title {
+        font-size: 1.5rem;
+    }
+}
+</style>
+
+<script>
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+        alert('Link berhasil disalin!');
+    }, function(err) {
+        console.error('Gagal menyalin link: ', err);
+    });
+}
+</script>
+{% endblock %}

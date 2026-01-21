@@ -2,11 +2,13 @@ import os
 import zipfile
 import shutil
 import urllib.parse
+import re
 from flask import Flask, render_template, request, redirect, url_for, flash, session, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 from functools import wraps
 from PIL import Image
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'rahasia_dapur_kardigi_2025_secure'
@@ -66,6 +68,19 @@ class PortfolioCV(db.Model):
     image = db.Column(db.String(200), nullable=False)
     created_at = db.Column(db.DateTime, default=db.func.now())
 
+class BlogPost(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200), nullable=False)
+    slug = db.Column(db.String(250), unique=True, nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    excerpt = db.Column(db.String(300))
+    image = db.Column(db.String(200))
+    meta_description = db.Column(db.String(160))
+    meta_keywords = db.Column(db.String(255))
+    published = db.Column(db.Boolean, default=True)
+    created_at = db.Column(db.DateTime, default=db.func.now())
+    updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
+
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -97,7 +112,10 @@ def logout():
 
 # --- ROUTE PUBLIC ---
 @app.route('/')
-def home(): return render_template('index.html')
+def home(): 
+    # Ambil 3 artikel blog terbaru yang sudah dipublish
+    latest_posts = BlogPost.query.filter_by(published=True).order_by(BlogPost.created_at.desc()).limit(3).all()
+    return render_template('index.html', latest_posts=latest_posts)
 
 @app.route('/jasa-website')
 def jasa_website(): 
@@ -112,6 +130,146 @@ def jasa_cv():
 @app.route('/generator')
 def cv_generator():
     return render_template('generator_cv.html')
+
+# --- BLOG ROUTES ---
+@app.route('/blog')
+def blog_list():
+    """Halaman daftar artikel blog"""
+    page = request.args.get('page', 1, type=int)
+    per_page = 10
+    posts = BlogPost.query.filter_by(published=True).order_by(BlogPost.created_at.desc()).paginate(page=page, per_page=per_page, error_out=False)
+    return render_template('blog_list.html', posts=posts)
+
+@app.route('/blog/<slug>')
+def blog_detail(slug):
+    """Halaman detail artikel blog dengan SEO optimization"""
+    post = BlogPost.query.filter_by(slug=slug, published=True).first_or_404()
+    # Get related posts (latest 3 posts excluding current)
+    related_posts = BlogPost.query.filter(BlogPost.id != post.id, BlogPost.published == True).order_by(BlogPost.created_at.desc()).limit(3).all()
+    return render_template('blog_detail.html', post=post, related_posts=related_posts)
+
+def create_slug(title):
+    """Generate SEO-friendly slug from title"""
+    slug = title.lower()
+    slug = re.sub(r'[^a-z0-9\s-]', '', slug)
+    slug = re.sub(r'[\s]+', '-', slug)
+    slug = slug.strip('-')
+    # Check if slug exists, add number if duplicate
+    original_slug = slug
+    counter = 1
+    while BlogPost.query.filter_by(slug=slug).first():
+        slug = f"{original_slug}-{counter}"
+        counter += 1
+    return slug
+
+@app.route('/admin/blog/add', methods=['POST'])
+@login_required
+def add_blog_post():
+    """Tambah artikel blog baru"""
+    title = request.form.get('title')
+    content = request.form.get('content')
+    excerpt = request.form.get('excerpt', '')
+    meta_description = request.form.get('meta_description', '')
+    meta_keywords = request.form.get('meta_keywords', '')
+    published = request.form.get('published') == 'on'
+    
+    # Generate slug from title
+    slug = create_slug(title)
+    
+    # Handle image upload
+    image_filename = None
+    file_img = request.files.get('image')
+    if file_img and allowed_file(file_img.filename, ALLOWED_EXTENSIONS_IMG):
+        filename_img = secure_filename(file_img.filename)
+        # Add timestamp to avoid conflicts
+        filename_img = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{filename_img}"
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename_img)
+        
+        # Optimize image
+        img = Image.open(file_img)
+        if img.mode in ("RGBA", "P"): img = img.convert("RGB")
+        img.thumbnail((1200, 800), Image.Resampling.LANCZOS)
+        img.save(filepath, 'JPEG', quality=85, optimize=True)
+        image_filename = filename_img
+    
+    new_post = BlogPost(
+        title=title,
+        slug=slug,
+        content=content,
+        excerpt=excerpt,
+        image=image_filename,
+        meta_description=meta_description,
+        meta_keywords=meta_keywords,
+        published=published
+    )
+    db.session.add(new_post)
+    db.session.commit()
+    flash(f"Artikel '{title}' berhasil ditambahkan!", "success")
+    return redirect(url_for('admin_page') + '#blog')
+
+@app.route('/admin/blog/edit/<int:id>', methods=['POST'])
+@login_required
+def edit_blog_post(id):
+    """Edit artikel blog"""
+    post = BlogPost.query.get_or_404(id)
+    
+    post.title = request.form.get('title')
+    post.content = request.form.get('content')
+    post.excerpt = request.form.get('excerpt', '')
+    post.meta_description = request.form.get('meta_description', '')
+    post.meta_keywords = request.form.get('meta_keywords', '')
+    post.published = request.form.get('published') == 'on'
+    
+    # Update slug if title changed
+    new_slug = create_slug(post.title)
+    if new_slug != post.slug:
+        # Check if new slug is unique
+        existing = BlogPost.query.filter(BlogPost.slug == new_slug, BlogPost.id != post.id).first()
+        if not existing:
+            post.slug = new_slug
+    
+    # Handle new image upload
+    file_img = request.files.get('image')
+    if file_img and allowed_file(file_img.filename, ALLOWED_EXTENSIONS_IMG):
+        # Delete old image if exists
+        if post.image:
+            try:
+                os.remove(os.path.join(app.config['UPLOAD_FOLDER'], post.image))
+            except:
+                pass
+        
+        filename_img = secure_filename(file_img.filename)
+        filename_img = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{filename_img}"
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename_img)
+        
+        # Optimize image
+        img = Image.open(file_img)
+        if img.mode in ("RGBA", "P"): img = img.convert("RGB")
+        img.thumbnail((1200, 800), Image.Resampling.LANCZOS)
+        img.save(filepath, 'JPEG', quality=85, optimize=True)
+        post.image = filename_img
+    
+    db.session.commit()
+    flash(f"Artikel '{post.title}' berhasil diupdate!", "success")
+    return redirect(url_for('admin_page') + '#blog')
+
+@app.route('/admin/blog/delete/<int:id>')
+@login_required
+def delete_blog_post(id):
+    """Hapus artikel blog"""
+    post = BlogPost.query.get_or_404(id)
+    
+    # Delete image if exists
+    if post.image:
+        try:
+            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], post.image))
+        except:
+            pass
+    
+    db.session.delete(post)
+    db.session.commit()
+    flash("Artikel berhasil dihapus!", "success")
+    return redirect(url_for('admin_page') + '#blog')
 
 # --- REDIRECTS (untuk backward compatibility) ---
 @app.route('/katalog')
@@ -136,10 +294,12 @@ def admin_page():
     pesanan = Order.query.order_by(Order.id.desc()).all()
     portfolio_websites = PortfolioWebsite.query.order_by(PortfolioWebsite.id.desc()).all()
     portfolio_cvs = PortfolioCV.query.order_by(PortfolioCV.id.desc()).all()
+    blog_posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
     return render_template('admin.html', 
                          pesanan=pesanan, 
                          portfolio_websites=portfolio_websites,
-                         portfolio_cvs=portfolio_cvs)
+                         portfolio_cvs=portfolio_cvs,
+                         blog_posts=blog_posts)
 
 @app.route('/hapus_order/<int:id>')
 @login_required
@@ -248,7 +408,46 @@ def robots():
 
 @app.route('/sitemap.xml')
 def sitemap():
-    return send_from_directory(app.static_folder, 'sitemap.xml', mimetype='application/xml')
+    """Generate dynamic sitemap including blog posts"""
+    from flask import make_response
+    
+    # Static pages
+    pages = [
+        {'loc': url_for('home', _external=True), 'changefreq': 'daily', 'priority': '1.0'},
+        {'loc': url_for('jasa_website', _external=True), 'changefreq': 'weekly', 'priority': '0.9'},
+        {'loc': url_for('jasa_cv', _external=True), 'changefreq': 'weekly', 'priority': '0.9'},
+        {'loc': url_for('cv_generator', _external=True), 'changefreq': 'monthly', 'priority': '0.7'},
+        {'loc': url_for('blog_list', _external=True), 'changefreq': 'daily', 'priority': '0.9'},
+    ]
+    
+    # Add blog posts
+    blog_posts = BlogPost.query.filter_by(published=True).all()
+    for post in blog_posts:
+        pages.append({
+            'loc': url_for('blog_detail', slug=post.slug, _external=True),
+            'lastmod': post.updated_at.strftime('%Y-%m-%d'),
+            'changefreq': 'monthly',
+            'priority': '0.8'
+        })
+    
+    # Generate XML
+    xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    
+    for page in pages:
+        xml += '  <url>\n'
+        xml += f'    <loc>{page["loc"]}</loc>\n'
+        if 'lastmod' in page:
+            xml += f'    <lastmod>{page["lastmod"]}</lastmod>\n'
+        xml += f'    <changefreq>{page["changefreq"]}</changefreq>\n'
+        xml += f'    <priority>{page["priority"]}</priority>\n'
+        xml += '  </url>\n'
+    
+    xml += '</urlset>'
+    
+    response = make_response(xml)
+    response.headers['Content-Type'] = 'application/xml'
+    return response
 
 if __name__ == '__main__':
     with app.app_context():
