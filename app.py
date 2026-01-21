@@ -66,9 +66,6 @@ class PortfolioCV(db.Model):
     image = db.Column(db.String(200), nullable=False)
     created_at = db.Column(db.DateTime, default=db.func.now())
 
-with app.app_context():
-    db.create_all()
-
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -254,4 +251,6 @@ def sitemap():
     return send_from_directory(app.static_folder, 'sitemap.xml', mimetype='application/xml')
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
