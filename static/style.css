@@ -288,15 +288,16 @@ body {
    ========================================= */
 /* Default: visible (for no-js fallback) */
 .reveal,
-.reveal-left,
-.reveal-right,
-.reveal-scale,
-.reveal-on-scroll,
-.reveal-scroll-left,
-.reveal-scroll-right {
-    opacity: 1;
-    transform: none;
-    transition: all 0.8s ease-out;
+    .reveal,
+    .reveal-left,
+    .reveal-right,
+    .reveal-scale,
+    .reveal-on-scroll,
+    .reveal-scroll-left,
+    .reveal-scroll-right {
+        opacity: 1;
+        transform: none;
+        transition: all 1.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Only hide if JS is loaded */
