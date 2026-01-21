@@ -28,126 +28,177 @@
 
     <div class="row g-4">
         
-        <div class="col-lg-4">
+        <!-- Upload Portfolio Website -->
+        <div class="col-lg-6">
             <div class="admin-card h-100">
                 <div class="admin-card-header">
                     <h5 class="admin-card-title">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="var(--accent-orange)" class="bi bi-cloud-arrow-up-fill" viewBox="0 0 16 16"><path d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2m2.354 5.146a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0z"/></svg>
-                        Upload Referensi
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="var(--accent-orange)" class="bi bi-globe" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m7.5-6.923c-.67.204-1.335.82-1.887 1.855A8 8 0 0 0 5.145 4H7.5zM4.09 4a9.3 9.3 0 0 1 .64-1.539 7 7 0 0 1 .597-.933A7.03 7.03 0 0 0 2.255 4zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a7 7 0 0 0-.656 2.5zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5zM8.5 5v2.5h2.99a12.5 12.5 0 0 0-.337-2.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5zM5.145 12q.208.58.468 1.068c.552 1.035 1.218 1.65 1.887 1.855V12zm.182 2.472a7 7 0 0 1-.597-.933A9.3 9.3 0 0 1 4.09 12H2.255a7 7 0 0 0 3.072 2.472M3.82 11a13.7 13.7 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5zm6.853 3.472A7 7 0 0 0 13.745 12H11.91a9.3 9.3 0 0 1-.64 1.539 7 7 0 0 1-.597.933M8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855q.26-.487.468-1.068zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.7 13.7 0 0 1-.312 2.5m2.802-3.5a7 7 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7 7 0 0 0-3.072-2.472c.218.284.418.598.597.933M10.855 4a8 8 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4z"/></svg>
+                        Upload Portfolio Website
                     </h5>
                 </div>
                 <div class="p-4 pt-0">
-                    
-                    <form action="{{ url_for('upload_referensi') }}" method="POST" enctype="multipart/form-data">
-                        
+                    <form action="{{ url_for('upload_portfolio_website') }}" method="POST" enctype="multipart/form-data">
                         <div class="mb-3">
-                            <label class="form-label small fw-bold text-muted">Kategori Layanan</label>
-                            <select name="layanan_id" class="form-select form-control-admin" required>
-                                <option value="" disabled selected>-- Pilih Jenis --</option>
-                                {% for l in layanan %}
-                                    <option value="{{ l.id }}">{{ l.judul }} ({{ l.kategori|upper }})</option>
-                                {% endfor %}
-                            </select>
+                            <label class="form-label small fw-bold text-muted">Judul Website</label>
+                            <input type="text" name="title" class="form-control form-control-admin" placeholder="Cth: Website Toko Online Fashion" required>
                         </div>
-
                         <div class="mb-3">
-                            <label class="form-label small fw-bold text-muted">Judul Project</label>
-                            <input type="text" name="judul" class="form-control form-control-admin" placeholder="Cth: Web Sekolah Maju Jaya" required>
+                            <label class="form-label small fw-bold text-muted">Deskripsi (Optional)</label>
+                            <textarea name="description" class="form-control form-control-admin" rows="2" placeholder="Deskripsi singkat..."></textarea>
                         </div>
-
                         <div class="mb-3">
-                            <label class="form-label small fw-bold text-muted">Deskripsi Singkat</label>
-                            <textarea name="deskripsi" class="form-control form-control-admin" rows="2" placeholder="Fitur unggulan..."></textarea>
+                            <label class="form-label small fw-bold text-muted">Screenshot Website</label>
+                            <input type="file" name="image" class="form-control form-control-admin" accept="image/*" required>
+                            <div class="form-text small">Format: JPG, PNG. Maks 2MB</div>
                         </div>
-
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold text-muted">Thumbnail (Wajib)</label>
-                            <input type="file" name="gambar" class="form-control form-control-admin" accept="image/*" required>
-                            <div class="form-text small">Format: JPG, PNG.</div>
-                        </div>
-
                         <div class="mb-4">
-                            <label class="form-label small fw-bold text-muted">File Project</label>
-                            <input type="file" name="file_zip" class="form-control form-control-admin" accept=".zip,.pdf,.jpg,.png">
-                            <div class="form-text small">
-                                <ul class="mb-0 ps-3">
-                                    <li><strong>Website:</strong> Upload <code>.zip</code> (Wajib ada index.html).</li>
-                                    <li><strong>CV:</strong> Upload <code>.pdf</code> atau Gambar.</li>
-                                </ul>
-                            </div>
+                            <label class="form-label small fw-bold text-muted">Link Demo (Optional)</label>
+                            <input type="url" name="demo_link" class="form-control form-control-admin" placeholder="https://example.com">
                         </div>
-
                         <button type="submit" class="btn btn-orange w-100 py-2 shadow-sm">
-                            Upload Data
+                            <i class="fas fa-upload me-2"></i> Upload Website
                         </button>
                     </form>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-8">
+        <!-- Upload Portfolio CV -->
+        <div class="col-lg-6">
+            <div class="admin-card h-100">
+                <div class="admin-card-header">
+                    <h5 class="admin-card-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="var(--accent-orange)" class="bi bi-file-person" viewBox="0 0 16 16"><path d="M12 1a1 1 0 0 1 1 1v10.755S12 11 8 11s-5 1.755-5 1.755V2a1 1 0 0 1 1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/><path d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/></svg>
+                        Upload Portfolio CV
+                    </h5>
+                </div>
+                <div class="p-4 pt-0">
+                    <form action="{{ url_for('upload_portfolio_cv') }}" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Nama/Judul CV</label>
+                            <input type="text" name="title" class="form-control form-control-admin" placeholder="Cth: CV Minimalist - John Doe" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Deskripsi (Optional)</label>
+                            <textarea name="description" class="form-control form-control-admin" rows="2" placeholder="Deskripsi singkat..."></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold text-muted">Preview CV</label>
+                            <input type="file" name="image" class="form-control form-control-admin" accept="image/*" required>
+                            <div class="form-text small">Format: JPG, PNG. Maks 2MB</div>
+                        </div>
+                        <button type="submit" class="btn btn-orange w-100 py-2 shadow-sm">
+                            <i class="fas fa-upload me-2"></i> Upload CV
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio Website Table -->
+        <div class="col-lg-6">
             <div class="admin-card h-100">
                 <div class="admin-card-header d-flex justify-content-between align-items-center">
                     <h5 class="admin-card-title">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="var(--primary-navy)" class="bi bi-folder2-open" viewBox="0 0 16 16"><path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v.64c.57.265.94.876.856 1.546l-.64 5.124A2.5 2.5 0 0 1 12.733 15H3.266a2.5 2.5 0 0 1-2.481-2.19l-.64-5.124A1.5 1.5 0 0 1 1 6.14zM2 6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3H2.5a.5.5 0 0 0-.5.5zm-.367 1a.5.5 0 0 0-.496.562l.64 5.124A1.5 1.5 0 0 0 3.266 14h9.468a1.5 1.5 0 0 0 1.489-1.314l.64-5.124A.5.5 0 0 0 14.367 7z"/></svg>
-                        Daftar Upload
+                        <i class="fas fa-globe me-2"></i> Portfolio Website
                     </h5>
-                    <span class="badge bg-light text-dark border">Total: {{ referensi|length }}</span>
+                    <span class="badge bg-primary">{{ portfolio_websites|length }}</span>
                 </div>
                 <div class="p-4 pt-0 table-responsive">
                     <table class="table table-admin table-hover mb-0">
                         <thead>
                             <tr>
-                                <th style="width: 10%;">Img</th>
-                                <th style="width: 25%;">Judul</th>
-                                <th style="width: 15%;">Kategori</th>
-                                <th style="width: 15%;">File</th>
-                                <th style="width: 20%;">Aksi</th>
+                                <th class="small fw-bold">Thumbnail</th>
+                                <th class="small fw-bold">Judul</th>
+                                <th class="small fw-bold text-end">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% if referensi %}
-                                {% for item in referensi %}
+                            {% if portfolio_websites %}
+                                {% for item in portfolio_websites %}
                                 <tr>
                                     <td>
-                                        <img src="{{ url_for('static', filename='uploads/' + item.gambar) }}" class="rounded shadow-sm" style="width: 50px; height: 50px; object-fit: cover;">
+                                        <img src="{{ url_for('static', filename='uploads/' + item.image) }}" 
+                                             alt="{{ item.title }}" 
+                                             class="rounded" 
+                                             style="width: 60px; height: 45px; object-fit: cover;">
                                     </td>
                                     <td>
-                                        <span class="fw-bold d-block text-dark small">{{ item.judul }}</span>
-                                    </td>
-                                    <td>
-                                        {% if item.kategori == 'website' %}
-                                            <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-2 small">WEB</span>
-                                        {% else %}
-                                            <span class="badge bg-warning bg-opacity-10 text-dark rounded-pill px-2 small">CV</span>
+                                        <div class="fw-bold small">{{ item.title }}</div>
+                                        {% if item.description %}
+                                        <div class="text-muted" style="font-size: 0.7rem;">{{ item.description[:40] }}...</div>
                                         {% endif %}
                                     </td>
-                                    <td>
-                                        {% if item.file_path %}
-                                            <span class="badge bg-secondary bg-opacity-10 text-secondary border small">{{ item.file_path|truncate(15) }}</span>
-                                        {% else %}
-                                            <span class="text-muted small">-</span>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        <div class="d-flex gap-2">
-                                            {% if item.kategori == 'website' and item.demo_folder %}
-                                                <a href="{{ url_for('serve_demo', folder_name=item.demo_folder) }}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill px-2 py-1" title="Preview Live Demo">
-                                                    <i class="fas fa-external-link-alt"></i> Demo
-                                                </a>
-                                            {% endif %}
-
-                                            <a href="{{ url_for('hapus_referensi', id=item.id) }}" class="btn btn-sm btn-outline-danger rounded-circle p-1" onclick="return confirm('Yakin ingin menghapus data ini?');" title="Hapus">
-                                                🗑️
-                                            </a>
-                                        </div>
+                                    <td class="text-end">
+                                        <a href="{{ url_for('delete_portfolio_website', id=item.id) }}" 
+                                           class="btn btn-sm btn-outline-danger rounded-circle p-1" 
+                                           onclick="return confirm('Yakin ingin menghapus?');">
+                                            🗑️
+                                        </a>
                                     </td>
                                 </tr>
                                 {% endfor %}
                             {% else %}
                                 <tr>
-                                    <td colspan="5" class="text-center py-5 text-muted small">
-                                        Belum ada data. Silakan upload referensi baru.
+                                    <td colspan="3" class="text-center py-4 text-muted small">
+                                        Belum ada portfolio website
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio CV Table -->
+        <div class="col-lg-6">
+            <div class="admin-card h-100">
+                <div class="admin-card-header d-flex justify-content-between align-items-center">
+                    <h5 class="admin-card-title">
+                        <i class="fas fa-file-alt me-2"></i> Portfolio CV
+                    </h5>
+                    <span class="badge bg-danger">{{ portfolio_cvs|length }}</span>
+                </div>
+                <div class="p-4 pt-0 table-responsive">
+                    <table class="table table-admin table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th class="small fw-bold">Thumbnail</th>
+                                <th class="small fw-bold">Judul</th>
+                                <th class="small fw-bold text-end">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if portfolio_cvs %}
+                                {% for item in portfolio_cvs %}
+                                <tr>
+                                    <td>
+                                        <img src="{{ url_for('static', filename='uploads/' + item.image) }}" 
+                                             alt="{{ item.title }}" 
+                                             class="rounded" 
+                                             style="width: 45px; height: 60px; object-fit: cover;">
+                                    </td>
+                                    <td>
+                                        <div class="fw-bold small">{{ item.title }}</div>
+                                        {% if item.description %}
+                                        <div class="text-muted" style="font-size: 0.7rem;">{{ item.description[:40] }}...</div>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-end">
+                                        <a href="{{ url_for('delete_portfolio_cv', id=item.id) }}" 
+                                           class="btn btn-sm btn-outline-danger rounded-circle p-1" 
+                                           onclick="return confirm('Yakin ingin menghapus?');">
+                                            🗑️
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="3" class="text-center py-4 text-muted small">
+                                        Belum ada portfolio CV
                                     </td>
                                 </tr>
                             {% endif %}

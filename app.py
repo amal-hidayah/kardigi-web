@@ -51,28 +51,23 @@ class Order(db.Model):
     jenis_jasa = db.Column(db.String(50))
     deskripsi = db.Column(db.Text)
 
-class Referensi(db.Model):
+class PortfolioWebsite(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    layanan_id = db.Column(db.String(50)) 
-    kategori = db.Column(db.String(20))
-    judul = db.Column(db.String(100))
-    deskripsi = db.Column(db.Text)
-    gambar = db.Column(db.String(200))
-    file_path = db.Column(db.String(200))
-    demo_folder = db.Column(db.String(200), nullable=True)
+    title = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text)
+    image = db.Column(db.String(200), nullable=False)
+    demo_link = db.Column(db.String(500))
+    created_at = db.Column(db.DateTime, default=db.func.now())
+
+class PortfolioCV(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text)
+    image = db.Column(db.String(200), nullable=False)
+    created_at = db.Column(db.DateTime, default=db.func.now())
 
 with app.app_context():
     db.create_all()
-
-# --- DATA STATIS LAYANAN ---
-DATA_LAYANAN = [
-    {'id': 'company-profile', 'kategori': 'website', 'judul': 'Website Company Profile', 'deskripsi': 'Desain elegan untuk kredibilitas PT/CV.', 'gambar': 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80'},
-    {'id': 'toko-online', 'kategori': 'website', 'judul': 'Toko Online UMKM', 'deskripsi': 'Fitur keranjang belanja & checkout WA.', 'gambar': 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&q=80'},
-    {'id': 'web-sekolah', 'kategori': 'website', 'judul': 'Website Sekolah', 'deskripsi': 'Portal akademik & PPDB Online.', 'gambar': 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80'},
-    {'id': 'cv-ats', 'kategori': 'cv', 'judul': 'CV ATS Friendly', 'deskripsi': 'Lolos sistem HRD & terbaca mesin.', 'gambar': 'cv_ats.jpg'},
-    {'id': 'cv-kreatif', 'kategori': 'cv', 'judul': 'CV Kreatif', 'deskripsi': 'Desain visual menarik & estetik.', 'gambar': 'cv_kreatif.jpg'},
-    {'id': 'surat-lamaran', 'kategori': 'cv', 'judul': 'Surat Lamaran', 'deskripsi': 'Kata-kata profesional pemikat HRD.', 'gambar': 'cv_english.jpg'}
-]
 
 def login_required(f):
     @wraps(f)
@@ -109,12 +104,12 @@ def home(): return render_template('index.html')
 
 @app.route('/jasa-website')
 def jasa_website(): 
-    portfolio_website = Referensi.query.filter_by(kategori='website').order_by(Referensi.id.desc()).limit(6).all()
+    portfolio_website = PortfolioWebsite.query.order_by(PortfolioWebsite.id.desc()).all()
     return render_template('jasa_website.html', portfolio=portfolio_website)
 
 @app.route('/jasa-cv')
 def jasa_cv(): 
-    portfolio_cv = Referensi.query.filter_by(kategori='cv').order_by(Referensi.id.desc()).limit(6).all()
+    portfolio_cv = PortfolioCV.query.order_by(PortfolioCV.id.desc()).all()
     return render_template('jasa_cv.html', portfolio=portfolio_cv)
 
 @app.route('/generator')
@@ -142,81 +137,100 @@ def showcase_redirect(id_layanan): return redirect(url_for('jasa_website'))
 @login_required
 def admin_page():
     pesanan = Order.query.order_by(Order.id.desc()).all()
-    referensi = Referensi.query.order_by(Referensi.id.desc()).all()
-    return render_template('admin.html', pesanan=pesanan, referensi=referensi, layanan=DATA_LAYANAN)
-
-@app.route('/admin/upload', methods=['POST'])
-@login_required
-def upload_referensi():
-    if request.method == 'POST':
-        layanan_id = request.form.get('layanan_id')
-        judul = request.form.get('judul')
-        deskripsi = request.form.get('deskripsi')
-        kategori_item = next((item['kategori'] for item in DATA_LAYANAN if item['id'] == layanan_id), 'website')
-
-        file_img = request.files.get('gambar')
-        filename_img = None
-        if file_img and allowed_file(file_img.filename, ALLOWED_EXTENSIONS_IMG):
-            filename_img = secure_filename(file_img.filename)
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename_img)
-            
-            # --- Optimasi Gambar Sebelum Simpan ---
-            img = Image.open(file_img)
-            if img.mode in ("RGBA", "P"): img = img.convert("RGB")
-            if img.width > 1200:
-                img.thumbnail((1200, 1200), Image.Resampling.LANCZOS)
-            img.save(filepath, optimize=True, quality=75)
-        else:
-            flash("Thumbnail wajib diupload!", "danger"); return redirect(url_for('admin_page'))
-
-        file_project = request.files.get('file_zip')
-        filename_project = None
-        folder_demo_name = None
-
-        if file_project and file_project.filename != '':
-            filename_project = secure_filename(file_project.filename)
-            if kategori_item == 'website' and filename_project.endswith('.zip'):
-                folder_name = filename_project.rsplit('.', 1)[0]
-                target_extract_path = os.path.join(app.config['DEMO_FOLDER'], folder_name)
-                if os.path.exists(target_extract_path): shutil.rmtree(target_extract_path)
-                try:
-                    # --- Ekstraksi ZIP untuk Demo Website ---
-                    with zipfile.ZipFile(file_project, 'r') as zip_ref: zip_ref.extractall(target_extract_path)
-                    if not os.path.exists(os.path.join(target_extract_path, 'index.html')):
-                        subitems = os.listdir(target_extract_path)
-                        if len(subitems) == 1 and os.path.isdir(os.path.join(target_extract_path, subitems[0])):
-                            nested_folder = os.path.join(target_extract_path, subitems[0])
-                            for item in os.listdir(nested_folder): shutil.move(os.path.join(nested_folder, item), target_extract_path)
-                            os.rmdir(nested_folder)
-                    folder_demo_name = folder_name
-                except zipfile.BadZipFile: flash("File ZIP rusak!", "danger"); return redirect(url_for('admin_page'))
-            elif kategori_item == 'cv': 
-                file_project.save(os.path.join(app.config['CV_FOLDER'], filename_project))
-
-        baru = Referensi(layanan_id=layanan_id, kategori=kategori_item, judul=judul, deskripsi=deskripsi, gambar=filename_img, file_path=filename_project, demo_folder=folder_demo_name)
-        db.session.add(baru); db.session.commit()
-        flash("Upload sukses!", "success")
-    return redirect(url_for('admin_page'))
-
-@app.route('/hapus_referensi/<int:id>')
-@login_required
-def hapus_referensi(id):
-    item = Referensi.query.get(id)
-    if item:
-        try: os.remove(os.path.join(app.config['UPLOAD_FOLDER'], item.gambar))
-        except: pass
-        try: shutil.rmtree(os.path.join(app.config['DEMO_FOLDER'], item.demo_folder))
-        except: pass
-        try: os.remove(os.path.join(app.config['CV_FOLDER'], item.file_path))
-        except: pass
-        db.session.delete(item); db.session.commit()
-        flash("Data dihapus.", "success")
-    return redirect(url_for('admin_page'))
+    portfolio_websites = PortfolioWebsite.query.order_by(PortfolioWebsite.id.desc()).all()
+    portfolio_cvs = PortfolioCV.query.order_by(PortfolioCV.id.desc()).all()
+    return render_template('admin.html', 
+                         pesanan=pesanan, 
+                         portfolio_websites=portfolio_websites,
+                         portfolio_cvs=portfolio_cvs)
 
 @app.route('/hapus_order/<int:id>')
 @login_required
 def hapus_pesanan(id):
     item = Order.query.get(id); db.session.delete(item); db.session.commit()
+    return redirect(url_for('admin_page'))
+
+# --- PORTFOLIO WEBSITE ROUTES ---
+@app.route('/admin/upload_portfolio_website', methods=['POST'])
+@login_required
+def upload_portfolio_website():
+    title = request.form.get('title')
+    description = request.form.get('description', '')
+    demo_link = request.form.get('demo_link', '')
+    
+    file_img = request.files.get('image')
+    if file_img and allowed_file(file_img.filename, ALLOWED_EXTENSIONS_IMG):
+        filename_img = secure_filename(file_img.filename)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename_img)
+        
+        # Optimize image
+        img = Image.open(file_img)
+        if img.mode in ("RGBA", "P"): img = img.convert("RGB")
+        img.thumbnail((1200, 1200), Image.Resampling.LANCZOS)
+        img.save(filepath, 'JPEG', quality=85, optimize=True)
+        
+        new_portfolio = PortfolioWebsite(title=title, description=description, image=filename_img, demo_link=demo_link)
+        db.session.add(new_portfolio)
+        db.session.commit()
+        flash("Portfolio Website berhasil ditambahkan!", "success")
+    else:
+        flash("Gagal upload gambar!", "danger")
+    
+    return redirect(url_for('admin_page'))
+
+@app.route('/admin/delete_portfolio_website/<int:id>')
+@login_required
+def delete_portfolio_website(id):
+    item = PortfolioWebsite.query.get(id)
+    if item:
+        try: 
+            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], item.image))
+        except: 
+            pass
+        db.session.delete(item)
+        db.session.commit()
+        flash("Portfolio Website dihapus.", "success")
+    return redirect(url_for('admin_page'))
+
+# --- PORTFOLIO CV ROUTES ---
+@app.route('/admin/upload_portfolio_cv', methods=['POST'])
+@login_required
+def upload_portfolio_cv():
+    title = request.form.get('title')
+    description = request.form.get('description', '')
+    
+    file_img = request.files.get('image')
+    if file_img and allowed_file(file_img.filename, ALLOWED_EXTENSIONS_IMG):
+        filename_img = secure_filename(file_img.filename)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename_img)
+        
+        # Optimize image
+        img = Image.open(file_img)
+        if img.mode in ("RGBA", "P"): img = img.convert("RGB")
+        img.thumbnail((1200, 1200), Image.Resampling.LANCZOS)
+        img.save(filepath, 'JPEG', quality=85, optimize=True)
+        
+        new_portfolio = PortfolioCV(title=title, description=description, image=filename_img)
+        db.session.add(new_portfolio)
+        db.session.commit()
+        flash("Portfolio CV berhasil ditambahkan!", "success")
+    else:
+        flash("Gagal upload gambar!", "danger")
+    
+    return redirect(url_for('admin_page'))
+
+@app.route('/admin/delete_portfolio_cv/<int:id>')
+@login_required
+def delete_portfolio_cv(id):
+    item = PortfolioCV.query.get(id)
+    if item:
+        try: 
+            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], item.image))
+        except: 
+            pass
+        db.session.delete(item)
+        db.session.commit()
+        flash("Portfolio CV dihapus.", "success")
     return redirect(url_for('admin_page'))
 
 # --- ROUTE LIVE DEMO WEBSITE ---
