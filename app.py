@@ -107,25 +107,35 @@ def logout():
 @app.route('/')
 def home(): return render_template('index.html')
 
-@app.route('/katalog')
-def katalog_home(): return render_template('katalog_home.html')
+@app.route('/jasa-website')
+def jasa_website(): 
+    portfolio_website = Referensi.query.filter_by(kategori='website').order_by(Referensi.id.desc()).limit(6).all()
+    return render_template('jasa_website.html', portfolio=portfolio_website)
 
-@app.route('/katalog/<kategori_pilihan>')
-def katalog_detail(kategori_pilihan):
-    items = [item for item in DATA_LAYANAN if item['kategori'] == kategori_pilihan]
-    judul = "Koleksi Website" if kategori_pilihan == 'website' else "Koleksi CV & Lamaran"
-    return render_template('katalog_list.html', items=items, judul=judul, kategori=kategori_pilihan)
-
-@app.route('/referensi/<id_layanan>')
-def showcase_page(id_layanan):
-    layanan_info = next((item for item in DATA_LAYANAN if item['id'] == id_layanan), None)
-    if not layanan_info: return "Layanan tidak ditemukan", 404
-    daftar_referensi = Referensi.query.filter_by(layanan_id=id_layanan).all()
-    return render_template('showcase.html', layanan=layanan_info, referensi=daftar_referensi)
+@app.route('/jasa-cv')
+def jasa_cv(): 
+    portfolio_cv = Referensi.query.filter_by(kategori='cv').order_by(Referensi.id.desc()).limit(6).all()
+    return render_template('jasa_cv.html', portfolio=portfolio_cv)
 
 @app.route('/generator')
 def cv_generator():
     return render_template('generator_cv.html')
+
+# --- REDIRECTS (untuk backward compatibility) ---
+@app.route('/katalog')
+def katalog_home(): return redirect(url_for('home'))
+
+@app.route('/katalog/website')
+def katalog_website(): return redirect(url_for('jasa_website'))
+
+@app.route('/katalog/cv')
+def katalog_cv_redirect(): return redirect(url_for('jasa_cv'))
+
+@app.route('/order')
+def order_redirect(): return redirect(url_for('jasa_website'))
+
+@app.route('/referensi/<id_layanan>')
+def showcase_redirect(id_layanan): return redirect(url_for('jasa_website'))
 
 # --- ROUTE ADMIN ---
 @app.route('/admin')
@@ -209,25 +219,16 @@ def hapus_pesanan(id):
     item = Order.query.get(id); db.session.delete(item); db.session.commit()
     return redirect(url_for('admin_page'))
 
-@app.route('/order', methods=['GET', 'POST'])
-def order():
-    referensi_pilihan = request.args.get('ref', '')
-    if request.method == 'POST':
-        nama = request.form.get('nama'); wa = request.form.get('whatsapp'); jasa = request.form.get('service'); design_ref = request.form.get('design_ref'); ket_umum = request.form.get('keterangan')
-        detail_msg = ""
-        if jasa == 'website':
-            detail_msg = f"--- DATA WEBSITE ---\n🏢 Bisnis: {request.form.get('web_bisnis', '-')}\n🌐 Domain: {request.form.get('web_domain', '-')}\n🎨 Warna: {request.form.get('web_warna', '-')}"
-        elif jasa == 'cv':
-            detail_msg = f"--- DATA CV ---\n💼 Posisi: {request.form.get('cv_posisi', '-')}\n🎓 Pendidikan: {request.form.get('cv_pendidikan', '-')}\n🏢 Pengalaman: {request.form.get('cv_pengalaman', '-')}\n⭐ Skill: {request.form.get('cv_skill', '-')}"
-        
-        deskripsi_lengkap = f"Design Ref: {design_ref}\n\n{detail_msg}\n\nCatatan: {ket_umum}"
-        pesanan_baru = Order(nama_klien=nama, whatsapp=wa, jenis_jasa=jasa, deskripsi=deskripsi_lengkap)
-        db.session.add(pesanan_baru); db.session.commit()
-        
-        nomor_admin = "6289509951772"
-        pesan_wa = f"Halo Admin KARDIGI, order baru!\n\n👤 *DATA PEMESAN*\nNama: {nama}\nWA: {wa}\nLayanan: {jasa.upper()}\nDesign Pilihan: *{design_ref}*\n\n{detail_msg}\n\n📝 *CATATAN*: {ket_umum}"
-        return redirect(f"https://wa.me/{nomor_admin}?text={urllib.parse.quote(pesan_wa)}")
-    return render_template('order.html', referensi=referensi_pilihan)
+# --- ROUTE LIVE DEMO WEBSITE ---
+@app.route('/demo/<folder_name>/')
+@app.route('/demo/<folder_name>/<path:filename>')
+def serve_demo(folder_name, filename='index.html'):
+    """Serve live demo website yang diupload admin"""
+    demo_path = os.path.join(app.config['DEMO_FOLDER'], folder_name)
+    if not os.path.exists(demo_path):
+        flash("Demo tidak ditemukan!", "warning")
+        return redirect(url_for('home'))
+    return send_from_directory(demo_path, filename)
 
 # --- ROUTE SEO: ROBOTS.TXT & SITEMAP.XML ---
 @app.route('/robots.txt')

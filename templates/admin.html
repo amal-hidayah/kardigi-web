@@ -132,8 +132,8 @@
                                     <td>
                                         <div class="d-flex gap-2">
                                             {% if item.kategori == 'website' and item.demo_folder %}
-                                                <a href="/static/demos/{{ item.demo_folder }}/index.html" target="_blank" class="btn btn-sm btn-outline-primary rounded-circle p-1" title="Lihat Demo">
-                                                    👁️
+                                                <a href="{{ url_for('serve_demo', folder_name=item.demo_folder) }}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill px-2 py-1" title="Preview Live Demo">
+                                                    <i class="fas fa-external-link-alt"></i> Demo
                                                 </a>
                                             {% endif %}
 

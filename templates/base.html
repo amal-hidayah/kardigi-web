@@ -43,6 +43,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
@@ -148,17 +149,91 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="/">Beranda</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i class="fas fa-home me-1"></i> Beranda
+                        </a>
+                    </li>
+                    
+                    <!-- Dropdown Jasa (Desktop only) -->
+                    <li class="nav-item dropdown d-none d-lg-block">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownJasa" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-briefcase me-1"></i> Jasa Kami
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg" aria-labelledby="navbarDropdownJasa" 
+                            style="border-radius: 16px; 
+                                   min-width: 240px; 
+                                   padding: 0.75rem 0.5rem;
+                                   background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+                                   margin-top: 0.75rem;
+                                   animation: dropdownSlide 0.3s ease;">
+                            <li>
+                                <a class="dropdown-item rounded-3 py-3 px-3 mb-1" 
+                                   href="{{ url_for('jasa_website') }}"
+                                   style="transition: all 0.2s ease; border-left: 3px solid transparent;"
+                                   onmouseover="this.style.background='linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)'; this.style.color='white'; this.style.borderLeftColor='#f59e0b'; this.style.transform='translateX(5px)'"
+                                   onmouseout="this.style.background='transparent'; this.style.color='#1e293b'; this.style.borderLeftColor='transparent'; this.style.transform='translateX(0)'">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="flex-shrink-0">
+                                            <div class="rounded-circle d-flex align-items-center justify-content-center" 
+                                                 style="width: 40px; height: 40px; background: linear-gradient(135deg, #3b82f6, #2563eb);">
+                                                <i class="fas fa-globe text-white" style="font-size: 1rem;"></i>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold" style="font-size: 0.95rem;">Jasa Website</div>
+                                            <small class="text-muted" style="font-size: 0.75rem;">Company profile, toko online</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider my-2" style="opacity: 0.1;"></li>
+                            <li>
+                                <a class="dropdown-item rounded-3 py-3 px-3" 
+                                   href="{{ url_for('jasa_cv') }}"
+                                   style="transition: all 0.2s ease; border-left: 3px solid transparent;"
+                                   onmouseover="this.style.background='linear-gradient(135deg, #ef4444 0%, #dc2626 100%)'; this.style.color='white'; this.style.borderLeftColor='#f59e0b'; this.style.transform='translateX(5px)'"
+                                   onmouseout="this.style.background='transparent'; this.style.color='#1e293b'; this.style.borderLeftColor='transparent'; this.style.transform='translateX(0)'">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="flex-shrink-0">
+                                            <div class="rounded-circle d-flex align-items-center justify-content-center" 
+                                                 style="width: 40px; height: 40px; background: linear-gradient(135deg, #ef4444, #dc2626);">
+                                                <i class="fas fa-file-alt text-white" style="font-size: 1rem;"></i>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold" style="font-size: 0.95rem;">Jasa CV & Surat</div>
+                                            <small class="text-muted" style="font-size: 0.75rem;">CV ATS, surat lamaran</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Menu Jasa Mobile (Non-dropdown) -->
+                    <li class="nav-item d-lg-none">
+                        <a class="nav-link" href="{{ url_for('jasa_website') }}">
+                            <i class="fas fa-globe me-1"></i> Jasa Website
+                        </a>
+                    </li>
+                    <li class="nav-item d-lg-none">
+                        <a class="nav-link" href="{{ url_for('jasa_cv') }}">
+                            <i class="fas fa-file-alt me-1"></i> Jasa CV
+                        </a>
+                    </li>
                     
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('cv_generator') }}">
-                            Bikin CV Gratis
+                            <i class="fas fa-wand-magic-sparkles me-1"></i> CV Generator
                         </a>
                     </li>
 
-                    <li class="nav-item"><a class="nav-link" href="/katalog">Katalog & Portofolio</a></li>
-                    <li class="nav-item d-none d-lg-block"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modalCaraPesan">Cara Pesan</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modalFAQ">FAQ</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modalFAQ">
+                            <i class="fas fa-question-circle me-1"></i> FAQ
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -327,19 +402,31 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-            }
+    
+    <!-- Reveal Animation Script -->
+    <script>
+        // Intersection Observer for reveal animations
+        document.addEventListener("DOMContentLoaded", function() {
+            // Add js-loaded class to body to enable animations
+            document.body.classList.add('js-loaded');
+            
+            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-on-scroll, .reveal-scroll-left, .reveal-scroll-right');
+            
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            revealElements.forEach(element => {
+                revealObserver.observe(element);
+            });
         });
-    });
-
-    const hiddenElements = document.querySelectorAll('.reveal-on-scroll, .reveal-scroll-left, .reveal-scroll-right');
-    hiddenElements.forEach((el) => observer.observe(el));
-});
-</script>
+    </script>
 </body>
 </html>

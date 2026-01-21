@@ -11,11 +11,50 @@
 }
 
 /* --- 3. GLOBAL STYLE --- */
+html {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     color: var(--primary-navy);
     background-color: #ffffff;
     overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+}
+
+/* =========================================
+   BUTTON HOVER EFFECTS
+   ========================================= */
+.btn {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 /* =========================================
@@ -98,6 +137,232 @@ body {
     100% { transform: translateX(-100%); }
 }
 
+/* =========================================
+   MANUAL + AUTO SCROLL FOR MOBILE CARDS
+   ========================================= */
+.mobile-scroll-wrapper {
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 15px 0;
+    margin: 0;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 15px;
+}
+
+/* Hide scrollbar */
+.mobile-scroll-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+/* Container cards */
+.mobile-scroll-container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    width: max-content;
+    padding: 0 15px;
+}
+
+/* Card styling */
+.mobile-scroll-card {
+    flex: 0 0 auto;
+    width: 280px;
+    scroll-snap-align: start;
+}
+
+/* Optional: subtle auto-scroll class */
+.auto-scrolling .mobile-scroll-container {
+    animation: gentleScroll 40s linear infinite;
+}
+
+/* Pause on any interaction */
+.mobile-scroll-wrapper:active .mobile-scroll-container,
+.mobile-scroll-wrapper:hover .mobile-scroll-container {
+    animation-play-state: paused;
+}
+
+@keyframes gentleScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Desktop: Grid normal */
+@media (min-width: 768px) {
+    .mobile-scroll-wrapper {
+        overflow: visible;
+        padding: 0;
+        scroll-snap-type: none;
+    }
+    
+    .mobile-scroll-container {
+        display: grid;
+        width: 100%;
+        padding: 0;
+        animation: none !important;
+    }
+    
+    .mobile-scroll-card {
+        width: 100%;
+    }
+}
+
+/* =========================================
+   DROPDOWN ANIMATION
+   ========================================= */
+@keyframes dropdownSlide {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-menu {
+    animation: dropdownSlide 0.3s ease;
+}
+
+.dropdown-menu {
+    animation: dropdownSlide 0.3s ease;
+}
+
+/* Floating animation for decorative elements */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+}
+
+/* Hover lift effect for cards */
+.hover-lift {
+    transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Animated fade in effect */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-section .card,
+.hero-section .badge {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Gradient text effect */
+.gradient-text {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Stats box hover effect */
+.stats-box {
+    transition: all 0.3s ease;
+}
+
+.stats-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================================
+   REVEAL ANIMATIONS ON SCROLL
+   ========================================= */
+/* Default: visible (for no-js fallback) */
+.reveal,
+.reveal-left,
+.reveal-right,
+.reveal-scale,
+.reveal-on-scroll,
+.reveal-scroll-left,
+.reveal-scroll-right {
+    opacity: 1;
+    transform: none;
+    transition: all 0.8s ease-out;
+}
+
+/* Only hide if JS is loaded */
+body.js-loaded .reveal {
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+body.js-loaded .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+body.js-loaded .reveal-left,
+body.js-loaded .reveal-scroll-left {
+    opacity: 0;
+    transform: translateX(-50px);
+}
+
+body.js-loaded .reveal-left.active,
+body.js-loaded .reveal-scroll-left.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+body.js-loaded .reveal-right,
+body.js-loaded .reveal-scroll-right {
+    opacity: 0;
+    transform: translateX(50px);
+}
+
+body.js-loaded .reveal-right.active,
+body.js-loaded .reveal-scroll-right.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+body.js-loaded .reveal-scale {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+body.js-loaded .reveal-scale.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+body.js-loaded .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+body.js-loaded .reveal-on-scroll.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger delay for multiple items */
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
 @media (max-width: 768px) {
     .promo-bar { height: 40px; font-size: 0.75rem; }
     .promo-static { padding-left: 15px; }
@@ -159,8 +424,15 @@ body {
 
 /* Hero Animations */
 .hero-badge {
-    animation: scaleIn 0.6s ease-out forwards, pulse 2s ease-in-out 1s infinite;
-    opacity: 0;
+    /* Always visible, no opacity animation */
+    display: inline-block;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.hero-badge:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
 }
 
 .hero-heading {
@@ -621,6 +893,89 @@ body {
 /* Tambahkan ini DI DALAM media query (max-width: 991px) yang sudah ada di paling bawah file CSS kamu */
 
 @media (max-width: 991px) {
+    /* Prevent horizontal scroll */
+    .container,
+    .container-fluid {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .row:not(.hero-section .row) {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    /* Hero section specific fixes */
+    .hero-section .row {
+        margin-left: -12px;
+        margin-right: -12px;
+        min-height: auto !important; /* Remove fixed height on mobile */
+        padding: 2rem 0;
+    }
+    
+    .hero-section img.hero-image {
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        margin-top: 0 !important;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-section .col-lg-6 {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+    
+    /* Optimized scroll reveal animations for mobile - lighter and faster */
+    .reveal,
+    .reveal-left,
+    .reveal-right,
+    .reveal-scale,
+    .reveal-on-scroll,
+    .reveal-scroll-left,
+    .reveal-scroll-right {
+        will-change: transform, opacity;
+        transition: all 0.4s ease-out !important; /* Faster transition */
+    }
+    
+    body.js-loaded .reveal {
+        transform: translateY(20px) !important; /* Reduced distance */
+    }
+    
+    body.js-loaded .reveal-left,
+    body.js-loaded .reveal-scroll-left {
+        transform: translateX(-20px) !important; /* Reduced distance */
+    }
+    
+    body.js-loaded .reveal-right,
+    body.js-loaded .reveal-scroll-right {
+        transform: translateX(20px) !important; /* Reduced distance */
+    }
+    
+    body.js-loaded .reveal-on-scroll {
+        transform: translateY(15px) !important; /* Reduced distance */
+    }
+    
+    body.js-loaded .reveal-scale {
+        transform: scale(0.95) !important; /* Less dramatic scale */
+    }
+    
+    /* Reduce button sizes on mobile - override Bootstrap utilities */
+    .btn.rounded-pill.px-5 {
+        padding-left: 1.5rem !important;
+        padding-right: 1.5rem !important;
+    }
+    
+    .btn.rounded-pill.py-3 {
+        padding-top: 0.6rem !important;
+        padding-bottom: 0.6rem !important;
+    }
+    
+    .btn.rounded-pill {
+        font-size: 0.85rem !important;
+    }
+    
     /* ... kode mobile yang lama ada di atas sini ... */
 
     /* 1. Agar wadah harga rata tengah di HP */
@@ -651,7 +1006,7 @@ body {
     position: fixed;
     width: 60px;
     height: 60px;
-    bottom: 20px;
+    bottom: 40px; /* Naik 20px dari 20px menjadi 40px */
     right: 20px;
     background-color: #25d366;
     color: #FFF;
