@@ -173,8 +173,19 @@ def add_blog_post():
     meta_keywords = request.form.get('meta_keywords', '')
     published = request.form.get('published') == 'on'
     
-    # Generate slug from title
-    slug = create_slug(title)
+    # Ambil slug dari form jika diisi, jika tidak generate dari judul
+    form_slug = request.form.get('slug', '').strip()
+    if form_slug:
+        # Normalisasi slug: huruf kecil, hanya a-z, 0-9, -
+        slug = re.sub(r'[^a-z0-9-]', '', form_slug.lower())
+        # Pastikan slug unik
+        original_slug = slug
+        counter = 1
+        while BlogPost.query.filter_by(slug=slug).first():
+            slug = f"{original_slug}-{counter}"
+            counter += 1
+    else:
+        slug = create_slug(title)
     
     # Handle image upload
     image_filename = None
@@ -220,13 +231,21 @@ def edit_blog_post(id):
     post.meta_keywords = request.form.get('meta_keywords', '')
     post.published = request.form.get('published') == 'on'
     
-    # Update slug if title changed
-    new_slug = create_slug(post.title)
-    if new_slug != post.slug:
-        # Check if new slug is unique
+    # Update slug jika diisi di form, jika tidak tetap/auto dari judul
+    form_slug = request.form.get('slug', '').strip()
+    if form_slug:
+        new_slug = re.sub(r'[^a-z0-9-]', '', form_slug.lower())
+        # Pastikan slug unik (kecuali milik post ini sendiri)
         existing = BlogPost.query.filter(BlogPost.slug == new_slug, BlogPost.id != post.id).first()
         if not existing:
             post.slug = new_slug
+    else:
+        # Jika slug kosong, update slug dari judul jika berubah
+        new_slug = create_slug(post.title)
+        if new_slug != post.slug:
+            existing = BlogPost.query.filter(BlogPost.slug == new_slug, BlogPost.id != post.id).first()
+            if not existing:
+                post.slug = new_slug
     
     # Handle new image upload
     file_img = request.files.get('image')

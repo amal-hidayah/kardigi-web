@@ -315,6 +315,11 @@
                         <label class="form-label fw-bold">Judul Artikel *</label>
                         <input type="text" name="title" class="form-control" required>
                         <small class="form-text text-muted">URL slug akan dibuat otomatis dari judul</small>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Slug (opsional)</label>
+                                            <input type="text" name="slug" class="form-control" pattern="[a-z0-9-]+" maxlength="250" placeholder="contoh: judul-artikel-blog">
+                                            <small class="form-text text-muted">Slug untuk URL (huruf kecil, angka, tanda -). Jika dikosongkan, akan dibuat otomatis dari judul.</small>
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-bold">Konten Artikel *</label>
@@ -373,6 +378,11 @@
                     <div class="mb-3">
                         <label class="form-label fw-bold">Judul Artikel *</label>
                         <input type="text" name="title" class="form-control" value="{{ post.title }}" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Slug (opsional)</label>
+                                            <input type="text" name="slug" class="form-control" pattern="[a-z0-9-]+" maxlength="250" value="{{ post.slug }}" placeholder="contoh: judul-artikel-blog">
+                                            <small class="form-text text-muted">Slug untuk URL (huruf kecil, angka, tanda -). Jika dikosongkan, akan dibuat otomatis dari judul.</small>
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-bold">Konten Artikel *</label>
