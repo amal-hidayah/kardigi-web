@@ -153,14 +153,15 @@ def new_blog_post():
     if request.method == 'GET':
         return render_template('admin_blog_form.html', mode='new')
     
-    title = request.form.get('title')
-    content = request.form.get('content')
-    excerpt = request.form.get('excerpt', '')
-    meta_title = request.form.get('meta_title', '')
-    meta_description = request.form.get('meta_description', '')
-    meta_keywords = request.form.get('meta_keywords', '')
-    focus_keyword = request.form.get('focus_keyword', '')
-    published = request.form.get('published') == 'on'
+    try:
+        title = request.form.get('title')
+        content = request.form.get('content')
+        excerpt = request.form.get('excerpt', '')
+        meta_title = request.form.get('meta_title', '')
+        meta_description = request.form.get('meta_description', '')
+        meta_keywords = request.form.get('meta_keywords', '')
+        focus_keyword = request.form.get('focus_keyword', '')
+        published = request.form.get('published') == 'on'
     
     # Ambil slug dari form jika diisi, jika tidak generate dari judul
     form_slug = request.form.get('slug', '').strip()
@@ -192,22 +193,40 @@ def new_blog_post():
         img.save(filepath, 'JPEG', quality=85, optimize=True)
         image_filename = filename_img
     
-    new_post = BlogPost(
-        title=title,
-        slug=slug,
-        content=content,
-        excerpt=excerpt,
-        image=image_filename,
-        meta_title=meta_title,
-        meta_description=meta_description,
-        meta_keywords=meta_keywords,
-        focus_keyword=focus_keyword,
-        published=published
-    )
+    # Create new post with backward compatibility
+    try:
+        new_post = BlogPost(
+            title=title,
+            slug=slug,
+            content=content,
+            excerpt=excerpt,
+            image=image_filename,
+            meta_title=meta_title,
+            meta_description=meta_description,
+            meta_keywords=meta_keywords,
+            focus_keyword=focus_keyword,
+            published=published
+        )
+    except TypeError:
+        # Fallback if meta_title or focus_keyword columns don't exist yet
+        new_post = BlogPost(
+            title=title,
+            slug=slug,
+            content=content,
+            excerpt=excerpt,
+            image=image_filename,
+            meta_description=meta_description,
+            meta_keywords=meta_keywords,
+            published=published
+        )
+    
     db.session.add(new_post)
     db.session.commit()
     flash(f"Artikel '{title}' berhasil ditambahkan!", "success")
     return redirect(url_for('admin_page') + '#blog')
+    except Exception as e:
+        flash(f"Error: {str(e)}", "danger")
+        return redirect(url_for('admin_page') + '#blog')
 
 @app.route('/admin/blog/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -218,14 +237,22 @@ def edit_blog_post(id):
     if request.method == 'GET':
         return render_template('admin_blog_form.html', mode='edit', post=post)
     
-    post.title = request.form.get('title')
-    post.content = request.form.get('content')
-    post.excerpt = request.form.get('excerpt', '')
-    post.meta_title = request.form.get('meta_title', '')
-    post.meta_description = request.form.get('meta_description', '')
-    post.meta_keywords = request.form.get('meta_keywords', '')
-    post.focus_keyword = request.form.get('focus_keyword', '')
-    post.published = request.form.get('published') == 'on'
+    try:
+        post.title = request.form.get('title')
+        post.content = request.form.get('content')
+        post.excerpt = request.form.get('excerpt', '')
+        
+        # Safely set new fields if they exist in database
+        try:
+            post.meta_title = request.form.get('meta_title', '')
+            post.focus_keyword = request.form.get('focus_keyword', '')
+        except AttributeError:
+            # Columns don't exist yet, skip them
+            pass
+        
+        post.meta_description = request.form.get('meta_description', '')
+        post.meta_keywords = request.form.get('meta_keywords', '')
+        post.published = request.form.get('published') == 'on'
     
     # Update slug jika diisi di form, jika tidak tetap/auto dari judul
     form_slug = request.form.get('slug', '').strip()
@@ -264,9 +291,13 @@ def edit_blog_post(id):
         img.save(filepath, 'JPEG', quality=85, optimize=True)
         post.image = filename_img
     
-    db.session.commit()
-    flash(f"Artikel '{post.title}' berhasil diupdate!", "success")
-    return redirect(url_for('admin_page') + '#blog')
+        db.session.commit()
+        flash(f"Artikel '{post.title}' berhasil diupdate!", "success")
+        return redirect(url_for('admin_page') + '#blog')
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Error updating article: {str(e)}", "danger")
+        return redirect(url_for('admin_page') + '#blog')
 
 @app.route('/admin/blog/delete/<int:id>')
 @login_required

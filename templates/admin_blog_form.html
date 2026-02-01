@@ -343,7 +343,7 @@
                             </label>
                             <input type="text" name="focus_keyword" class="form-control" 
                                    placeholder="Contoh: jasa pembuatan website"
-                                   value="{% if mode == 'edit' %}{{ post.focus_keyword }}{% endif %}"
+                                   value="{% if mode == 'edit' and post.focus_keyword %}{{ post.focus_keyword }}{% endif %}"
                                    id="focusKeyword">
                             <small class="text-muted">Kata kunci yang ingin Anda targetkan untuk artikel ini</small>
                             <div id="keywordIndicator" class="focus-keyword-indicator none">
@@ -357,7 +357,7 @@
                             <label class="form-label">Meta Title (SEO Title)</label>
                             <input type="text" name="meta_title" class="form-control" 
                                    placeholder="Kosongkan untuk gunakan judul artikel"
-                                   value="{% if mode == 'edit' %}{{ post.meta_title }}{% endif %}"
+                                   value="{% if mode == 'edit' and post.meta_title %}{{ post.meta_title }}{% endif %}"
                                    id="metaTitle" maxlength="60">
                             <div class="char-counter" id="titleCounter">0 / 60 karakter (Optimal: 50-60)</div>
                         </div>
