@@ -162,68 +162,68 @@ def new_blog_post():
         meta_keywords = request.form.get('meta_keywords', '')
         focus_keyword = request.form.get('focus_keyword', '')
         published = request.form.get('published') == 'on'
-    
-    # Ambil slug dari form jika diisi, jika tidak generate dari judul
-    form_slug = request.form.get('slug', '').strip()
-    if form_slug:
-        # Normalisasi slug: huruf kecil, hanya a-z, 0-9, -
-        slug = re.sub(r'[^a-z0-9-]', '', form_slug.lower())
-        # Pastikan slug unik
-        original_slug = slug
-        counter = 1
-        while BlogPost.query.filter_by(slug=slug).first():
-            slug = f"{original_slug}-{counter}"
-            counter += 1
-    else:
-        slug = create_slug(title)
-    
-    # Handle image upload
-    image_filename = None
-    file_img = request.files.get('image')
-    if file_img and allowed_file(file_img.filename, ALLOWED_EXTENSIONS_IMG):
-        filename_img = secure_filename(file_img.filename)
-        # Add timestamp to avoid conflicts
-        filename_img = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{filename_img}"
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename_img)
         
-        # Optimize image
-        img = Image.open(file_img)
-        if img.mode in ("RGBA", "P"): img = img.convert("RGB")
-        img.thumbnail((1200, 800), Image.Resampling.LANCZOS)
-        img.save(filepath, 'JPEG', quality=85, optimize=True)
-        image_filename = filename_img
-    
-    # Create new post with backward compatibility
-    try:
-        new_post = BlogPost(
-            title=title,
-            slug=slug,
-            content=content,
-            excerpt=excerpt,
-            image=image_filename,
-            meta_title=meta_title,
-            meta_description=meta_description,
-            meta_keywords=meta_keywords,
-            focus_keyword=focus_keyword,
-            published=published
-        )
-    except TypeError:
-        # Fallback if meta_title or focus_keyword columns don't exist yet
-        new_post = BlogPost(
-            title=title,
-            slug=slug,
-            content=content,
-            excerpt=excerpt,
-            image=image_filename,
-            meta_description=meta_description,
-            meta_keywords=meta_keywords,
-            published=published
-        )
-    
-    db.session.add(new_post)
-    db.session.commit()
-    flash(f"Artikel '{title}' berhasil ditambahkan!", "success")
-    return redirect(url_for('admin_page') + '#blog')
+        # Ambil slug dari form jika diisi, jika tidak generate dari judul
+        form_slug = request.form.get('slug', '').strip()
+        if form_slug:
+            # Normalisasi slug: huruf kecil, hanya a-z, 0-9, -
+            slug = re.sub(r'[^a-z0-9-]', '', form_slug.lower())
+            # Pastikan slug unik
+            original_slug = slug
+            counter = 1
+            while BlogPost.query.filter_by(slug=slug).first():
+                slug = f"{original_slug}-{counter}"
+                counter += 1
+        else:
+            slug = create_slug(title)
+        
+        # Handle image upload
+        image_filename = None
+        file_img = request.files.get('image')
+        if file_img and allowed_file(file_img.filename, ALLOWED_EXTENSIONS_IMG):
+            filename_img = secure_filename(file_img.filename)
+            # Add timestamp to avoid conflicts
+            filename_img = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{filename_img}"
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename_img)
+            
+            # Optimize image
+            img = Image.open(file_img)
+            if img.mode in ("RGBA", "P"): img = img.convert("RGB")
+            img.thumbnail((1200, 800), Image.Resampling.LANCZOS)
+            img.save(filepath, 'JPEG', quality=85, optimize=True)
+            image_filename = filename_img
+        
+        # Create new post with backward compatibility
+        try:
+            new_post = BlogPost(
+                title=title,
+                slug=slug,
+                content=content,
+                excerpt=excerpt,
+                image=image_filename,
+                meta_title=meta_title,
+                meta_description=meta_description,
+                meta_keywords=meta_keywords,
+                focus_keyword=focus_keyword,
+                published=published
+            )
+        except TypeError:
+            # Fallback if meta_title or focus_keyword columns don't exist yet
+            new_post = BlogPost(
+                title=title,
+                slug=slug,
+                content=content,
+                excerpt=excerpt,
+                image=image_filename,
+                meta_description=meta_description,
+                meta_keywords=meta_keywords,
+                published=published
+            )
+        
+        db.session.add(new_post)
+        db.session.commit()
+        flash(f"Artikel '{title}' berhasil ditambahkan!", "success")
+        return redirect(url_for('admin_page') + '#blog')
     except Exception as e:
         flash(f"Error: {str(e)}", "danger")
         return redirect(url_for('admin_page') + '#blog')
@@ -253,44 +253,44 @@ def edit_blog_post(id):
         post.meta_description = request.form.get('meta_description', '')
         post.meta_keywords = request.form.get('meta_keywords', '')
         post.published = request.form.get('published') == 'on'
-    
-    # Update slug jika diisi di form, jika tidak tetap/auto dari judul
-    form_slug = request.form.get('slug', '').strip()
-    if form_slug:
-        new_slug = re.sub(r'[^a-z0-9-]', '', form_slug.lower())
-        # Pastikan slug unik (kecuali milik post ini sendiri)
-        existing = BlogPost.query.filter(BlogPost.slug == new_slug, BlogPost.id != post.id).first()
-        if not existing:
-            post.slug = new_slug
-    else:
-        # Jika slug kosong, update slug dari judul jika berubah
-        new_slug = create_slug(post.title)
-        if new_slug != post.slug:
+        
+        # Update slug jika diisi di form, jika tidak tetap/auto dari judul
+        form_slug = request.form.get('slug', '').strip()
+        if form_slug:
+            new_slug = re.sub(r'[^a-z0-9-]', '', form_slug.lower())
+            # Pastikan slug unik (kecuali milik post ini sendiri)
             existing = BlogPost.query.filter(BlogPost.slug == new_slug, BlogPost.id != post.id).first()
             if not existing:
                 post.slug = new_slug
-    
-    # Handle new image upload
-    file_img = request.files.get('image')
-    if file_img and allowed_file(file_img.filename, ALLOWED_EXTENSIONS_IMG):
-        # Delete old image if exists
-        if post.image:
-            try:
-                os.remove(os.path.join(app.config['UPLOAD_FOLDER'], post.image))
-            except:
-                pass
+        else:
+            # Jika slug kosong, update slug dari judul jika berubah
+            new_slug = create_slug(post.title)
+            if new_slug != post.slug:
+                existing = BlogPost.query.filter(BlogPost.slug == new_slug, BlogPost.id != post.id).first()
+                if not existing:
+                    post.slug = new_slug
         
-        filename_img = secure_filename(file_img.filename)
-        filename_img = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{filename_img}"
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename_img)
+        # Handle new image upload
+        file_img = request.files.get('image')
+        if file_img and allowed_file(file_img.filename, ALLOWED_EXTENSIONS_IMG):
+            # Delete old image if exists
+            if post.image:
+                try:
+                    os.remove(os.path.join(app.config['UPLOAD_FOLDER'], post.image))
+                except:
+                    pass
+            
+            filename_img = secure_filename(file_img.filename)
+            filename_img = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{filename_img}"
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename_img)
+            
+            # Optimize image
+            img = Image.open(file_img)
+            if img.mode in ("RGBA", "P"): img = img.convert("RGB")
+            img.thumbnail((1200, 800), Image.Resampling.LANCZOS)
+            img.save(filepath, 'JPEG', quality=85, optimize=True)
+            post.image = filename_img
         
-        # Optimize image
-        img = Image.open(file_img)
-        if img.mode in ("RGBA", "P"): img = img.convert("RGB")
-        img.thumbnail((1200, 800), Image.Resampling.LANCZOS)
-        img.save(filepath, 'JPEG', quality=85, optimize=True)
-        post.image = filename_img
-    
         db.session.commit()
         flash(f"Artikel '{post.title}' berhasil diupdate!", "success")
         return redirect(url_for('admin_page') + '#blog')
