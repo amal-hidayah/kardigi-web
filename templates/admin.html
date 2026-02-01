@@ -1,5 +1,28 @@
 {% extends 'base.html' %}
 
+{% block head %}
+<!-- TinyMCE Editor -->
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<style>
+.tox-tinymce {
+    border-radius: 8px;
+}
+.wp-editor-container {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.wp-editor-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 10px;
+    display: block;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="container py-5">
     
@@ -44,10 +67,6 @@
                             <input type="text" name="title" class="form-control form-control-admin" placeholder="Cth: Website Toko Online Fashion" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label small fw-bold text-muted">Deskripsi (Optional)</label>
-                            <textarea name="description" class="form-control form-control-admin" rows="2" placeholder="Deskripsi singkat..."></textarea>
-                        </div>
-                        <div class="mb-3">
                             <label class="form-label small fw-bold text-muted">Screenshot Website</label>
                             <input type="file" name="image" class="form-control form-control-admin" accept="image/*" required>
                             <div class="form-text small">Format: JPG, PNG. Maks 2MB</div>
@@ -64,40 +83,8 @@
             </div>
         </div>
 
-        <!-- Upload Portfolio CV -->
-        <div class="col-lg-6">
-            <div class="admin-card h-100">
-                <div class="admin-card-header">
-                    <h5 class="admin-card-title">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="var(--accent-orange)" class="bi bi-file-person" viewBox="0 0 16 16"><path d="M12 1a1 1 0 0 1 1 1v10.755S12 11 8 11s-5 1.755-5 1.755V2a1 1 0 0 1 1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/><path d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/></svg>
-                        Upload Portfolio CV
-                    </h5>
-                </div>
-                <div class="p-4 pt-0">
-                    <form action="{{ url_for('upload_portfolio_cv') }}" method="POST" enctype="multipart/form-data">
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold text-muted">Nama/Judul CV</label>
-                            <input type="text" name="title" class="form-control form-control-admin" placeholder="Cth: CV Minimalist - John Doe" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold text-muted">Deskripsi (Optional)</label>
-                            <textarea name="description" class="form-control form-control-admin" rows="2" placeholder="Deskripsi singkat..."></textarea>
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label small fw-bold text-muted">Preview CV</label>
-                            <input type="file" name="image" class="form-control form-control-admin" accept="image/*" required>
-                            <div class="form-text small">Format: JPG, PNG. Maks 2MB</div>
-                        </div>
-                        <button type="submit" class="btn btn-orange w-100 py-2 shadow-sm">
-                            <i class="fas fa-upload me-2"></i> Upload CV
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
         <!-- Portfolio Website Table -->
-        <div class="col-lg-6">
+        <div class="col-12">
             <div class="admin-card h-100">
                 <div class="admin-card-header d-flex justify-content-between align-items-center">
                     <h5 class="admin-card-title">
@@ -126,9 +113,6 @@
                                     </td>
                                     <td>
                                         <div class="fw-bold small">{{ item.title }}</div>
-                                        {% if item.description %}
-                                        <div class="text-muted" style="font-size: 0.7rem;">{{ item.description[:40] }}...</div>
-                                        {% endif %}
                                     </td>
                                     <td class="text-end">
                                         <a href="{{ url_for('delete_portfolio_website', id=item.id) }}" 
@@ -152,72 +136,36 @@
             </div>
         </div>
 
-        <!-- Portfolio CV Table -->
-        <div class="col-lg-6">
+        <!-- Blog Articles Section -->
+        <div class="col-12" id="blog">
             <div class="admin-card h-100">
-                <div class="admin-card-header d-flex justify-content-between align-items-center">
+                <div class="admin-card-header">
                     <h5 class="admin-card-title">
-                        <i class="fas fa-file-alt me-2"></i> Portfolio CV
+                        <i class="fas fa-newspaper me-2"></i>
+                        Artikel Blog
                     </h5>
-                    <span class="badge bg-danger">{{ portfolio_cvs|length }}</span>
                 </div>
-                <div class="p-4 pt-0 table-responsive">
-                    <table class="table table-admin table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th class="small fw-bold">Thumbnail</th>
-                                <th class="small fw-bold">Judul</th>
-                                <th class="small fw-bold text-end">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% if portfolio_cvs %}
-                                {% for item in portfolio_cvs %}
-                                <tr>
-                                    <td>
-                                        <img src="{{ url_for('static', filename='uploads/' + item.image) }}" 
-                                             alt="{{ item.title }}" 
-                                             class="rounded" 
-                                             style="width: 45px; height: 60px; object-fit: cover;">
-                                    </td>
-                                    <td>
-                                        <div class="fw-bold small">{{ item.title }}</div>
-                                        {% if item.description %}
-                                        <div class="text-muted" style="font-size: 0.7rem;">{{ item.description[:40] }}...</div>
-                                        {% endif %}
-                                    </td>
-                                    <td class="text-end">
-                                        <a href="{{ url_for('delete_portfolio_cv', id=item.id) }}" 
-                                           class="btn btn-sm btn-outline-danger rounded-circle p-1" 
-                                           onclick="return confirm('Yakin ingin menghapus?');">
-                                            🗑️
-                                        </a>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            {% else %}
-                                <tr>
-                                    <td colspan="3" class="text-center py-4 text-muted small">
-                                        Belum ada portfolio CV
-                                    </td>
-                                </tr>
-                            {% endif %}
-                        </tbody>
-                    </table>
+                <div class="p-4 pt-0">
+                    <div class="text-center py-5">
+                        <i class="fas fa-pen-to-square" style="font-size: 64px; color: #667eea; opacity: 0.3;"></i>
+                        <h4 class="mt-4 mb-3">Kelola Artikel Blog</h4>
+                        <p class="text-muted mb-4">Buat artikel baru dengan SEO optimizer, Google Search preview, dan word counter</p>
+                        <a href="{{ url_for('new_blog_post') }}" class="btn btn-lg" 
+                           style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 40px; font-weight: 600; border-radius: 10px;">
+                            <i class="fas fa-plus-circle me-2"></i>Buat Artikel Baru
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Blog Management Section -->
-        <div class="col-12" id="blog">
+        <!-- Daftar Artikel Blog -->
+        <div class="col-12">
             <div class="admin-card">
-                <div class="admin-card-header d-flex justify-content-between align-items-center">
+                <div class="admin-card-header">
                     <h5 class="admin-card-title">
-                        <i class="fas fa-blog me-2"></i> Kelola Blog Posts
+                        <i class="fas fa-list me-2"></i> Daftar Artikel Blog
                     </h5>
-                    <button class="btn btn-sm btn-primary rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#addBlogModal">
-                        <i class="fas fa-plus me-1"></i> Tambah Artikel
-                    </button>
                 </div>
                 <div class="p-4 pt-0 table-responsive">
                     <table class="table table-admin table-hover mb-0">
@@ -270,12 +218,11 @@
                                            title="Lihat">
                                             👁️
                                         </a>
-                                        <button class="btn btn-sm btn-outline-warning rounded-circle p-1" 
-                                                data-bs-toggle="modal" 
-                                                data-bs-target="#editBlogModal{{ post.id }}"
-                                                title="Edit">
+                                        <a href="{{ url_for('edit_blog_post', id=post.id) }}" 
+                                           class="btn btn-sm btn-outline-warning rounded-circle p-1"
+                                           title="Edit">
                                             ✏️
-                                        </button>
+                                        </a>
                                         <a href="{{ url_for('delete_blog_post', id=post.id) }}" 
                                            class="btn btn-sm btn-outline-danger rounded-circle p-1" 
                                            onclick="return confirm('Yakin ingin menghapus artikel ini?');"
@@ -301,136 +248,14 @@
     </div>
 </div>
 
-<!-- Modal: Add Blog Post -->
-<div class="modal fade" id="addBlogModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-plus-circle me-2"></i>Tambah Artikel Blog</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <form action="{{ url_for('add_blog_post') }}" method="POST" enctype="multipart/form-data">
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Judul Artikel *</label>
-                        <input type="text" name="title" class="form-control" required>
-                        <small class="form-text text-muted">URL slug akan dibuat otomatis dari judul</small>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label fw-bold">Slug (opsional)</label>
-                                            <input type="text" name="slug" class="form-control" pattern="[a-z0-9-]+" maxlength="250" placeholder="contoh: judul-artikel-blog">
-                                            <small class="form-text text-muted">Slug untuk URL (huruf kecil, angka, tanda -). Jika dikosongkan, akan dibuat otomatis dari judul.</small>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Konten Artikel *</label>
-                        <textarea name="content" class="form-control" rows="8" required></textarea>
-                        <small class="form-text text-muted">Gunakan HTML untuk format (h2, p, ul, strong, em, dll)</small>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Excerpt / Ringkasan</label>
-                        <textarea name="excerpt" class="form-control" rows="2" maxlength="300"></textarea>
-                        <small class="form-text text-muted">Ringkasan singkat untuk preview (maks 300 karakter)</small>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Gambar Featured</label>
-                        <input type="file" name="image" class="form-control" accept="image/*">
-                        <small class="form-text text-muted">Ukuran rekomendasi: 1200x800px</small>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Meta Description (SEO)</label>
-                        <textarea name="meta_description" class="form-control" rows="2" maxlength="160"></textarea>
-                        <small class="form-text text-muted">Deskripsi untuk search engine (maks 160 karakter)</small>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Meta Keywords (SEO)</label>
-                        <input type="text" name="meta_keywords" class="form-control">
-                        <small class="form-text text-muted">Pisahkan dengan koma (cth: website, desain, SEO)</small>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="published" id="publishedAdd" checked>
-                        <label class="form-check-label" for="publishedAdd">
-                            Publish artikel (tampilkan di website)
-                        </label>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save me-2"></i>Simpan Artikel
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal: Edit Blog Posts -->
-{% for post in blog_posts %}
-<div class="modal fade" id="editBlogModal{{ post.id }}" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-edit me-2"></i>Edit Artikel Blog</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <form action="{{ url_for('edit_blog_post', id=post.id) }}" method="POST" enctype="multipart/form-data">
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Judul Artikel *</label>
-                        <input type="text" name="title" class="form-control" value="{{ post.title }}" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label fw-bold">Slug (opsional)</label>
-                                            <input type="text" name="slug" class="form-control" pattern="[a-z0-9-]+" maxlength="250" value="{{ post.slug }}" placeholder="contoh: judul-artikel-blog">
-                                            <small class="form-text text-muted">Slug untuk URL (huruf kecil, angka, tanda -). Jika dikosongkan, akan dibuat otomatis dari judul.</small>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Konten Artikel *</label>
-                        <textarea name="content" class="form-control" rows="8" required>{{ post.content }}</textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Excerpt / Ringkasan</label>
-                        <textarea name="excerpt" class="form-control" rows="2" maxlength="300">{{ post.excerpt or '' }}</textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Gambar Featured</label>
-                        {% if post.image %}
-                        <div class="mb-2">
-                            <img src="{{ url_for('static', filename='uploads/' + post.image) }}" 
-                                 alt="{{ post.title }}" 
-                                 class="img-thumbnail" 
-                                 style="max-height: 150px;">
-                            <div class="small text-muted mt-1">Gambar saat ini: {{ post.image }}</div>
-                        </div>
-                        {% endif %}
-                        <input type="file" name="image" class="form-control" accept="image/*">
-                        <small class="form-text text-muted">Kosongkan jika tidak ingin mengubah gambar</small>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Meta Description (SEO)</label>
-                        <textarea name="meta_description" class="form-control" rows="2" maxlength="160">{{ post.meta_description or '' }}</textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Meta Keywords (SEO)</label>
-                        <input type="text" name="meta_keywords" class="form-control" value="{{ post.meta_keywords or '' }}">
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="published" id="publishedEdit{{ post.id }}" {% if post.published %}checked{% endif %}>
-                        <label class="form-check-label" for="publishedEdit{{ post.id }}">
-                            Publish artikel (tampilkan di website)
-                        </label>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-warning">
-                        <i class="fas fa-save me-2"></i>Update Artikel
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-{% endfor %}
+<script>
+// Auto-save warning
+window.addEventListener('beforeunload', function (e) {
+    if (tinymce.activeEditor && tinymce.activeEditor.isDirty()) {
+        e.preventDefault();
+        e.returnValue = '';
+    }
+});
+</script>
 
 {% endblock %}

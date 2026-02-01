@@ -25,14 +25,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # --- 3. KONFIGURASI FOLDER ---
 UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static/uploads')
 DEMO_FOLDER = os.path.join(BASE_DIR, 'static/demos')
-CV_FOLDER = os.path.join(BASE_DIR, 'static/files_cv')
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['DEMO_FOLDER'] = DEMO_FOLDER
-app.config['CV_FOLDER'] = CV_FOLDER
 
 # Pastikan folder tersedia otomatis
-for folder in [UPLOAD_FOLDER, DEMO_FOLDER, CV_FOLDER]:
+for folder in [UPLOAD_FOLDER, DEMO_FOLDER]:
     if not os.path.exists(folder): os.makedirs(folder)
 
 # --- CONFIG ADMIN ---
@@ -61,13 +59,6 @@ class PortfolioWebsite(db.Model):
     demo_link = db.Column(db.String(500))
     created_at = db.Column(db.DateTime, default=db.func.now())
 
-class PortfolioCV(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.Text)
-    image = db.Column(db.String(200), nullable=False)
-    created_at = db.Column(db.DateTime, default=db.func.now())
-
 class BlogPost(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
@@ -75,8 +66,10 @@ class BlogPost(db.Model):
     content = db.Column(db.Text, nullable=False)
     excerpt = db.Column(db.String(300))
     image = db.Column(db.String(200))
+    meta_title = db.Column(db.String(60))
     meta_description = db.Column(db.String(160))
     meta_keywords = db.Column(db.String(255))
+    focus_keyword = db.Column(db.String(100))
     published = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=db.func.now())
     updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
@@ -122,15 +115,6 @@ def jasa_website():
     portfolio_website = PortfolioWebsite.query.order_by(PortfolioWebsite.id.desc()).all()
     return render_template('jasa_website.html', portfolio=portfolio_website)
 
-@app.route('/jasa-cv')
-def jasa_cv(): 
-    portfolio_cv = PortfolioCV.query.order_by(PortfolioCV.id.desc()).all()
-    return render_template('jasa_cv.html', portfolio=portfolio_cv)
-
-@app.route('/generator')
-def cv_generator():
-    return render_template('generator_cv.html')
-
 # --- BLOG ROUTES ---
 @app.route('/blog')
 def blog_list():
@@ -162,15 +146,20 @@ def create_slug(title):
         counter += 1
     return slug
 
-@app.route('/admin/blog/add', methods=['POST'])
+@app.route('/admin/blog/new', methods=['GET', 'POST'])
 @login_required
-def add_blog_post():
-    """Tambah artikel blog baru"""
+def new_blog_post():
+    """Halaman tambah artikel blog baru"""
+    if request.method == 'GET':
+        return render_template('admin_blog_form.html', mode='new')
+    
     title = request.form.get('title')
     content = request.form.get('content')
     excerpt = request.form.get('excerpt', '')
+    meta_title = request.form.get('meta_title', '')
     meta_description = request.form.get('meta_description', '')
     meta_keywords = request.form.get('meta_keywords', '')
+    focus_keyword = request.form.get('focus_keyword', '')
     published = request.form.get('published') == 'on'
     
     # Ambil slug dari form jika diisi, jika tidak generate dari judul
@@ -209,8 +198,10 @@ def add_blog_post():
         content=content,
         excerpt=excerpt,
         image=image_filename,
+        meta_title=meta_title,
         meta_description=meta_description,
         meta_keywords=meta_keywords,
+        focus_keyword=focus_keyword,
         published=published
     )
     db.session.add(new_post)
@@ -218,17 +209,22 @@ def add_blog_post():
     flash(f"Artikel '{title}' berhasil ditambahkan!", "success")
     return redirect(url_for('admin_page') + '#blog')
 
-@app.route('/admin/blog/edit/<int:id>', methods=['POST'])
+@app.route('/admin/blog/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit_blog_post(id):
-    """Edit artikel blog"""
+    """Halaman edit artikel blog"""
     post = BlogPost.query.get_or_404(id)
+    
+    if request.method == 'GET':
+        return render_template('admin_blog_form.html', mode='edit', post=post)
     
     post.title = request.form.get('title')
     post.content = request.form.get('content')
     post.excerpt = request.form.get('excerpt', '')
+    post.meta_title = request.form.get('meta_title', '')
     post.meta_description = request.form.get('meta_description', '')
     post.meta_keywords = request.form.get('meta_keywords', '')
+    post.focus_keyword = request.form.get('focus_keyword', '')
     post.published = request.form.get('published') == 'on'
     
     # Update slug jika diisi di form, jika tidak tetap/auto dari judul
@@ -297,9 +293,6 @@ def katalog_home(): return redirect(url_for('home'))
 @app.route('/katalog/website')
 def katalog_website(): return redirect(url_for('jasa_website'))
 
-@app.route('/katalog/cv')
-def katalog_cv_redirect(): return redirect(url_for('jasa_cv'))
-
 @app.route('/order')
 def order_redirect(): return redirect(url_for('jasa_website'))
 
@@ -312,12 +305,10 @@ def showcase_redirect(id_layanan): return redirect(url_for('jasa_website'))
 def admin_page():
     pesanan = Order.query.order_by(Order.id.desc()).all()
     portfolio_websites = PortfolioWebsite.query.order_by(PortfolioWebsite.id.desc()).all()
-    portfolio_cvs = PortfolioCV.query.order_by(PortfolioCV.id.desc()).all()
     blog_posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
     return render_template('admin.html', 
                          pesanan=pesanan, 
                          portfolio_websites=portfolio_websites,
-                         portfolio_cvs=portfolio_cvs,
                          blog_posts=blog_posts)
 
 @app.route('/hapus_order/<int:id>')
@@ -368,47 +359,6 @@ def delete_portfolio_website(id):
         flash("Portfolio Website dihapus.", "success")
     return redirect(url_for('admin_page'))
 
-# --- PORTFOLIO CV ROUTES ---
-@app.route('/admin/upload_portfolio_cv', methods=['POST'])
-@login_required
-def upload_portfolio_cv():
-    title = request.form.get('title')
-    description = request.form.get('description', '')
-    
-    file_img = request.files.get('image')
-    if file_img and allowed_file(file_img.filename, ALLOWED_EXTENSIONS_IMG):
-        filename_img = secure_filename(file_img.filename)
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename_img)
-        
-        # Optimize image
-        img = Image.open(file_img)
-        if img.mode in ("RGBA", "P"): img = img.convert("RGB")
-        img.thumbnail((1200, 1200), Image.Resampling.LANCZOS)
-        img.save(filepath, 'JPEG', quality=85, optimize=True)
-        
-        new_portfolio = PortfolioCV(title=title, description=description, image=filename_img)
-        db.session.add(new_portfolio)
-        db.session.commit()
-        flash("Portfolio CV berhasil ditambahkan!", "success")
-    else:
-        flash("Gagal upload gambar!", "danger")
-    
-    return redirect(url_for('admin_page'))
-
-@app.route('/admin/delete_portfolio_cv/<int:id>')
-@login_required
-def delete_portfolio_cv(id):
-    item = PortfolioCV.query.get(id)
-    if item:
-        try: 
-            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], item.image))
-        except: 
-            pass
-        db.session.delete(item)
-        db.session.commit()
-        flash("Portfolio CV dihapus.", "success")
-    return redirect(url_for('admin_page'))
-
 # --- ROUTE LIVE DEMO WEBSITE ---
 @app.route('/demo/<folder_name>/')
 @app.route('/demo/<folder_name>/<path:filename>')
@@ -434,8 +384,6 @@ def sitemap():
     pages = [
         {'loc': url_for('home', _external=True), 'changefreq': 'daily', 'priority': '1.0'},
         {'loc': url_for('jasa_website', _external=True), 'changefreq': 'weekly', 'priority': '0.9'},
-        {'loc': url_for('jasa_cv', _external=True), 'changefreq': 'weekly', 'priority': '0.9'},
-        {'loc': url_for('cv_generator', _external=True), 'changefreq': 'monthly', 'priority': '0.7'},
         {'loc': url_for('blog_list', _external=True), 'changefreq': 'daily', 'priority': '0.9'},
     ]
     

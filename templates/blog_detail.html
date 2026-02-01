@@ -1,26 +1,32 @@
 {% extends "base.html" %}
 
-{% block title %}{{ post.title }} - KARDIGI{% endblock %}
+{% block title %}{{ post.title }} | Blog KARDIGI{% endblock %}
+
+{% block description %}{{ post.meta_description or post.excerpt or (post.content[:155] + '...') }}{% endblock %}
 
 {% block meta %}
-<meta name="description" content="{{ post.meta_description or post.excerpt }}">
-<meta name="keywords" content="{{ post.meta_keywords }}">
+<meta name="keywords" content="{{ post.meta_keywords or 'jasa website, pembuatan website, tips website, blog kardigi' }}">
 
-<!-- Open Graph -->
+<!-- Open Graph for Share Preview -->
 <meta property="og:title" content="{{ post.title }}">
-<meta property="og:description" content="{{ post.meta_description or post.excerpt }}">
+<meta property="og:description" content="{{ post.meta_description or post.excerpt or (post.content[:155] + '...') }}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="{{ request.url }}">
-{% if post.image_url %}
-<meta property="og:image" content="{{ request.url_root.rstrip('/') }}{{ post.image_url }}">
+{% if post.image %}
+<meta property="og:image" content="{{ request.url_root.rstrip('/') }}{{ url_for('static', filename='uploads/' + post.image) }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{ post.title }}">
 {% endif %}
+<meta property="og:site_name" content="KARDIGI - Jasa Pembuatan Website">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ post.title }}">
-<meta name="twitter:description" content="{{ post.meta_description or post.excerpt }}">
-{% if post.image_url %}
-<meta name="twitter:image" content="{{ request.url_root.rstrip('/') }}{{ post.image_url }}">
+<meta name="twitter:description" content="{{ post.meta_description or post.excerpt or (post.content[:155] + '...') }}">
+{% if post.image %}
+<meta name="twitter:image" content="{{ request.url_root.rstrip('/') }}{{ url_for('static', filename='uploads/' + post.image) }}">
+<meta name="twitter:image:alt" content="{{ post.title }}">
 {% endif %}
 
 <!-- Article metadata -->
@@ -34,7 +40,9 @@
   "@type": "BlogPosting",
   "headline": "{{ post.title }}",
   "description": "{{ post.meta_description or post.excerpt }}",
-  "image": "{{ request.url_root.rstrip('/') }}{{ post.image_url or '' }}",
+  {% if post.image %}
+  "image": "{{ request.url_root.rstrip('/') }}{{ url_for('static', filename='uploads/' + post.image) }}",
+  {% endif %}
   "datePublished": "{{ post.created_at.isoformat() }}",
   "dateModified": "{{ post.updated_at.isoformat() }}",
   "author": {

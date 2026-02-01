@@ -1,23 +1,24 @@
 {% extends "base.html" %}
 
-{% block title %}Blog - Tips & Tutorial Website & CV | Amal Jaya Digital{% endblock %}
+{% block title %}Blog KARDIGI - Tips & Tutorial Website | Jasa Pembuatan Website Sukabumi{% endblock %}
+
+{% block description %}Artikel, tips dan tutorial seputar pembuatan website, desain web, SEO dan digital marketing. Update terbaru dari KARDIGI - Jasa Website Profesional Sukabumi.{% endblock %}
 
 {% block meta %}
-<meta name="description" content="Artikel dan tips seputar pembuatan website, desain CV, dan digital marketing untuk mengembangkan bisnis Anda.">
-<meta name="keywords" content="blog website, tips cv, tutorial website, digital marketing, jasa website">
+<meta name="keywords" content="blog website, tips website, tutorial website, digital marketing, jasa website sukabumi, kardigi blog, tips seo">
 <link rel="canonical" href="{{ url_for('blog_list', _external=True) }}">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="{{ url_for('blog_list', _external=True) }}">
-<meta property="og:title" content="Blog - Tips & Tutorial Website & CV | Amal Jaya Digital">
-<meta property="og:description" content="Artikel dan tips seputar pembuatan website, desain CV, dan digital marketing untuk mengembangkan bisnis Anda.">
+<meta property="og:title" content="Blog KARDIGI - Tips & Tutorial Website">
+<meta property="og:description" content="Artikel, tips dan tutorial seputar pembuatan website, desain web, SEO dan digital marketing dari KARDIGI Sukabumi.">
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="{{ url_for('blog_list', _external=True) }}">
-<meta property="twitter:title" content="Blog - Tips & Tutorial Website & CV | Amal Jaya Digital">
-<meta property="twitter:description" content="Artikel dan tips seputar pembuatan website, desain CV, dan digital marketing untuk mengembangkan bisnis Anda.">
+<meta property="twitter:title" content="Blog KARDIGI - Tips & Tutorial Website">
+<meta property="twitter:description" content="Artikel, tips dan tutorial seputar pembuatan website, desain web, SEO dan digital marketing dari KARDIGI Sukabumi.">>
 {% endblock %}
 
 {% block content %}
@@ -221,11 +222,11 @@
                     <div class="d-flex flex-column gap-3">
                         <a href="{{ url_for('jasa_website') }}" class="btn-cta-primary">
                             <i class="bi bi-globe2"></i>
-                            Jasa Website
+                            Jasa Website Profesional
                         </a>
-                        <a href="{{ url_for('jasa_cv') }}" class="btn-cta-secondary">
-                            <i class="bi bi-file-person"></i>
-                            Jasa CV
+                        <a href="https://wa.me/6289509951772?text=Halo%20KARDIGI" target="_blank" class="btn-cta-secondary">
+                            <i class="bi bi-whatsapp"></i>
+                            Konsultasi Gratis
                         </a>
                     </div>
                 </div>

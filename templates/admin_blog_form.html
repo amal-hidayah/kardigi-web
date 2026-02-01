@@ -1,0 +1,661 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if mode == 'new' %}Tambah Artikel Baru{% else %}Edit Artikel{% endif %} - Admin KARDIGI{% endblock %}
+
+{% block head %}
+<!-- TinyMCE Editor -->
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<style>
+.blog-editor-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 15px;
+}
+
+.editor-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 15px 15px 0 0;
+    margin-bottom: 0;
+}
+
+.editor-body {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-top: none;
+    border-radius: 0 0 15px 15px;
+    padding: 30px;
+}
+
+.form-section {
+    margin-bottom: 30px;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.form-control, .form-select {
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.tox-tinymce {
+    border-radius: 8px;
+    border: 2px solid #e5e7eb !important;
+}
+
+/* SEO Panel */
+.seo-panel {
+    background: #f8fafc;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 25px;
+    margin-top: 30px;
+}
+
+.seo-panel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.seo-panel-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+/* Google Search Preview */
+.google-preview {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.google-preview-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 15px;
+}
+
+.preview-url {
+    font-size: 14px;
+    color: #1f2937;
+    margin-bottom: 5px;
+}
+
+.preview-title {
+    font-size: 20px;
+    color: #1a0dab;
+    font-weight: 400;
+    margin-bottom: 5px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.preview-title:hover {
+    text-decoration: underline;
+}
+
+.preview-description {
+    font-size: 14px;
+    color: #545454;
+    line-height: 1.58;
+}
+
+.char-counter {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 5px;
+}
+
+.char-counter.warning {
+    color: #f59e0b;
+    font-weight: 600;
+}
+
+.char-counter.danger {
+    color: #ef4444;
+    font-weight: 600;
+}
+
+.char-counter.success {
+    color: #10b981;
+    font-weight: 600;
+}
+
+/* Word Counter */
+.word-count-box {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+}
+
+.word-count-label {
+    font-size: 12px;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+}
+
+.word-count-number {
+    font-size: 32px;
+    font-weight: 700;
+    color: #667eea;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 2px solid #e5e7eb;
+}
+
+.btn-publish {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    padding: 12px 30px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.btn-draft {
+    background: #6b7280;
+    border: none;
+    padding: 12px 30px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.btn-cancel {
+    background: white;
+    border: 2px solid #e5e7eb;
+    color: #1e293b;
+    padding: 12px 30px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.btn-cancel:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+/* Sidebar */
+.editor-sidebar {
+    position: sticky;
+    top: 20px;
+}
+
+@media (max-width: 991px) {
+    .editor-sidebar {
+        position: static;
+        margin-top: 30px;
+    }
+}
+
+.focus-keyword-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.focus-keyword-indicator.good {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.focus-keyword-indicator.poor {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.focus-keyword-indicator.none {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="blog-editor-container">
+    <form method="POST" enctype="multipart/form-data" id="blogForm">
+        
+        <!-- Header -->
+        <div class="editor-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="h3 mb-2">
+                        <i class="fas fa-pen-to-square me-2"></i>
+                        {% if mode == 'new' %}Tambah Artikel Baru{% else %}Edit Artikel{% endif %}
+                    </h1>
+                    <p class="mb-0 opacity-75">
+                        {% if mode == 'new' %}Buat artikel blog baru dengan SEO optimizer{% else %}Update artikel dan optimasi SEO{% endif %}
+                    </p>
+                </div>
+                <a href="{{ url_for('admin_page') }}#blog" class="btn btn-light">
+                    <i class="fas fa-arrow-left me-2"></i>Kembali
+                </a>
+            </div>
+        </div>
+
+        <div class="editor-body">
+            <div class="row">
+                <!-- Main Content -->
+                <div class="col-lg-8">
+                    
+                    <!-- Title -->
+                    <div class="form-section">
+                        <label class="form-label">Judul Artikel *</label>
+                        <input type="text" name="title" class="form-control form-control-lg" 
+                               placeholder="Masukkan judul artikel yang menarik..." 
+                               value="{% if mode == 'edit' %}{{ post.title }}{% endif %}"
+                               id="articleTitle" required>
+                    </div>
+
+                    <!-- Slug -->
+                    <div class="form-section">
+                        <label class="form-label">Slug URL</label>
+                        <input type="text" name="slug" class="form-control" 
+                               placeholder="otomatis-dari-judul" 
+                               value="{% if mode == 'edit' %}{{ post.slug }}{% endif %}"
+                               id="articleSlug">
+                        <small class="text-muted">Kosongkan untuk generate otomatis dari judul</small>
+                    </div>
+
+                    <!-- Content Editor -->
+                    <div class="form-section">
+                        <label class="form-label">Konten Artikel *</label>
+                        <textarea name="content" id="content" class="form-control">{% if mode == 'edit' %}{{ post.content }}{% endif %}</textarea>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <small class="text-muted">Gunakan editor untuk format teks</small>
+                            <div class="word-count-box" style="display: inline-block; padding: 5px 15px;">
+                                <span class="word-count-label" style="font-size: 11px;">Jumlah Kata</span>
+                                <span class="word-count-number" style="font-size: 20px;" id="wordCount">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Excerpt -->
+                    <div class="form-section">
+                        <label class="form-label">Ringkasan / Excerpt</label>
+                        <textarea name="excerpt" class="form-control" rows="3" 
+                                  placeholder="Ringkasan singkat artikel (opsional, max 300 karakter)"
+                                  id="articleExcerpt">{% if mode == 'edit' %}{{ post.excerpt }}{% endif %}</textarea>
+                        <div class="char-counter" id="excerptCounter">0 / 300 karakter</div>
+                    </div>
+
+                    <!-- SEO Panel -->
+                    <div class="seo-panel">
+                        <div class="seo-panel-header">
+                            <i class="fas fa-chart-line text-primary" style="font-size: 24px;"></i>
+                            <h3 class="seo-panel-title">SEO Optimizer</h3>
+                        </div>
+
+                        <!-- Google Search Preview -->
+                        <div class="google-preview">
+                            <div class="google-preview-label">
+                                <i class="fab fa-google me-1"></i> Preview Google Search
+                            </div>
+                            <div class="preview-url" id="previewUrl">kardigi.com › blog › artikel-anda</div>
+                            <div class="preview-title" id="previewTitle">Judul Artikel Anda Muncul Di Sini</div>
+                            <div class="preview-description" id="previewDescription">
+                                Deskripsi meta artikel akan muncul di sini. Pastikan deskripsi menarik dan mengandung kata kunci utama untuk meningkatkan CTR.
+                            </div>
+                        </div>
+
+                        <!-- Focus Keyword -->
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="fas fa-bullseye me-2"></i>Frasa Kunci Utama (Focus Keyword)
+                            </label>
+                            <input type="text" name="focus_keyword" class="form-control" 
+                                   placeholder="Contoh: jasa pembuatan website"
+                                   value="{% if mode == 'edit' %}{{ post.focus_keyword }}{% endif %}"
+                                   id="focusKeyword">
+                            <small class="text-muted">Kata kunci yang ingin Anda targetkan untuk artikel ini</small>
+                            <div id="keywordIndicator" class="focus-keyword-indicator none">
+                                <i class="fas fa-circle-info"></i>
+                                Belum ada focus keyword
+                            </div>
+                        </div>
+
+                        <!-- Meta Title -->
+                        <div class="mb-3">
+                            <label class="form-label">Meta Title (SEO Title)</label>
+                            <input type="text" name="meta_title" class="form-control" 
+                                   placeholder="Kosongkan untuk gunakan judul artikel"
+                                   value="{% if mode == 'edit' %}{{ post.meta_title }}{% endif %}"
+                                   id="metaTitle" maxlength="60">
+                            <div class="char-counter" id="titleCounter">0 / 60 karakter (Optimal: 50-60)</div>
+                        </div>
+
+                        <!-- Meta Description -->
+                        <div class="mb-3">
+                            <label class="form-label">Meta Description</label>
+                            <textarea name="meta_description" class="form-control" rows="3" 
+                                      placeholder="Deskripsi singkat untuk search engine (150-160 karakter)"
+                                      id="metaDescription" maxlength="160">{% if mode == 'edit' %}{{ post.meta_description }}{% endif %}</textarea>
+                            <div class="char-counter" id="descCounter">0 / 160 karakter (Optimal: 150-160)</div>
+                        </div>
+
+                        <!-- Meta Keywords -->
+                        <div class="mb-0">
+                            <label class="form-label">Meta Keywords</label>
+                            <input type="text" name="meta_keywords" class="form-control" 
+                                   placeholder="kata1, kata2, kata3"
+                                   value="{% if mode == 'edit' %}{{ post.meta_keywords }}{% endif %}">
+                            <small class="text-muted">Pisahkan dengan koma</small>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <div class="editor-sidebar">
+                        
+                        <!-- Featured Image -->
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h6 class="card-title mb-3">
+                                    <i class="fas fa-image me-2"></i>Gambar Unggulan
+                                </h6>
+                                {% if mode == 'edit' and post.image %}
+                                <div class="mb-3">
+                                    <img src="{{ url_for('static', filename='uploads/' + post.image) }}" 
+                                         class="img-fluid rounded" alt="Current image" id="currentImage">
+                                </div>
+                                {% endif %}
+                                <input type="file" name="image" class="form-control" accept="image/*" id="imageInput">
+                                <small class="text-muted d-block mt-2">Format: JPG, PNG, GIF (Max 1200x800px)</small>
+                                <div id="imagePreview" class="mt-3" style="display: none;">
+                                    <img src="" class="img-fluid rounded" alt="Preview">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Publish Settings -->
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h6 class="card-title mb-3">
+                                    <i class="fas fa-cog me-2"></i>Pengaturan Publikasi
+                                </h6>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="published" id="publishCheck" 
+                                           {% if mode == 'new' or (mode == 'edit' and post.published) %}checked{% endif %}>
+                                    <label class="form-check-label" for="publishCheck">
+                                        Publikasikan artikel
+                                    </label>
+                                </div>
+                                <small class="text-muted d-block mt-2">
+                                    Nonaktifkan untuk simpan sebagai draft
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- Stats (Edit mode only) -->
+                        {% if mode == 'edit' %}
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title mb-3">
+                                    <i class="fas fa-chart-bar me-2"></i>Informasi
+                                </h6>
+                                <div class="small">
+                                    <div class="mb-2">
+                                        <strong>Dibuat:</strong><br>
+                                        {{ post.created_at.strftime('%d %B %Y, %H:%M') }}
+                                    </div>
+                                    <div>
+                                        <strong>Update Terakhir:</strong><br>
+                                        {{ post.updated_at.strftime('%d %B %Y, %H:%M') }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button type="submit" class="btn btn-publish text-white" onclick="document.getElementById('publishCheck').checked = true;">
+                    <i class="fas fa-paper-plane me-2"></i>
+                    {% if mode == 'new' %}Publikasikan{% else %}Update & Publikasikan{% endif %}
+                </button>
+                <button type="submit" class="btn btn-draft text-white" onclick="document.getElementById('publishCheck').checked = false;">
+                    <i class="fas fa-save me-2"></i>
+                    Simpan sebagai Draft
+                </button>
+                <a href="{{ url_for('admin_page') }}#blog" class="btn btn-cancel">
+                    <i class="fas fa-times me-2"></i>Batal
+                </a>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<script>
+// Initialize TinyMCE
+tinymce.init({
+    selector: '#content',
+    height: 500,
+    menubar: true,
+    plugins: [
+        'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+        'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+        'insertdatetime', 'media', 'table', 'help', 'wordcount'
+    ],
+    toolbar: 'undo redo | blocks | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | removeformat | code fullscreen',
+    content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; font-size: 16px; line-height: 1.6; }',
+    setup: function(editor) {
+        editor.on('keyup change', function() {
+            updateWordCount();
+            updatePreview();
+        });
+    }
+});
+
+// Auto-generate slug from title
+document.getElementById('articleTitle').addEventListener('input', function() {
+    const slugField = document.getElementById('articleSlug');
+    if (!slugField.value || slugField.dataset.autoGenerated !== 'false') {
+        let slug = this.value
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+        slugField.value = slug;
+        slugField.dataset.autoGenerated = 'true';
+    }
+    updatePreview();
+});
+
+document.getElementById('articleSlug').addEventListener('input', function() {
+    this.dataset.autoGenerated = 'false';
+    updatePreview();
+});
+
+// Image preview
+document.getElementById('imageInput').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById('imagePreview');
+            preview.querySelector('img').src = e.target.result;
+            preview.style.display = 'block';
+            // Hide current image if in edit mode
+            const current = document.getElementById('currentImage');
+            if (current) current.style.display = 'none';
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+// Excerpt character counter
+document.getElementById('articleExcerpt').addEventListener('input', function() {
+    const length = this.value.length;
+    const counter = document.getElementById('excerptCounter');
+    counter.textContent = `${length} / 300 karakter`;
+    
+    if (length > 300) {
+        counter.classList.add('danger');
+        counter.classList.remove('warning', 'success');
+    } else if (length > 250) {
+        counter.classList.add('warning');
+        counter.classList.remove('danger', 'success');
+    } else if (length > 0) {
+        counter.classList.add('success');
+        counter.classList.remove('danger', 'warning');
+    } else {
+        counter.classList.remove('danger', 'warning', 'success');
+    }
+    
+    updatePreview();
+});
+
+// Meta title character counter
+document.getElementById('metaTitle').addEventListener('input', function() {
+    const length = this.value.length;
+    const counter = document.getElementById('titleCounter');
+    counter.textContent = `${length} / 60 karakter (Optimal: 50-60)`;
+    
+    if (length > 60) {
+        counter.classList.add('danger');
+        counter.classList.remove('warning', 'success');
+    } else if (length >= 50) {
+        counter.classList.add('success');
+        counter.classList.remove('danger', 'warning');
+    } else if (length > 0) {
+        counter.classList.add('warning');
+        counter.classList.remove('danger', 'success');
+    } else {
+        counter.classList.remove('danger', 'warning', 'success');
+    }
+    
+    updatePreview();
+});
+
+// Meta description character counter
+document.getElementById('metaDescription').addEventListener('input', function() {
+    const length = this.value.length;
+    const counter = document.getElementById('descCounter');
+    counter.textContent = `${length} / 160 karakter (Optimal: 150-160)`;
+    
+    if (length > 160) {
+        counter.classList.add('danger');
+        counter.classList.remove('warning', 'success');
+    } else if (length >= 150) {
+        counter.classList.add('success');
+        counter.classList.remove('danger', 'warning');
+    } else if (length > 0) {
+        counter.classList.add('warning');
+        counter.classList.remove('danger', 'success');
+    } else {
+        counter.classList.remove('danger', 'warning', 'success');
+    }
+    
+    updatePreview();
+});
+
+// Focus keyword checker
+document.getElementById('focusKeyword').addEventListener('input', function() {
+    const keyword = this.value.toLowerCase().trim();
+    const indicator = document.getElementById('keywordIndicator');
+    
+    if (!keyword) {
+        indicator.className = 'focus-keyword-indicator none';
+        indicator.innerHTML = '<i class="fas fa-circle-info"></i> Belum ada focus keyword';
+        return;
+    }
+    
+    // Check keyword in title, meta description, and content
+    const title = document.getElementById('articleTitle').value.toLowerCase();
+    const metaDesc = document.getElementById('metaDescription').value.toLowerCase();
+    const content = tinymce.get('content').getContent({format: 'text'}).toLowerCase();
+    
+    let score = 0;
+    if (title.includes(keyword)) score++;
+    if (metaDesc.includes(keyword)) score++;
+    if (content.includes(keyword)) score++;
+    
+    if (score >= 2) {
+        indicator.className = 'focus-keyword-indicator good';
+        indicator.innerHTML = '<i class="fas fa-check-circle"></i> Focus keyword terdeteksi dengan baik';
+    } else if (score === 1) {
+        indicator.className = 'focus-keyword-indicator poor';
+        indicator.innerHTML = '<i class="fas fa-exclamation-circle"></i> Focus keyword hanya di ' + score + ' tempat';
+    } else {
+        indicator.className = 'focus-keyword-indicator poor';
+        indicator.innerHTML = '<i class="fas fa-times-circle"></i> Focus keyword tidak ditemukan di konten';
+    }
+});
+
+// Word counter
+function updateWordCount() {
+    const content = tinymce.get('content').getContent({format: 'text'});
+    const words = content.trim().split(/\s+/).filter(word => word.length > 0).length;
+    document.getElementById('wordCount').textContent = words;
+}
+
+// Google Search Preview
+function updatePreview() {
+    const title = document.getElementById('metaTitle').value || document.getElementById('articleTitle').value;
+    const description = document.getElementById('metaDescription').value || 
+                       document.getElementById('articleExcerpt').value ||
+                       tinymce.get('content').getContent({format: 'text'}).substring(0, 155);
+    const slug = document.getElementById('articleSlug').value || 'artikel-anda';
+    
+    document.getElementById('previewTitle').textContent = title + ' | Blog KARDIGI' || 'Judul Artikel | Blog KARDIGI';
+    document.getElementById('previewDescription').textContent = description || 'Deskripsi artikel akan muncul di sini...';
+    document.getElementById('previewUrl').textContent = `kardigi.com › blog › ${slug}`;
+}
+
+// Initial update
+setTimeout(() => {
+    updateWordCount();
+    updatePreview();
+    
+    // Trigger counters
+    document.getElementById('articleExcerpt').dispatchEvent(new Event('input'));
+    document.getElementById('metaTitle').dispatchEvent(new Event('input'));
+    document.getElementById('metaDescription').dispatchEvent(new Event('input'));
+    document.getElementById('focusKeyword').dispatchEvent(new Event('input'));
+}, 1000);
+</script>
+{% endblock %}

@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
-    <title>KARDIGI - Jasa Pembuatan Website & CV Profesional Sukabumi | Murah & Cepat</title>
-    <meta name="description" content="Wujudkan website impian Anda bersama KARDIGI. Jasa pembuatan website profesional, CV ATS, desain web Sukabumi. Harga mulai Rp20.000. Konsultasi gratis!">
-    <meta name="keywords" content="jasa website sukabumi, buat website murah sukabumi, jasa pembuatan website sukabumi, web design sukabumi, bikin website sukabumi, jasa cv ats sukabumi, cv profesional sukabumi, website company profile sukabumi, website toko online sukabumi, jasa website murah, kardigi sukabumi, web developer sukabumi">
+    <title>{% block title %}KARDIGI - Jasa Pembuatan Website Profesional Sukabumi | Mulai Rp500rb{% endblock %}</title>
+    <meta name="description" content="{% block description %}Jasa pembuatan website profesional Sukabumi. Company Profile, Toko Online, Landing Page dengan desain modern dan SEO friendly. Garansi revisi, harga mulai Rp500rb. Konsultasi gratis sekarang!{% endblock %}"> 
+    <meta name="keywords" content="jasa website sukabumi, buat website murah sukabumi, jasa pembuatan website sukabumi, web design sukabumi, bikin website sukabumi, website company profile sukabumi, website toko online sukabumi, jasa website murah, kardigi sukabumi, web developer sukabumi, website sekolah sukabumi, landing page sukabumi, website responsive">
     <meta name="author" content="KARDIGI">
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
@@ -16,18 +16,22 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://kardigi.tech{{ request.path }}">
-    <meta property="og:title" content="KARDIGI - Jasa Website & CV Profesional Sukabumi">
-    <meta property="og:description" content="Wujudkan website impian Anda bersama KARDIGI. Solusi pembuatan website profesional & produk digital inovatif. Harga mulai Rp20.000!">
+    <meta property="og:title" content="{% block og_title %}KARDIGI - Jasa Website Profesional Sukabumi | Mulai Rp500rb{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Jasa pembuatan website profesional untuk bisnis Anda. Company profile, toko online, landing page dengan desain modern, responsive dan SEO friendly. Pengerjaan cepat 3-7 hari, harga terjangkau mulai Rp500rb.{% endblock %}">
     <meta property="og:image" content="https://kardigi.tech{{ url_for('static', filename='img/logo.png') }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="KARDIGI - Jasa Website Profesional Sukabumi">
     <meta property="og:locale" content="id_ID">
     <meta property="og:site_name" content="KARDIGI">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://kardigi.tech{{ request.path }}">
-    <meta name="twitter:title" content="KARDIGI - Jasa Website & CV Profesional Sukabumi">
-    <meta name="twitter:description" content="Wujudkan website impian Anda bersama KARDIGI. Solusi pembuatan website profesional & produk digital inovatif. Harga mulai Rp20.000!">
+    <meta name="twitter:title" content="{% block twitter_title %}KARDIGI - Jasa Website Profesional Sukabumi{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Jasa pembuatan website profesional. Company profile, toko online, landing page responsive dan SEO friendly. Harga mulai Rp500rb. Konsultasi gratis!{% endblock %}">
     <meta name="twitter:image" content="https://kardigi.tech{{ url_for('static', filename='img/logo.png') }}">
+    <meta name="twitter:image:alt" content="KARDIGI Logo">
     
     <!-- Geo Tags -->
     <meta name="geo.region" content="ID-JB">
@@ -47,7 +51,14 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}">
+    <!-- Favicon - Multi-size Support -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/favicon.png') }}">
+    <link rel="mask-icon" href="{{ url_for('static', filename='img/favicon.png') }}" color="#667eea">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <meta name="theme-color" content="#ffffff">
     
     <!-- JSON-LD Schema Markup untuk Local Business -->
     <script type="application/ld+json">
@@ -60,7 +71,7 @@
       "url": "https://kardigi.tech",
       "telephone": "+6289509951772",
       "email": "kardigi.id@gmail.com",
-      "priceRange": "Rp20.000 - Rp5.000.000",
+      "priceRange": "Rp500.000 - Rp5.000.000",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Cibolang Kaler, Kecamatan Cisaat",
@@ -98,22 +109,30 @@
       },
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
-        "name": "Layanan Digital",
+        "name": "Layanan Pembuatan Website",
         "itemListElement": [
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
               "name": "Jasa Pembuatan Website Profesional",
-              "description": "Website Company Profile, Toko Online, Website Sekolah dengan desain modern dan responsif"
+              "description": "Website Company Profile, Toko Online, Website Sekolah, Landing Page dengan desain modern, responsive dan SEO friendly"
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Desain CV ATS Friendly & Kreatif",
-              "description": "CV profesional yang lolos sistem ATS HRD dengan desain menarik"
+              "name": "Optimasi SEO Website",
+              "description": "Optimasi website agar mudah ditemukan di Google dan meningkatkan traffic organik"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Maintenance & Support Website",
+              "description": "Layanan pemeliharaan dan dukungan teknis website untuk performa optimal"
             }
           }
         ]
@@ -128,10 +147,10 @@
         <div class="promo-marquee-wrapper">
             <div class="promo-marquee-content">
                 Muchamad Afrizal baru saja memesan <strong>Website Toko Online</strong> &nbsp; • &nbsp;
-                Rosdian sedang konsultasi <strong>Desain CV ATS</strong> &nbsp; • &nbsp;
                 CV. Batu Jaya Semesta memesan <strong>Company Profile</strong> &nbsp; • &nbsp;
-                Diskon 50% Pemesanan Website Minggu Ini! &nbsp; • &nbsp;
-                <strong>Gratis Buat CV Sederhana di Fitur Generator Kami!</strong>
+                SD Negeri 1 Cisarua order <strong>Website Sekolah</strong> &nbsp; • &nbsp;
+                Diskon 25% Pemesanan Website Minggu Ini! &nbsp; • &nbsp;
+                <strong>Gratis Konsultasi & Revisi Tanpa Batas!</strong>
             </div>
         </div>
     </div>
@@ -155,81 +174,12 @@
                         </a>
                     </li>
                     
-                    <!-- Dropdown Jasa (Desktop only) -->
-                    <li class="nav-item dropdown d-none d-lg-block">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownJasa" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-briefcase me-1"></i> Jasa Kami
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg" aria-labelledby="navbarDropdownJasa" 
-                            style="border-radius: 16px; 
-                                   min-width: 240px; 
-                                   padding: 0.75rem 0.5rem;
-                                   background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-                                   margin-top: 0.75rem;
-                                   animation: dropdownSlide 0.3s ease;
-                                   z-index: 1070;">
-                            <li>
-                                <a class="dropdown-item rounded-3 py-3 px-3 mb-1" 
-                                   href="{{ url_for('jasa_website') }}"
-                                   style="transition: all 0.2s ease; border-left: 3px solid transparent;"
-                                   onmouseover="this.style.background='linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)'; this.style.color='white'; this.style.borderLeftColor='#f59e0b'; this.style.transform='translateX(5px)'"
-                                   onmouseout="this.style.background='transparent'; this.style.color='#1e293b'; this.style.borderLeftColor='transparent'; this.style.transform='translateX(0)'">
-                                    <div class="d-flex align-items-center gap-3">
-                                        <div class="flex-shrink-0">
-                                            <div class="rounded-circle d-flex align-items-center justify-content-center" 
-                                                 style="width: 40px; height: 40px; background: linear-gradient(135deg, #3b82f6, #2563eb);">
-                                                <i class="fas fa-globe text-white" style="font-size: 1rem;"></i>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="fw-bold" style="font-size: 0.95rem;">Jasa Website</div>
-                                            <small class="text-muted" style="font-size: 0.75rem;">Company profile, toko online</small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li><hr class="dropdown-divider my-2" style="opacity: 0.1;"></li>
-                            <li>
-                                <a class="dropdown-item rounded-3 py-3 px-3" 
-                                   href="{{ url_for('jasa_cv') }}"
-                                   style="transition: all 0.2s ease; border-left: 3px solid transparent;"
-                                   onmouseover="this.style.background='linear-gradient(135deg, #ef4444 0%, #dc2626 100%)'; this.style.color='white'; this.style.borderLeftColor='#f59e0b'; this.style.transform='translateX(5px)'"
-                                   onmouseout="this.style.background='transparent'; this.style.color='#1e293b'; this.style.borderLeftColor='transparent'; this.style.transform='translateX(0)'">
-                                    <div class="d-flex align-items-center gap-3">
-                                        <div class="flex-shrink-0">
-                                            <div class="rounded-circle d-flex align-items-center justify-content-center" 
-                                                 style="width: 40px; height: 40px; background: linear-gradient(135deg, #ef4444, #dc2626);">
-                                                <i class="fas fa-file-alt text-white" style="font-size: 1rem;"></i>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="fw-bold" style="font-size: 0.95rem;">Jasa CV & Surat</div>
-                                            <small class="text-muted" style="font-size: 0.75rem;">CV ATS, surat lamaran</small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <!-- Menu Jasa Mobile (Non-dropdown) -->
-                    <li class="nav-item d-lg-none">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('jasa_website') }}">
                             <i class="fas fa-globe me-1"></i> Jasa Website
                         </a>
                     </li>
-                    <li class="nav-item d-lg-none">
-                        <a class="nav-link" href="{{ url_for('jasa_cv') }}">
-                            <i class="fas fa-file-alt me-1"></i> Jasa CV
-                        </a>
-                    </li>
                     
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('cv_generator') }}">
-                            <i class="fas fa-wand-magic-sparkles me-1"></i> CV Generator
-                        </a>
-                    </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('blog_list') }}">
                             <i class="fas fa-blog me-1"></i> Blog
