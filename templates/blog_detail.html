@@ -6,28 +6,34 @@
 
 {% block meta %}
 <meta name="keywords" content="{{ post.meta_keywords or 'jasa website, pembuatan website, tips website, blog kardigi' }}">
+<link rel="canonical" href="https://kardigi.tech{{ url_for('blog_detail', slug=post.slug) }}">
 
 <!-- Open Graph for Share Preview -->
-<meta property="og:title" content="{{ post.title }}">
-<meta property="og:description" content="{{ post.meta_description or post.excerpt or (post.content[:155] + '...') }}">
+<meta property="og:title" content="{{ post.title }} | Blog KARDIGI">
+<meta property="og:description" content="{{ post.meta_description or post.excerpt or (post.content[:155] | striptags) }}">
 <meta property="og:type" content="article">
-<meta property="og:url" content="{{ request.url }}">
+<meta property="og:url" content="https://kardigi.tech{{ url_for('blog_detail', slug=post.slug) }}">
 {% if post.image %}
-<meta property="og:image" content="{{ request.url_root.rstrip('/') }}{{ url_for('static', filename='uploads/' + post.image) }}">
+<meta property="og:image" content="https://kardigi.tech{{ url_for('static', filename='uploads/' + post.image) }}">
+{% else %}
+<meta property="og:image" content="https://kardigi.tech{{ url_for('static', filename='img/logo.png') }}">
+{% endif %}
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="{{ post.title }}">
-{% endif %}
+<meta property="og:locale" content="id_ID">
 <meta property="og:site_name" content="KARDIGI - Jasa Pembuatan Website">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ post.title }}">
-<meta name="twitter:description" content="{{ post.meta_description or post.excerpt or (post.content[:155] + '...') }}">
+<meta name="twitter:title" content="{{ post.title }} | Blog KARDIGI">
+<meta name="twitter:description" content="{{ post.meta_description or post.excerpt or (post.content[:155] | striptags) }}">
 {% if post.image %}
-<meta name="twitter:image" content="{{ request.url_root.rstrip('/') }}{{ url_for('static', filename='uploads/' + post.image) }}">
-<meta name="twitter:image:alt" content="{{ post.title }}">
+<meta name="twitter:image" content="https://kardigi.tech{{ url_for('static', filename='uploads/' + post.image) }}">
+{% else %}
+<meta name="twitter:image" content="https://kardigi.tech{{ url_for('static', filename='img/logo.png') }}">
 {% endif %}
+<meta name="twitter:image:alt" content="{{ post.title }}">
 
 <!-- Article metadata -->
 <meta property="article:published_time" content="{{ post.created_at.isoformat() }}">
@@ -39,9 +45,11 @@
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": "{{ post.title }}",
-  "description": "{{ post.meta_description or post.excerpt }}",
+  "description": "{{ post.meta_description or post.excerpt or (post.content[:155] | striptags) }}",
   {% if post.image %}
-  "image": "{{ request.url_root.rstrip('/') }}{{ url_for('static', filename='uploads/' + post.image) }}",
+  "image": "https://kardigi.tech{{ url_for('static', filename='uploads/' + post.image) }}",
+  {% else %}
+  "image": "https://kardigi.tech{{ url_for('static', filename='img/logo.png') }}",
   {% endif %}
   "datePublished": "{{ post.created_at.isoformat() }}",
   "dateModified": "{{ post.updated_at.isoformat() }}",
@@ -54,8 +62,12 @@
     "name": "KARDIGI",
     "logo": {
       "@type": "ImageObject",
-      "url": "{{ request.url_root.rstrip('/') }}/static/img/logo.png"
+      "url": "https://kardigi.tech{{ url_for('static', filename='img/logo.png') }}"
     }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kardigi.tech{{ url_for('blog_detail', slug=post.slug) }}"
   }
 }
 </script>

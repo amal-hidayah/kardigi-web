@@ -13,11 +13,12 @@
     <meta name="googlebot" content="index, follow">
     <link rel="canonical" href="https://kardigi.tech{{ request.path }}">
     
+    {% block meta %}
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://kardigi.tech{{ request.path }}">
-    <meta property="og:title" content="{% block og_title %}KARDIGI - Jasa Website Profesional Sukabumi | Mulai Rp500rb{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}Jasa pembuatan website profesional untuk bisnis Anda. Company profile, toko online, landing page dengan desain modern, responsive dan SEO friendly. Pengerjaan cepat 3-7 hari, harga terjangkau mulai Rp500rb.{% endblock %}">
+    <meta property="og:title" content="KARDIGI - Jasa Website Profesional Sukabumi | Mulai Rp500rb">
+    <meta property="og:description" content="Jasa pembuatan website profesional untuk bisnis Anda. Company profile, toko online, landing page dengan desain modern, responsive dan SEO friendly. Pengerjaan cepat 3-7 hari, harga terjangkau mulai Rp500rb.">
     <meta property="og:image" content="https://kardigi.tech{{ url_for('static', filename='img/logo.png') }}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -28,10 +29,11 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://kardigi.tech{{ request.path }}">
-    <meta name="twitter:title" content="{% block twitter_title %}KARDIGI - Jasa Website Profesional Sukabumi{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}Jasa pembuatan website profesional. Company profile, toko online, landing page responsive dan SEO friendly. Harga mulai Rp500rb. Konsultasi gratis!{% endblock %}">
+    <meta name="twitter:title" content="KARDIGI - Jasa Website Profesional Sukabumi">
+    <meta name="twitter:description" content="Jasa pembuatan website profesional. Company profile, toko online, landing page responsive dan SEO friendly. Harga mulai Rp500rb. Konsultasi gratis!">
     <meta name="twitter:image" content="https://kardigi.tech{{ url_for('static', filename='img/logo.png') }}">
     <meta name="twitter:image:alt" content="KARDIGI Logo">
+    {% endblock %}
     
     <!-- Geo Tags -->
     <meta name="geo.region" content="ID-JB">
