@@ -7,25 +7,26 @@
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <style>
 .blog-editor-container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 30px 15px;
+    padding: 20px 15px;
 }
 
 .editor-header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    padding: 30px;
-    border-radius: 15px 15px 0 0;
-    margin-bottom: 0;
+    padding: 25px 30px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .editor-body {
     background: white;
     border: 1px solid #e5e7eb;
-    border-top: none;
-    border-radius: 0 0 15px 15px;
+    border-radius: 10px;
     padding: 30px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .form-section {
@@ -37,6 +38,12 @@
     color: #1e293b;
     margin-bottom: 8px;
     font-size: 14px;
+}
+
+.form-label-required::after {
+    content: ' *';
+    color: #ef4444;
+    font-weight: bold;
 }
 
 .form-control, .form-select {
@@ -64,6 +71,15 @@
     border-radius: 12px;
     padding: 25px;
     margin-top: 30px;
+}
+
+.seo-panel.collapsed .seo-content {
+    display: none;
+}
+
+.seo-toggle {
+    cursor: pointer;
+    user-select: none;
 }
 
 .seo-panel-header {
@@ -174,33 +190,56 @@
     display: flex;
     gap: 15px;
     margin-top: 30px;
-    padding-top: 30px;
+    padding: 20px 30px;
     border-top: 2px solid #e5e7eb;
+    flex-wrap: wrap;
+    background: white;
+    border-radius: 0 0 10px 10px;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
 }
 
 .btn-publish {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     border: none;
-    padding: 12px 30px;
-    font-weight: 600;
-    font-size: 16px;
+    padding: 15px 40px;
+    font-weight: 700;
+    font-size: 18px;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    transition: all 0.3s;
+}
+
+.btn-publish:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
 }
 
 .btn-draft {
     background: #6b7280;
     border: none;
-    padding: 12px 30px;
-    font-weight: 600;
-    font-size: 16px;
+    padding: 15px 40px;
+    font-weight: 700;
+    font-size: 18px;
+    box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
+    transition: all 0.3s;
+}
+
+.btn-draft:hover {
+    background: #4b5563;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(107, 114, 128, 0.4);
 }
 
 .btn-cancel {
     background: white;
     border: 2px solid #e5e7eb;
     color: #1e293b;
-    padding: 12px 30px;
+    padding: 15px 40px;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 18px;
+    transition: all 0.3s;
 }
 
 .btn-cancel:hover {
@@ -246,6 +285,36 @@
     background: #f3f4f6;
     color: #6b7280;
 }
+
+/* Floating Save Button */
+.floating-save {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+    }
+    50% {
+        box-shadow: 0 12px 32px rgba(16, 185, 129, 0.6);
+    }
+}
+
+.floating-save:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .floating-save {
+        bottom: 20px;
+        right: 20px;
+    }
+}
 </style>
 {% endblock %}
 
@@ -255,17 +324,21 @@
         
         <!-- Header -->
         <div class="editor-header">
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
                 <div>
-                    <h1 class="h3 mb-2">
+                    <h1 class="h2 mb-1 fw-bold">
                         <i class="fas fa-pen-to-square me-2"></i>
-                        {% if mode == 'new' %}Tambah Artikel Baru{% else %}Edit Artikel{% endif %}
+                        {% if mode == 'new' %}Buat Artikel Blog Baru{% else %}Edit Artikel{% endif %}
                     </h1>
-                    <p class="mb-0 opacity-75">
-                        {% if mode == 'new' %}Buat artikel blog baru dengan SEO optimizer{% else %}Update artikel dan optimasi SEO{% endif %}
+                    <p class="mb-0 opacity-90">
+                        {% if mode == 'new' %}Isi form di bawah dan klik tombol "Simpan" di bagian bawah{% else %}Update artikel dan klik tombol "Update" di bagian bawah{% endif %}
                     </p>
+                    <div class="alert alert-info mt-3 mb-0 d-inline-flex align-items-center" style="padding: 10px 20px; font-size: 14px;">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Tombol SIMPAN ada di bagian paling bawah halaman</strong> (scroll ke bawah)
+                    </div>
                 </div>
-                <a href="{{ url_for('admin_page') }}#blog" class="btn btn-light">
+                <a href="{{ url_for('admin_page') }}#blog" class="btn btn-light btn-lg">
                     <i class="fas fa-arrow-left me-2"></i>Kembali
                 </a>
             </div>
@@ -278,7 +351,7 @@
                     
                     <!-- Title -->
                     <div class="form-section">
-                        <label class="form-label">Judul Artikel *</label>
+                        <label class="form-label form-label-required">Judul Artikel</label>
                         <input type="text" name="title" class="form-control form-control-lg" 
                                placeholder="Masukkan judul artikel yang menarik..." 
                                value="{% if mode == 'edit' %}{{ post.title }}{% endif %}"
@@ -297,7 +370,7 @@
 
                     <!-- Content Editor -->
                     <div class="form-section">
-                        <label class="form-label">Konten Artikel *</label>
+                        <label class="form-label form-label-required">Konten Artikel</label>
                         <textarea name="content" id="content" class="form-control">{% if mode == 'edit' %}{{ post.content }}{% endif %}</textarea>
                         <div class="d-flex justify-content-between align-items-center mt-2">
                             <small class="text-muted">Gunakan editor untuk format teks</small>
@@ -318,11 +391,14 @@
                     </div>
 
                     <!-- SEO Panel -->
-                    <div class="seo-panel">
-                        <div class="seo-panel-header">
+                    <div class="seo-panel" id="seoPanel">
+                        <div class="seo-panel-header seo-toggle" onclick="toggleSEO()">
                             <i class="fas fa-chart-line text-primary" style="font-size: 24px;"></i>
-                            <h3 class="seo-panel-title">SEO Optimizer</h3>
+                            <h3 class="seo-panel-title">SEO Optimizer (Opsional - Klik untuk buka/tutup)</h3>
+                            <i class="fas fa-chevron-down ms-auto" id="seoChevron"></i>
                         </div>
+
+                        <div class="seo-content" id="seoContent" style="display: none;">
 
                         <!-- Google Search Preview -->
                         <div class="google-preview">
@@ -379,6 +455,7 @@
                                    value="{% if mode == 'edit' %}{{ post.meta_keywords }}{% endif %}">
                             <small class="text-muted">Pisahkan dengan koma</small>
                         </div>
+                        </div> <!-- Close seo-content -->
                     </div>
 
                 </div>
@@ -454,12 +531,12 @@
             <!-- Action Buttons -->
             <div class="action-buttons">
                 <button type="submit" class="btn btn-publish text-white" onclick="document.getElementById('publishCheck').checked = true;">
-                    <i class="fas fa-paper-plane me-2"></i>
-                    {% if mode == 'new' %}Publikasikan{% else %}Update & Publikasikan{% endif %}
+                    <i class="fas fa-check-circle me-2"></i>
+                    <span style="font-size: 19px;">{% if mode == 'new' %}💾 SIMPAN & PUBLIKASIKAN{% else %}✅ UPDATE & PUBLIKASIKAN{% endif %}</span>
                 </button>
                 <button type="submit" class="btn btn-draft text-white" onclick="document.getElementById('publishCheck').checked = false;">
                     <i class="fas fa-save me-2"></i>
-                    Simpan sebagai Draft
+                    <span style="font-size: 19px;">📝 SIMPAN SEBAGAI DRAFT</span>
                 </button>
                 <a href="{{ url_for('admin_page') }}#blog" class="btn btn-cancel">
                     <i class="fas fa-times me-2"></i>Batal
@@ -469,6 +546,12 @@
         </div>
     </form>
 </div>
+
+<!-- Floating Save Button -->
+<button type="button" class="btn btn-publish text-white btn-lg floating-save" onclick="scrollToBottom()" title="Scroll ke tombol simpan">
+    <i class="fas fa-arrow-down me-2"></i>
+    SIMPAN ARTIKEL
+</button>
 
 <script>
 // Initialize TinyMCE
@@ -657,5 +740,40 @@ setTimeout(() => {
     document.getElementById('metaDescription').dispatchEvent(new Event('input'));
     document.getElementById('focusKeyword').dispatchEvent(new Event('input'));
 }, 1000);
+
+// Toggle SEO Panel
+function toggleSEO() {
+    const content = document.getElementById('seoContent');
+    const chevron = document.getElementById('seoChevron');
+    
+    if (content.style.display === 'none') {
+        content.style.display = 'block';
+        chevron.classList.remove('fa-chevron-down');
+        chevron.classList.add('fa-chevron-up');
+    } else {
+        content.style.display = 'none';
+        chevron.classList.remove('fa-chevron-up');
+        chevron.classList.add('fa-chevron-down');
+    }
+}
+
+// Scroll to bottom action buttons
+function scrollToBottom() {
+    const actionButtons = document.querySelector('.action-buttons');
+    actionButtons.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// Hide floating button when near bottom
+window.addEventListener('scroll', function() {
+    const floatingBtn = document.querySelector('.floating-save');
+    const actionButtons = document.querySelector('.action-buttons');
+    const rect = actionButtons.getBoundingClientRect();
+    
+    if (rect.top < window.innerHeight) {
+        floatingBtn.style.display = 'none';
+    } else {
+        floatingBtn.style.display = 'block';
+    }
+});
 </script>
 {% endblock %}
