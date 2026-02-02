@@ -406,6 +406,10 @@ def serve_demo(folder_name, filename='index.html'):
 def robots():
     return send_from_directory(app.static_folder, 'robots.txt', mimetype='text/plain')
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.static_folder, 'img'), 'favicon.png', mimetype='image/png')
+
 @app.route('/sitemap.xml')
 def sitemap():
     """Generate dynamic sitemap including blog posts"""
