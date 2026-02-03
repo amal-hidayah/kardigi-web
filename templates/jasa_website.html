@@ -98,11 +98,11 @@
         <div class="row g-4 portfolio-grid" id="portfolioGrid">
             {% if portfolio %}
                 {% for item in portfolio[:6] %}
-                <div class="col-6 col-md-4 portfolio-item reveal" data-index="{{ loop.index }}">
+                <div class="col-12 col-sm-6 col-md-4 portfolio-item reveal {% if loop.index > 3 %}mobile-hidden{% endif %}" data-index="{{ loop.index }}">
                     <div class="card border-0 h-100 portfolio-card" style="border-radius: 16px; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(0,0,0,0.08);"
                          onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 15px 40px rgba(0,0,0,0.15)'"
                          onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 20px rgba(0,0,0,0.08)'">
-                        <div class="position-relative portfolio-img-wrapper" style="padding-top: 75%; overflow: hidden;">
+                        <div class="position-relative portfolio-img-wrapper" style="padding-top: 65%; overflow: hidden;">
                             <img src="{{ url_for('static', filename='uploads/' + item.image) }}" 
                                  alt="{{ item.title }}"
                                  class="position-absolute top-0 start-0 w-100 h-100"
@@ -134,11 +134,11 @@
                 
                 <!-- Hidden items for load more -->
                 {% for item in portfolio[6:] %}
-                <div class="col-6 col-md-4 portfolio-item reveal d-none" data-index="{{ loop.index + 6 }}">
+                <div class="col-12 col-sm-6 col-md-4 portfolio-item reveal d-none mobile-hidden" data-index="{{ loop.index + 6 }}">
                     <div class="card border-0 h-100 portfolio-card" style="border-radius: 16px; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(0,0,0,0.08);"
                          onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 15px 40px rgba(0,0,0,0.15)'"
                          onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 20px rgba(0,0,0,0.08)'">
-                        <div class="position-relative portfolio-img-wrapper" style="padding-top: 75%; overflow: hidden;">
+                        <div class="position-relative portfolio-img-wrapper" style="padding-top: 65%; overflow: hidden;">
                             <img src="{{ url_for('static', filename='uploads/' + item.image) }}" 
                                  alt="{{ item.title }}"
                                  class="position-absolute top-0 start-0 w-100 h-100"
@@ -174,9 +174,18 @@
             {% endif %}
         </div>
         
-        <!-- Load More Button -->
+        <!-- Mobile Toggle Button (Show More / Show Less) -->
+        {% if portfolio|length > 3 %}
+        <div class="text-center mt-4 d-md-none" id="mobileToggleContainer">
+            <button id="mobileShowMoreBtn" class="btn btn-orange rounded-pill px-5 py-2 fw-bold shadow" onclick="toggleMobilePortfolio()">
+                <i class="fas fa-chevron-down me-2"></i> Lihat Website Lainnya
+            </button>
+        </div>
+        {% endif %}
+        
+        <!-- Load More Button (Desktop) -->
         {% if portfolio|length > 6 %}
-        <div class="text-center mt-4">
+        <div class="text-center mt-4 d-none d-md-block">
             <button id="loadMoreBtn" class="btn btn-outline-primary rounded-pill px-5 py-2" onclick="loadMorePortfolio()">
                 <i class="fas fa-plus-circle me-2"></i> Lihat 6 Lainnya
             </button>
@@ -713,6 +722,17 @@
 </section>
 
 <style>
+/* Mobile: hide items beyond first 3 */
+@media (max-width: 767px) {
+    .portfolio-item.mobile-hidden {
+        display: none !important;
+    }
+    
+    .portfolio-item.mobile-hidden.show-mobile {
+        display: block !important;
+    }
+}
+
 /* Portfolio hover animation */
 .portfolio-card:hover .portfolio-img-wrapper img {
     transform: scale(1.1);
@@ -734,17 +754,52 @@
         -webkit-tap-highlight-color: transparent;
     }
     
-    .portfolio-card:active .portfolio-overlay {
+    /* Larger title font for mobile full-width cards */
+    .portfolio-card .card-body h6 {
+        font-size: 1.1rem !important;
+    }
+    
+    /* Larger buttons for mobile */
+    .portfolio-card .portfolio-btn {
+        padding: 10px 24px !important;
+        font-size: 0.95rem !important;
+    }
+    
+    /* Add tap hint for mobile */
+    .portfolio-img-wrapper::before {
+        content: 'Tap untuk opsi';
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(251, 191, 36, 0.95);
+        color: #0f172a;
+        padding: 8px 20px;
+        border-radius: 25px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        z-index: 2;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        animation: pulse 2s ease-in-out infinite;
+    }
+    
+    /* Hide hint when overlay is active */
+    .portfolio-card.active .portfolio-img-wrapper::before {
+        display: none;
+    }
+    
+    /* Show overlay when card has 'active' class */
+    .portfolio-card.active .portfolio-overlay {
         background: rgba(15, 23, 42, 0.85) !important;
         opacity: 1 !important;
     }
     
-    .portfolio-card:active .portfolio-btn {
+    .portfolio-card.active .portfolio-btn {
         transform: translateY(0) !important;
         opacity: 1 !important;
     }
     
-    .portfolio-card:active .portfolio-img-wrapper img {
+    .portfolio-card.active .portfolio-img-wrapper img {
         transform: scale(1.1);
     }
 }
@@ -766,10 +821,52 @@
     transform: scale(1.05);
     box-shadow: 0 6px 20px rgba(0,0,0,0.3) !important;
 }
+
+/* Pulse animation for mobile hint */
+@keyframes pulse {
+    0%, 100% {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateX(-50%) scale(1.05);
+        opacity: 0.9;
+    }
+}
 </style>
 
 <script>
 let visibleCount = 6;
+let mobileExpanded = false;
+
+// Toggle mobile portfolio show more/less
+function toggleMobilePortfolio() {
+    const mobileHiddenItems = document.querySelectorAll('.portfolio-item.mobile-hidden:not(.d-none)');
+    const btn = document.getElementById('mobileShowMoreBtn');
+    
+    if (!mobileExpanded) {
+        // Show all
+        mobileHiddenItems.forEach(item => {
+            item.classList.add('show-mobile');
+        });
+        btn.innerHTML = '<i class="fas fa-chevron-up me-2"></i> Sembunyikan';
+        btn.classList.remove('btn-orange');
+        btn.classList.add('btn-outline-secondary');
+        mobileExpanded = true;
+    } else {
+        // Hide again
+        mobileHiddenItems.forEach(item => {
+            item.classList.remove('show-mobile');
+        });
+        btn.innerHTML = '<i class="fas fa-chevron-down me-2"></i> Lihat Website Lainnya';
+        btn.classList.remove('btn-outline-secondary');
+        btn.classList.add('btn-orange');
+        mobileExpanded = false;
+        
+        // Scroll back to portfolio section
+        document.querySelector('.portfolio-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
 
 function loadMorePortfolio() {
     const items = document.querySelectorAll('.portfolio-item.d-none');
@@ -785,6 +882,53 @@ function loadMorePortfolio() {
     if (document.querySelectorAll('.portfolio-item.d-none').length === 0) {
         document.getElementById('loadMoreBtn').style.display = 'none';
     }
+}
+
+// Mobile portfolio interaction: Click to show overlay first, then click buttons
+if (window.innerWidth <= 768) {
+    document.addEventListener('DOMContentLoaded', function() {
+        const portfolioCards = document.querySelectorAll('.portfolio-card');
+        
+        portfolioCards.forEach(card => {
+            const overlay = card.querySelector('.portfolio-overlay');
+            const buttons = card.querySelectorAll('.portfolio-btn');
+            
+            // Click on card (image area) to show overlay
+            card.addEventListener('click', function(e) {
+                // If clicking on a button, let it work normally
+                if (e.target.closest('.portfolio-btn')) {
+                    return;
+                }
+                
+                // Toggle active state
+                const isActive = card.classList.contains('active');
+                
+                // Remove active from all other cards
+                portfolioCards.forEach(c => c.classList.remove('active'));
+                
+                // Toggle this card
+                if (!isActive) {
+                    card.classList.add('active');
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            });
+            
+            // Prevent overlay from closing when clicking inside overlay
+            if (overlay) {
+                overlay.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+        });
+        
+        // Close overlay when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.portfolio-card')) {
+                portfolioCards.forEach(card => card.classList.remove('active'));
+            }
+        });
+    });
 }
 </script>
 
