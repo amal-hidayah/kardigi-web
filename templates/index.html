@@ -3,21 +3,21 @@
 {% block content %}
 
 <!-- Hero Section: Updated to Fixed Container for better spacing -->
-<section class="hero-section position-relative overflow-hidden">
+<section class="hero-section position-relative overflow-hidden" style="padding-top: 0 !important;">
     <!-- Pake 'container' biasa biar rapi di tengah -->
-    <div class="container">
+    <div class="container" style="padding-top: -15rem;">
         <div class="row align-items-center" style="min-height: 80vh;">
             
             <!-- KOLOM KANAN: GAMBAR HERO (Mobile First Order) -->
-            <div class="col-lg-6 d-flex align-items-center justify-content-center position-relative reveal-scroll-right mb-4 mb-lg-0 order-1 order-lg-2">
+            <div class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center position-relative reveal-scroll-right order-1 order-lg-2" style="padding-top: 2rem; padding-bottom: 13rem;">
                 <img src="https://res.cloudinary.com/dxilefb3o/image/upload/f_auto,q_auto/v1768918125/123_dbvgol.png" 
                      alt="Hero Image KARDIGI" 
                      class="img-fluid hero-image"
-                     style="width: 100%; max-width: 550px; height: auto; margin: auto;">
+                     style="width: 100%; max-width: 650px; min-height: 550px; height: auto; object-fit: contain; margin: auto;">
             </div>
             
             <!-- KOLOM KIRI: TEKS HERO -->
-            <div class="col-lg-6 py-5 position-relative text-center text-lg-start order-2 order-lg-1" style="z-index: 10;">
+            <div class="col-lg-6 py-lg-5 pt-2 pb-3 position-relative text-center text-lg-start order-2 order-lg-1" style="z-index: 10; margin-top: 0 !important;">
                 <span class="badge bg-soft-blue text-primary fw-bold px-3 py-2 rounded-pill mb-3 hero-badge">
                     🚀 Digital Agency Terpercaya Indonesia
                 </span>
@@ -32,63 +32,90 @@
                         <span class="badge bg-danger text-white rounded-pill px-3 py-2" style="font-size: 0.8rem;">Promo Bulan Ini</span>
                         <div class="d-flex align-items-center gap-2">
                             <span class="price-original text-muted small text-decoration-line-through">Mulai Rp 2jt</span>
-                            <span class="price-promo fw-bold text-orange fs-4">Mulai Rp 1,5jt!</span>
+                            <span class="price-promo fw-bold text-orange fs-4">Mulai Rp 500rb!</span>
                         </div>
                     </div>
 
-                    <p class="lead text-muted mb-4 mx-auto mx-lg-0 hero-description" style="font-size: 1.1rem; max-width: 500px; line-height: 1.6;">
-                        Tingkatkan kredibilitas dan omzet bisnis dengan website profesional yang modern, responsive, dan SEO-friendly. Garansi revisi tanpa batas.
+                    <p class="lead text-muted mb-3 mx-auto mx-lg-0 hero-description" style="font-size: 1rem; max-width: 480px; line-height: 1.5;">
+                        Website profesional, modern, SEO-friendly. <strong style="color: var(--primary-navy);">Paket sesuai budget</strong> + garansi revisi tanpa batas.
                     </p>
+
+                    <!-- Social Proof & Urgency -->
+                    <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start align-items-center mb-3">
+                        <div class="d-flex align-items-center gap-2 px-2 py-1 rounded-pill" style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2);">
+                            <span class="small fw-semibold" style="color: var(--primary-navy); font-size: 0.85rem;">
+                                <i class="fas fa-users me-1" style="color: var(--accent-orange);"></i><strong style="color: var(--accent-orange);">25+</strong> Klien
+                            </span>
+                        </div>
+                        <div class="px-2 py-1 rounded-pill" style="background: rgba(220, 38, 38, 0.1); border: 1px solid rgba(220, 38, 38, 0.2);">
+                            <span class="small fw-semibold" style="color: #dc2626; font-size: 0.85rem;">
+                                <i class="fas fa-fire me-1"></i><strong>3 Slot</strong> Tersisa!
+                            </span>
+                        </div>
+                    </div>
                     
                     <!-- TOMBOL CTA (Langsung di dalam kolom hero) -->
                 <div class="d-flex flex-column flex-lg-row gap-3 justify-content-center justify-content-lg-start align-items-stretch">
                     
                    <!-- TOMBOL CTA WEBSITE (Gradient & Glowing) -->
                     <a href="{{ url_for('jasa_website') }}" 
-                       class="btn rounded-pill shadow-lg d-flex align-items-center gap-2 position-relative overflow-hidden"
+                       class="btn rounded-pill shadow-lg d-flex align-items-center justify-content-center gap-2 position-relative overflow-hidden"
                        style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); 
                               box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4) !important;
                               border: 2px solid rgba(255,255,255,0.2);
                               transition: transform 0.3s ease;
                               color: white;
-                              padding: 0.75rem 1.5rem;"
+                              padding: 0.9rem 2rem;
+                              font-size: 1.05rem;
+                              font-weight: 700;"
                        onmouseover="this.style.transform='translateY(-3px)'"
                        onmouseout="this.style.transform='translateY(0)'">
-                        
-                        <!-- Icon Box Bulat -->
-                        <div class="bg-white rounded-circle d-flex align-items-center justify-content-center" 
-                             style="width: 36px; height: 36px; color: #d97706; min-width: 36px;">
-                            <i class="fas fa-globe" style="font-size: 0.95rem;"></i>
-                        </div>
-
-                        <!-- Teks CTA -->
-                        <div class="text-start">
-                            <div class="text-white small" style="font-size: 0.65rem; font-weight: 600; opacity: 0.9; line-height: 1;">Mulai Rp 500rb</div>
-                            <div class="fw-bold text-white" style="font-size: 0.95rem; line-height: 1.2;">
-                                Lihat Paket Website
-                            </div>
-                        </div>
+                        <i class="fas fa-rocket me-2" style="font-size: 1.1rem;"></i>
+                        <span>Lihat Paket Website</span>
                     </a>
                     
                     <!-- TOMBOL KONSULTASI (Clean Premium Style) -->
                     <a href="https://wa.me/6289509951772?text=Halo%20KARDIGI,%20saya%20mau%20konsultasi%20tentang%20jasa%20pembuatan%20website" 
                        target="_blank"
-                       class="btn bg-white rounded-pill shadow-sm d-flex align-items-center gap-2" 
-                       style="border: 1px solid #e2e8f0; 
+                       class="btn bg-white rounded-pill shadow-sm d-flex align-items-center justify-content-center gap-2" 
+                       style="border: 2px solid #10b981; 
                               transition: all 0.3s ease; 
-                              color: var(--primary-navy);
-                              padding: 0.75rem 1.5rem;"
-                       onmouseover="this.style.transform='translateY(-2px)'; this.style.borderColor='var(--accent-orange)'; this.style.boxShadow='0 8px 15px rgba(0,0,0,0.05)'" 
-                       onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.05)'">
-                        
-                        <div class="text-start">
-                            <div class="text-muted small" style="font-size: 0.65rem; line-height: 1;">Gratis Konsultasi</div>
-                            <div class="fw-bold text-dark" style="font-size: 0.95rem; color: var(--primary-navy) !important; line-height: 1.2;">
-                                Chat via WhatsApp
-                            </div>
-                        </div>
-                        <i class="fab fa-whatsapp text-success" style="font-size: 1.25rem;"></i>
+                              color: #10b981;
+                              padding: 0.9rem 2rem;
+                              font-size: 1.05rem;
+                              font-weight: 700;"
+                       onmouseover="this.style.transform='translateY(-2px)'; this.style.background='#10b981'; this.style.color='white'" 
+                       onmouseout="this.style.transform='translateY(0)'; this.style.background='white'; this.style.color='#10b981'">
+                        <i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i>
+                        <span>Chat Gratis</span>
                     </a>
+                </div>
+
+                <!-- Trust Badges (Guerrilla Marketing: Social Proof) -->
+                <div class="mt-4 pt-3 border-top" style="border-color: rgba(0,0,0,0.1) !important;">
+                    <p class="small text-muted mb-2" style="font-size: 0.75rem; font-weight: 600;">DIPERCAYA OLEH:</p>
+                    <div class="d-flex flex-wrap gap-3 align-items-center justify-content-center justify-content-lg-start">
+                        <div class="px-3 py-2 rounded" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+                            <span class="small fw-semibold" style="color: var(--primary-navy); font-size: 0.75rem;">
+                                <i class="fas fa-graduation-cap me-1" style="color: #3b82f6;"></i>Sekolah & Kampus
+                            </span>
+                        </div>
+                        <div class="px-3 py-2 rounded" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+                            <span class="small fw-semibold" style="color: var(--primary-navy); font-size: 0.75rem;">
+                                <i class="fas fa-store me-1" style="color: #f59e0b;"></i>Toko Online
+                            </span>
+                        </div>
+                        <div class="px-3 py-2 rounded" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+                            <span class="small fw-semibold" style="color: var(--primary-navy); font-size: 0.75rem;">
+                                <i class="fas fa-briefcase me-1" style="color: #10b981;"></i>Bisnis Lokal
+                            </span>
+                        </div>
+                        <div class="px-3 py-2 rounded" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+                            <span class="small fw-semibold" style="color: var(--primary-navy); font-size: 0.75rem;">
+                                <i class="fas fa-building me-1" style="color: #6366f1;"></i>Perusahaan
+                            </span>
+                        </div>
+                    </div>
                 </div>
                 
                 </div>
@@ -98,78 +125,43 @@
     </div>
 </section>
 
-<!-- TENTANG KAMI -->
-<section class="py-4 bg-white">
+<!-- KENAPA KARDIGI - MERGER SECTION (GUERRILLA MARKETING) -->
+<section class="py-4 bg-white" style="padding-top: 2rem !important;">
     <div class="container py-3 reveal">
-        <div class="row align-items-center g-5">
+        <!-- Header dengan Stats -->
+        <div class="row align-items-center g-5 mb-5">
             <div class="col-lg-6 reveal-on-scroll">
-                <span class="badge bg-orange text-white px-3 py-2 rounded-pill mb-3">TENTANG KAMI</span>
-                <h2 class="fw-bold mb-4" style="color: var(--primary-navy); line-height: 1.3;">
-                    Partner Terpercaya untuk <span style="color: var(--accent-orange);">Transformasi Digital</span> Bisnis Anda
+                <span class="badge bg-orange text-white px-4 py-2 rounded-pill mb-3" style="font-size: 0.9rem;">
+                    <i class="fas fa-crown me-2"></i>PARTNER TRANSFORMASI DIGITAL
+                </span>
+                <h2 class="fw-bold mb-3" style="color: var(--primary-navy); font-size: 2.5rem; line-height: 1.2;">
+                    Kenapa KARDIGI <br>
+                    <span style="color: var(--accent-orange);">Partner Terbaik</span> Bisnis Anda?
                 </h2>
                 <p class="text-muted mb-4" style="font-size: 1.05rem; line-height: 1.7;">
-                    <strong style="color: var(--primary-navy);">KARDIGI</strong> adalah digital agency yang telah dipercaya <strong style="color: var(--accent-orange);">100+ bisnis</strong> se-Indonesia. Kami ciptakan website profesional yang tidak hanya tampil memukau, tapi <strong>langsung menghasilkan penjualan</strong>.
+                    <strong style="color: var(--primary-navy);">KARDIGI</strong> telah dipercaya <strong style="color: var(--accent-orange);">25+ bisnis</strong> se-Indonesia. Kami tidak hanya membuat website—kami ciptakan <strong style="color: var(--primary-navy);">aset digital yang menghasilkan profit</strong>.
                 </p>
                 
-                <!-- Key Points dengan Icon -->
-                <div class="mb-4">
-                    <div class="d-flex align-items-start mb-3">
-                        <div class="rounded-circle p-2 me-3" style="min-width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background-color: #fff7ed;">
-                            <i class="fas fa-bolt" style="color: #f59e0b;"></i>
-                        </div>
-                        <div>
-                            <h6 class="fw-bold mb-1" style="color: var(--primary-navy);">Pengerjaan Super Cepat</h6>
-                            <p class="text-muted small mb-0">Website jadi dalam 3-7 hari, langsung online</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-start mb-3">
-                        <div class="rounded-circle bg-primary bg-opacity-10 p-2 me-3" style="min-width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-search text-primary"></i>
-                        </div>
-                        <div>
-                            <h6 class="fw-bold mb-1" style="color: var(--primary-navy);">SEO Friendly</h6>
-                            <p class="text-muted small mb-0">Mudah ditemukan di Google, tarik customer otomatis</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-start">
-                        <div class="rounded-circle bg-success bg-opacity-10 p-2 me-3" style="min-width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-infinity text-success"></i>
-                        </div>
-                        <div>
-                            <h6 class="fw-bold mb-1" style="color: var(--primary-navy);">Garansi Revisi Tanpa Batas</h6>
-                            <p class="text-muted small mb-0">Revisi sampai puas, rating 4.9/5 dari 25+ klien</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Stats -->
+                <!-- Stats Horizontal -->
                 <div class="row g-3 mb-4">
                     <div class="col-4">
-                        <div class="text-center p-3 rounded" style="background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);">
+                        <div class="text-center p-3 rounded-3" style="background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);">
                             <h3 class="fw-bold mb-1" style="color: var(--accent-orange); font-size: 1.8rem;">25+</h3>
-                            <p class="text-muted mb-0" style="font-size: 0.75rem;">Website Selesai</p>
+                            <p class="text-muted mb-0" style="font-size: 0.75rem; font-weight: 600;">Klien Puas</p>
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="text-center p-3 rounded" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);">
+                        <div class="text-center p-3 rounded-3" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);">
                             <h3 class="fw-bold mb-1" style="color: #0284c7; font-size: 1.8rem;">3-7</h3>
-                            <p class="text-muted mb-0" style="font-size: 0.75rem;">Hari Kerja</p>
+                            <p class="text-muted mb-0" style="font-size: 0.75rem; font-weight: 600;">Hari Kerja</p>
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="text-center p-3 rounded" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);">
+                        <div class="text-center p-3 rounded-3" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);">
                             <h3 class="fw-bold mb-1" style="color: #16a34a; font-size: 1.8rem;">4.9/5</h3>
-                            <p class="text-muted mb-0" style="font-size: 0.75rem;">Rating Klien</p>
+                            <p class="text-muted mb-0" style="font-size: 0.75rem; font-weight: 600;">Rating</p>
                         </div>
                     </div>
-                </div>
-                
-                <div>
-                    <a href="{{ url_for('jasa_website') }}" class="btn btn-premium-gradient rounded-pill px-4 py-3">
-                        <span class="btn-premium-content">
-                            <i class="fas fa-arrow-right me-2"></i> Lihat Paket Website
-                        </span>
-                    </a>
                 </div>
             </div>
             
@@ -177,19 +169,302 @@
                 <div class="position-relative">
                     <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800" 
                          alt="KARDIGI Team" 
-                         class="img-fluid rounded shadow-lg"
-                         style="border-radius: 20px !important;">
-                    <div class="position-absolute bottom-0 start-0 m-4 p-3 bg-white rounded shadow" style="max-width: 280px;">
+                         class="img-fluid rounded-4 shadow-lg">
+                    <div class="position-absolute bottom-0 start-0 m-4 p-3 bg-white rounded-3 shadow" style="max-width: 280px;">
                         <div class="d-flex align-items-center gap-3">
                             <div class="bg-orange rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
                                 <i class="fas fa-check text-white fs-4"></i>
                             </div>
                             <div>
-                                <p class="fw-bold mb-0" style="color: var(--primary-navy);">Garansi Revisi</p>
+                                <p class="fw-bold mb-0" style="color: var(--primary-navy); font-size: 0.95rem;">Garansi Revisi</p>
                                 <p class="text-muted small mb-0">Hingga puas 100%</p>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6 Benefit Cards dalam Grid -->
+        <div class="row g-4 mb-4">
+            <!-- 1. Teknologi Kelas Dunia + Pengerjaan Cepat -->
+            <div class="col-lg-4 col-md-6 reveal-on-scroll">
+                <div class="h-100 p-4 rounded-4 position-relative" 
+                     style="background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%); border: 2px solid #fed7aa; transition: all 0.3s ease;"
+                     onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 12px 30px rgba(245, 158, 11, 0.2)'"
+                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div class="mb-3">
+                        <div class="d-inline-flex align-items-center justify-content-center rounded-3" 
+                             style="width: 60px; height: 60px; background: linear-gradient(135deg, #f59e0b, #d97706);">
+                            <i class="fas fa-bolt text-white" style="font-size: 1.5rem;"></i>
+                        </div>
+                    </div>
+                    <h5 class="fw-bold mb-2" style="color: var(--primary-navy);">Teknologi Enterprise + Super Cepat</h5>
+                    <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.6;">
+                        Website dibangun dengan <strong style="color: var(--primary-navy);">Python, Flask, React</strong>—teknologi Instagram & Netflix. Pengerjaan <strong>cuma 3-7 hari</strong>, langsung online! <span style="color: #f59e0b; font-weight: 600;">Paket mulai Rp 500rb.</span>
+                    </p>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <span class="badge px-2 py-1" style="background: rgba(245, 158, 11, 0.2); color: #d97706; font-size: 0.7rem;">
+                            <i class="fab fa-python me-1"></i>Python
+                        </span>
+                        <span class="badge px-2 py-1" style="background: rgba(245, 158, 11, 0.2); color: #d97706; font-size: 0.7rem;">
+                            <i class="fab fa-react me-1"></i>React
+                        </span>
+                        <span class="badge px-2 py-1" style="background: rgba(245, 158, 11, 0.2); color: #d97706; font-size: 0.7rem;">
+                            <i class="fas fa-wallet me-1"></i>Budget Friendly
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. SEO Friendly + Profit-Oriented -->
+            <div class="col-lg-4 col-md-6 reveal-on-scroll">
+                <div class="h-100 p-4 rounded-4 position-relative" 
+                     style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 2px solid #bbf7d0; transition: all 0.3s ease;"
+                     onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 12px 30px rgba(16, 185, 129, 0.2)'"
+                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div class="mb-3">
+                        <div class="d-inline-flex align-items-center justify-content-center rounded-3" 
+                             style="width: 60px; height: 60px; background: linear-gradient(135deg, #10b981, #059669);">
+                            <i class="fas fa-chart-line text-white" style="font-size: 1.5rem;"></i>
+                        </div>
+                    </div>
+                    <h5 class="fw-bold mb-2" style="color: var(--primary-navy);">SEO-Ready & Conversion-Focused</h5>
+                    <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.6;">
+                        Mudah ditemukan di Google + setiap elemen dirancang untuk <strong style="color: var(--primary-navy);">mengubah pengunjung jadi pembeli</strong>. Fokus 100% pada profit bisnis Anda.
+                    </p>
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fas fa-check-circle text-success"></i>
+                        <span class="small fw-semibold" style="color: #059669;">Optimasi Google</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mt-2">
+                        <i class="fas fa-check-circle text-success"></i>
+                        <span class="small fw-semibold" style="color: #059669;">CTA Persuasif</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Garansi Revisi + Support 24/7 -->
+            <div class="col-lg-4 col-md-6 reveal-on-scroll">
+                <div class="h-100 p-4 rounded-4 position-relative" 
+                     style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px solid #bae6fd; transition: all 0.3s ease;"
+                     onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 12px 30px rgba(59, 130, 246, 0.2)'"
+                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div class="mb-3">
+                        <div class="d-inline-flex align-items-center justify-content-center rounded-3" 
+                             style="width: 60px; height: 60px; background: linear-gradient(135deg, #3b82f6, #2563eb);">
+                            <i class="fas fa-infinity text-white" style="font-size: 1.5rem;"></i>
+                        </div>
+                    </div>
+                    <h5 class="fw-bold mb-2" style="color: var(--primary-navy);">Garansi Revisi + Support Pasca-Rilis</h5>
+                    <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.6;">
+                        <strong style="color: var(--primary-navy);">Revisi tanpa batas</strong> sampai puas. Kami tetap mendampingi setelah website online—maintenance, update, support responsif.
+                    </p>
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fas fa-headphones text-primary"></i>
+                        <span class="small fw-semibold text-primary">Support Responsif</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mt-2">
+                        <i class="fas fa-tools text-primary"></i>
+                        <span class="small fw-semibold text-primary">Maintenance Gratis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Bottom -->
+        <div class="text-center reveal-on-scroll pt-3">
+            <a href="{{ url_for('jasa_website') }}" 
+               class="btn rounded-pill shadow-lg px-5 py-3"
+               style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); 
+                      color: white;
+                      font-weight: 700;
+                      border: 2px solid rgba(255,255,255,0.2);
+                      transition: all 0.3s ease;"
+               onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 30px rgba(245, 158, 11, 0.5)'"
+               onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 20px rgba(245, 158, 11, 0.4)'">
+                <i class="fas fa-arrow-right me-2"></i> Lihat Paket & Harga Website
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- JAMINAN KEPUASAN (RISK REVERSAL - GUERRILLA MARKETING) -->
+<section class="py-5 position-relative overflow-hidden" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+    <!-- Decorative Elements -->
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="opacity: 0.05;">
+        <div class="position-absolute" style="top: 10%; left: 5%; width: 200px; height: 200px; background: radial-gradient(circle, #f59e0b, transparent); border-radius: 50%;"></div>
+        <div class="position-absolute" style="bottom: 10%; right: 10%; width: 250px; height: 250px; background: radial-gradient(circle, #3b82f6, transparent); border-radius: 50%;"></div>
+    </div>
+
+    <div class="container py-4 reveal position-relative" style="z-index: 2;">
+        <!-- Header Section -->
+        <div class="text-center mb-5 reveal-on-scroll">
+            <span class="badge px-4 py-2 rounded-pill mb-3" style="background: rgba(245, 158, 11, 0.2); border: 2px solid rgba(245, 158, 11, 0.4); color: #f59e0b; font-weight: 700; font-size: 0.9rem;">
+                <i class="fas fa-shield-alt me-2"></i>GARANSI TANPA RESIKO
+            </span>
+            <h2 class="fw-bold mb-3 text-white" style="font-size: 2.2rem; line-height: 1.3;">
+                KARDIGI Bukan Sekadar Agensi, <br>
+                Tapi <span style="color: var(--accent-orange);">Partner Pertumbuhan</span> Bisnis Anda
+            </h2>
+            <p class="lead mb-0 mx-auto" style="color: rgba(255, 255, 255, 0.85); font-size: 1.05rem; max-width: 650px;">
+                Kami tahu Anda butuh <strong style="color: #f59e0b;">hasil nyata</strong>, bukan sekadar janji teknis. 
+                Itulah mengapa kami berikan <strong style="color: #fff;">Garansi Kepuasan Total</strong>
+            </p>
+        </div>
+
+        <!-- Guarantee Cards Grid -->
+        <div class="row g-4 mb-4">
+            <!-- Card 1: Revisi Tanpa Batas -->
+            <div class="col-lg-3 col-md-6 reveal-on-scroll">
+                <div class="h-100 p-4 rounded-4 text-center" 
+                     style="background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15); transition: all 0.3s ease;"
+                     onmouseover="this.style.background='rgba(255, 255, 255, 0.12)'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(16, 185, 129, 0.2)'"
+                     onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div class="mb-3">
+                        <div class="mx-auto rounded-circle d-flex align-items-center justify-content-center" 
+                             style="width: 65px; height: 65px; background: linear-gradient(135deg, #10b981, #059669);">
+                            <i class="fas fa-infinity text-white" style="font-size: 1.6rem;"></i>
+                        </div>
+                    </div>
+                    <h5 class="fw-bold mb-2 text-white" style="font-size: 1.1rem;">Revisi Tanpa Batas</h5>
+                    <p class="mb-3 small" style="color: rgba(255, 255, 255, 0.75); line-height: 1.6; font-size: 0.9rem;">
+                        Kami tidak berhenti sampai desain <strong style="color: #fff;">benar-benar sesuai</strong> visi bisnis Anda
+                    </p>
+                    <span class="badge px-3 py-2 rounded-pill" style="background: rgba(16, 185, 129, 0.2); color: #10b981; font-size: 0.75rem; font-weight: 700;">
+                        <i class="fas fa-check-circle me-1"></i>GRATIS
+                    </span>
+                </div>
+            </div>
+
+            <!-- Card 2: Performa Azure -->
+            <div class="col-lg-3 col-md-6 reveal-on-scroll">
+                <div class="h-100 p-4 rounded-4 text-center" 
+                     style="background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15); transition: all 0.3s ease;"
+                     onmouseover="this.style.background='rgba(255, 255, 255, 0.12)'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(59, 130, 246, 0.2)'"
+                     onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div class="mb-3">
+                        <div class="mx-auto rounded-circle d-flex align-items-center justify-content-center" 
+                             style="width: 65px; height: 65px; background: linear-gradient(135deg, #3b82f6, #2563eb);">
+                            <i class="fas fa-rocket text-white" style="font-size: 1.6rem;"></i>
+                        </div>
+                    </div>
+                    <h5 class="fw-bold mb-2 text-white" style="font-size: 1.1rem;">Performa Tahan Banting</h5>
+                    <p class="mb-3 small" style="color: rgba(255, 255, 255, 0.75); line-height: 1.6; font-size: 0.9rem;">
+                        Dibangun di <strong style="color: #fff;">Microsoft Azure</strong>, kecepatan akses maksimal <strong style="color: #3b82f6;">24/7</strong>
+                    </p>
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" 
+                         alt="Microsoft Azure" 
+                         style="height: 28px;">
+                </div>
+            </div>
+
+            <!-- Card 3: Keamanan Berlapis -->
+            <div class="col-lg-3 col-md-6 reveal-on-scroll">
+                <div class="h-100 p-4 rounded-4 text-center" 
+                     style="background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15); transition: all 0.3s ease;"
+                     onmouseover="this.style.background='rgba(255, 255, 255, 0.12)'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(245, 158, 11, 0.2)'"
+                     onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div class="mb-3">
+                        <div class="mx-auto rounded-circle d-flex align-items-center justify-content-center" 
+                             style="width: 65px; height: 65px; background: linear-gradient(135deg, #f59e0b, #d97706);">
+                            <i class="fas fa-lock text-white" style="font-size: 1.6rem;"></i>
+                        </div>
+                    </div>
+                    <h5 class="fw-bold mb-2 text-white" style="font-size: 1.1rem;">Keamanan Berlapis</h5>
+                    <p class="mb-3 small" style="color: rgba(255, 255, 255, 0.75); line-height: 1.6; font-size: 0.9rem;">
+                        <strong style="color: #fff;">Proteksi SSL</strong> dan enkripsi terbaru jaga data bisnis Anda tetap aman
+                    </p>
+                    <span class="badge px-3 py-2 rounded-pill" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; font-size: 0.75rem; font-weight: 700;">
+                        <i class="fas fa-shield-alt me-1"></i>SSL GRATIS
+                    </span>
+                </div>
+            </div>
+
+            <!-- Card 4: Konsultasi Gratis -->
+            <div class="col-lg-3 col-md-6 reveal-on-scroll">
+                <div class="h-100 p-4 rounded-4 text-center" 
+                     style="background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15); transition: all 0.3s ease;"
+                     onmouseover="this.style.background='rgba(255, 255, 255, 0.12)'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(236, 72, 153, 0.2)'"
+                     onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div class="mb-3">
+                        <div class="mx-auto rounded-circle d-flex align-items-center justify-content-center" 
+                             style="width: 65px; height: 65px; background: linear-gradient(135deg, #ec4899, #db2777);">
+                            <i class="fas fa-comments text-white" style="font-size: 1.6rem;"></i>
+                        </div>
+                    </div>
+                    <h5 class="fw-bold mb-2 text-white" style="font-size: 1.1rem;">Konsultasi Gratis</h5>
+                    <p class="mb-3 small" style="color: rgba(255, 255, 255, 0.75); line-height: 1.6; font-size: 0.9rem;">
+                        Bingung mulai dari mana? Ngobrol santai via <strong style="color: #fff;">WhatsApp</strong> tanpa biaya
+                    </p>
+                    <span class="badge px-3 py-2 rounded-pill" style="background: rgba(236, 72, 153, 0.2); color: #ec4899; font-size: 0.75rem; font-weight: 700;">
+                        <i class="fas fa-gift me-1"></i>100% GRATIS
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technology Logos -->
+        <div class="text-center reveal-on-scroll mt-5 pt-4" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
+            <p class="text-white mb-4 fw-semibold" style="font-size: 0.85rem; opacity: 0.7; letter-spacing: 1px; text-transform: uppercase;">
+                Dibangun dengan Teknologi Enterprise
+            </p>
+            <div class="d-flex justify-content-center gap-4 flex-wrap align-items-center">
+                <!-- Python -->
+                <div class="tech-logo-wrapper text-center" style="transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" 
+                         alt="Python" 
+                         style="height: 50px; width: auto; display: block; margin: 0 auto;"
+                         title="Python">
+                    <span style="display: block; margin-top: 0.5rem; font-size: 0.7rem; color: rgba(255, 255, 255, 0.7);">Python</span>
+                </div>
+                <!-- Flask -->
+                <div class="tech-logo-wrapper text-center" style="transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" 
+                         alt="Flask" 
+                         style="height: 50px; width: auto; filter: brightness(0) invert(1); display: block; margin: 0 auto;"
+                         title="Flask">
+                    <span style="display: block; margin-top: 0.5rem; font-size: 0.7rem; color: rgba(255, 255, 255, 0.7);">Flask</span>
+                </div>
+                <!-- React -->
+                <div class="tech-logo-wrapper text-center" style="transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" 
+                         alt="React" 
+                         style="height: 50px; width: auto; display: block; margin: 0 auto;"
+                         title="React">
+                    <span style="display: block; margin-top: 0.5rem; font-size: 0.7rem; color: rgba(255, 255, 255, 0.7);">React</span>
+                </div>
+                <!-- Bootstrap -->
+                <div class="tech-logo-wrapper text-center" style="transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" 
+                         alt="Bootstrap" 
+                         style="height: 50px; width: auto; display: block; margin: 0 auto;"
+                         title="Bootstrap">
+                    <span style="display: block; margin-top: 0.5rem; font-size: 0.7rem; color: rgba(255, 255, 255, 0.7);">Bootstrap</span>
+                </div>
+                <!-- Azure -->
+                <div class="tech-logo-wrapper text-center" style="transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" 
+                         alt="Microsoft Azure" 
+                         style="height: 50px; width: auto; display: block; margin: 0 auto;"
+                         title="Microsoft Azure">
+                    <span style="display: block; margin-top: 0.5rem; font-size: 0.7rem; color: rgba(255, 255, 255, 0.7);">Azure</span>
+                </div>
+                <!-- PostgreSQL -->
+                <div class="tech-logo-wrapper text-center" style="transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" 
+                         alt="PostgreSQL" 
+                         style="height: 50px; width: auto; display: block; margin: 0 auto;"
+                         title="PostgreSQL">
+                    <span style="display: block; margin-top: 0.5rem; font-size: 0.7rem; color: rgba(255, 255, 255, 0.7);">PostgreSQL</span>
+                </div>
+                <!-- Git -->
+                <div class="tech-logo-wrapper text-center" style="transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" 
+                         alt="Git" 
+                         style="height: 50px; width: auto; display: block; margin: 0 auto;"
+                         title="Git">
+                    <span style="display: block; margin-top: 0.5rem; font-size: 0.7rem; color: rgba(255, 255, 255, 0.7);">Git</span>
                 </div>
             </div>
         </div>
@@ -253,10 +528,10 @@
                         </p>
                         <div class="testimonial-author">
                             <div class="author-avatar" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
-                                BS
+                                RH
                             </div>
                             <div class="author-info">
-                                <h6 class="author-name">Budi Santoso</h6>
+                                <h6 class="author-name"> Rahman Hidayat</h6>
                                 <p class="author-role">Owner Toko Elektronik Sukabumi</p>
                             </div>
                         </div>
@@ -281,11 +556,11 @@
                         </p>
                         <div class="testimonial-author">
                             <div class="author-avatar" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">
-                                SH
+                                SM
                             </div>
                             <div class="author-info">
-                                <h6 class="author-name">Siti Hartini</h6>
-                                <p class="author-role">Kepala Sekolah SD Negeri 1 Cisarua</p>
+                                <h6 class="author-name">Siti Marinah</h6>
+                                <p class="author-role">Kepala Sekolah SMPN 1 Cisarua</p>
                             </div>
                         </div>
                     </div>
@@ -313,7 +588,7 @@
                             </div>
                             <div class="author-info">
                                 <h6 class="author-name">Ahmad Purnomo</h6>
-                                <p class="author-role">Admin Universitas Ibnu Khaldun</p>
+                                <p class="author-role">Admin Universitas</p>
                             </div>
                         </div>
                     </div>
