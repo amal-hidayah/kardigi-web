@@ -208,38 +208,82 @@
     </a>
 
     <footer class="footer-modern">
-        <div class="container py-4">
-            <div class="row align-items-center g-4">
-                <div class="col-md-4 text-center text-md-start">
-                    <div class="d-flex align-items-center justify-content-center justify-content-md-start gap-2 mb-2">
-                        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="KARDIGI" style="height: 35px;">
-                        <span class="fw-bold fs-5" style="background: linear-gradient(135deg, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">KARDIGI</span>
+        <div class="container py-5">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="KARDIGI" style="height: 36px;">
+                        <span class="fw-bold fs-5 footer-brand">KARDIGI</span>
                     </div>
-                    <p class="small mb-0" style="color: #94a3b8;">&copy; 2025 KARDIGI. All rights reserved.</p>
+                    <p class="mb-3 footer-text">Solusi pembuatan website profesional dan produk digital untuk menaikkan kredibilitas serta omzet bisnis.</p>
+                    <ul class="wrapper">
+                        <li class="icon whatsapp">
+                            <span class="tooltip">WhatsApp</span>
+                            <a href="https://wa.me/6289509951772" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        </li>
+                        <li class="icon instagram">
+                            <span class="tooltip">Instagram</span>
+                            <a href="https://instagram.com/kardigi.id" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </li>
+                        <li class="icon email">
+                            <span class="tooltip">Email</span>
+                            <a href="mailto:kardigi.id@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-md-4 text-center">
-                    <div class="d-flex justify-content-center gap-3">
-                        <a href="https://instagram.com/kardigi.id" target="_blank" class="footer-social-icon" style="width: 45px; height: 45px; background: linear-gradient(135deg, #e1306c, #fd1d1d, #f77737); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(225, 48, 108, 0.3);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 25px rgba(225, 48, 108, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(225, 48, 108, 0.3)'">
-                            <i class="fab fa-instagram fs-5"></i>
-                        </a>
-                        <a href="https://wa.me/6289509951772" target="_blank" class="footer-social-icon" style="width: 45px; height: 45px; background: linear-gradient(135deg, #25d366, #128c7e); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 25px rgba(37, 211, 102, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(37, 211, 102, 0.3)'">
-                            <i class="fab fa-whatsapp fs-5"></i>
-                        </a>
-                        <a href="mailto:info@kardigi.id" class="footer-social-icon" style="width: 45px; height: 45px; background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 25px rgba(245, 158, 11, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(245, 158, 11, 0.3)'">
-                            <i class="fas fa-envelope fs-5"></i>
-                        </a>
+                <div class="col-6 col-lg-2">
+                    <h6 class="footer-title">Navigasi</h6>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="/">Beranda</a></li>
+                        <li><a href="{{ url_for('jasa_website') }}">Jasa Website</a></li>
+                        <li><a href="{{ url_for('blog_list') }}">Blog</a></li>
+                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalFAQ">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-5">
+                    <h6 class="footer-title">Kontak</h6>
+                    <div class="footer-contact">
+                        <div class="contact-item"><i class="bi bi-geo-alt"></i><span>Sukabumi, Jawa Barat</span></div>
+                        <div class="contact-item"><i class="bi bi-envelope"></i><span>kardigi.id@gmail.com</span></div>
+                        <div class="contact-item"><i class="bi bi-whatsapp"></i><span>0895-0995-1772</span></div>
                     </div>
+                    <a href="https://wa.me/6289509951772" target="_blank" class="btn btn-orange rounded-pill mt-3 w-100">Hubungi Kami</a>
                 </div>
-                <div class="col-md-4 text-center text-md-end">
-                    <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-md-end gap-3 align-items-center">
+            </div>
+            <div class="footer-bottom mt-4 pt-3">
+                <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-2">
+                    <span class="footer-copy">&copy; 2025 KARDIGI. All rights reserved.</span>
+                    <div class="d-flex align-items-center gap-3">
                         <a href="#" class="footer-link">Privacy Policy</a>
-                        <span class="text-muted d-none d-sm-inline">•</span>
                         <a href="#" class="footer-link">Terms of Service</a>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
+    <style>
+        .footer-modern { background: linear-gradient(180deg, #0f172a 0%, #0b1220 100%); color: #cbd5e1; border-top: 1px solid rgba(255,255,255,0.06); }
+        .footer-brand { background: linear-gradient(135deg, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .footer-title { color: #e5e7eb; font-weight: 700; margin-bottom: .75rem; }
+        .footer-text { color: #94a3b8; font-size: .95rem; }
+        .footer-links li { margin-bottom: .35rem; }
+        .footer-links a { color: #94a3b8; text-decoration: none; transition: color .2s ease; }
+        .footer-links a:hover { color: #f59e0b; }
+        .footer-contact .contact-item { display: flex; align-items: center; gap: .5rem; margin-bottom: .5rem; color: #94a3b8; }
+        .wrapper { display: inline-flex; list-style: none; gap: 12px; padding: 0; margin: 0; }
+        .wrapper .icon { position: relative; background: #fff; border-radius: 50%; width: 46px; height: 46px; font-size: 18px; display: flex; justify-content: center; align-items: center; box-shadow: 0 10px 10px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.2s cubic-bezier(0.68,-0.55,0.265,1.55); }
+        .wrapper .icon a { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #0f172a; text-decoration: none; }
+        .wrapper .tooltip { position: absolute; top: 0; font-size: 13px; background: #fff; color: #fff; padding: 5px 8px; border-radius: 5px; box-shadow: 0 10px 10px rgba(0,0,0,0.1); opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.68,-0.55,0.265,1.55); }
+        .wrapper .tooltip::before { position: absolute; content: ""; height: 8px; width: 8px; background: #fff; bottom: -3px; left: 50%; transform: translate(-50%) rotate(45deg); transition: all 0.3s cubic-bezier(0.68,-0.55,0.265,1.55); }
+        .wrapper .icon:hover .tooltip { top: -38px; opacity: 1; visibility: visible; pointer-events: auto; }
+        .wrapper .icon:hover span, .wrapper .icon:hover .tooltip { text-shadow: 0 -1px 0 rgba(0,0,0,0.1); }
+        .wrapper .whatsapp:hover, .wrapper .whatsapp:hover .tooltip, .wrapper .whatsapp:hover .tooltip::before { background: #25d366; color: #fff; }
+        .wrapper .instagram:hover, .wrapper .instagram:hover .tooltip, .wrapper .instagram:hover .tooltip::before { background: #e4405f; color: #fff; }
+        .wrapper .email:hover, .wrapper .email:hover .tooltip, .wrapper .email:hover .tooltip::before { background: #f59e0b; color: #fff; }
+        .footer-link { color: #94a3b8; text-decoration: none; }
+        .footer-link:hover { color: #f59e0b; }
+        .footer-copy { color: #64748b; font-size: .9rem; }
+    </style>
 
     <!-- MODAL CARA PESAN -->
     <div class="modal fade" id="modalCaraPesan" tabindex="-1" aria-hidden="true">

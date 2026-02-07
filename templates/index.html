@@ -5,27 +5,19 @@
 <!-- Hero Section: Updated to Fixed Container for better spacing -->
 <section class="hero-section position-relative overflow-hidden" style="padding-top: 0 !important;">
     <!-- Pake 'container' biasa biar rapi di tengah -->
-    <div class="container" style="padding-top: -15rem;">
-        <div class="row align-items-center" style="min-height: 80vh;">
-            
-            <!-- KOLOM KANAN: GAMBAR HERO (Mobile First Order) -->
-            <div class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center position-relative reveal-scroll-right order-1 order-lg-2" style="padding-top: 2rem; padding-bottom: 13rem;">
-                <img src="https://res.cloudinary.com/dxilefb3o/image/upload/f_auto,q_auto/v1768918125/123_dbvgol.png" 
-                     alt="Hero Image KARDIGI" 
-                     class="img-fluid hero-image"
-                     style="width: 100%; max-width: 650px; min-height: 550px; height: auto; object-fit: contain; margin: auto;">
+    <div class="container-fluid px-3 px-md-4 px-lg-5">
+        <div class="row g-2 align-items-center" style="min-height: 80vh;">
+            <div class="col-lg-6 order-1 order-lg-2 d-none d-md-block">
+                <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
+                    <img src="https://res.cloudinary.com/dxilefb3o/image/upload/f_auto,q_auto/v1770447049/hero_u9hqd7.png" alt="KARDIGI Hero" style="width: clamp(520px, 48vw, 1000px); height: auto;">
+                </div>
             </div>
-            
             <!-- KOLOM KIRI: TEKS HERO -->
-            <div class="col-lg-6 py-lg-5 pt-2 pb-3 position-relative text-center text-lg-start order-2 order-lg-1" style="z-index: 10; margin-top: 0 !important;">
-                <span class="badge bg-soft-blue text-primary fw-bold px-3 py-2 rounded-pill mb-3 hero-badge">
-                    🚀 Digital Agency Terpercaya Indonesia
-                </span>
-                
+            <div class="col-lg-6 py-lg-5 pt-2 pb-3 position-relative text-center text-lg-start order-2 order-lg-1" style="z-index: 10; margin-top: 0 !important;">              
                 <div class="animate-text">
                     <h1 class="display-4 fw-800 mb-3 hero-heading" style="color: var(--primary-navy); line-height: 1.1; font-weight: 800;">
-                        Wujudkan Website Impian <br>
-                        <span class="hero-highlight" style="color: var(--accent-orange);">Bisnis Anda!</span>
+                        Tingkatkan Penjualan Bisnis <br>
+                        <span class="hero-highlight" style="color: var(--accent-orange);">Dengan Website Professional</span>
                     </h1>
 
                     <div class="price-hook-wrapper d-flex align-items-center justify-content-center justify-content-lg-start gap-3 mb-4 hero-price">
@@ -35,12 +27,7 @@
                             <span class="price-promo fw-bold text-orange fs-4">Mulai Rp 500rb!</span>
                         </div>
                     </div>
-
-                    <p class="lead text-muted mb-3 mx-auto mx-lg-0 hero-description" style="font-size: 1rem; max-width: 480px; line-height: 1.5;">
-                        Website profesional, modern, SEO-friendly. <strong style="color: var(--primary-navy);">Paket sesuai budget</strong> + garansi revisi tanpa batas.
-                    </p>
-
-                    <!-- Social Proof & Urgency -->
+                            <!-- Social Proof & Urgency -->
                     <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start align-items-center mb-3">
                         <div class="d-flex align-items-center gap-2 px-2 py-1 rounded-pill" style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2);">
                             <span class="small fw-semibold" style="color: var(--primary-navy); font-size: 0.85rem;">
@@ -71,7 +58,7 @@
                        onmouseover="this.style.transform='translateY(-3px)'"
                        onmouseout="this.style.transform='translateY(0)'">
                         <i class="fas fa-rocket me-2" style="font-size: 1.1rem;"></i>
-                        <span>Lihat Paket Website</span>
+                        <span>Lihat Contoh Website</span>
                     </a>
                     
                     <!-- TOMBOL KONSULTASI (Clean Premium Style) -->
@@ -87,511 +74,427 @@
                        onmouseover="this.style.transform='translateY(-2px)'; this.style.background='#10b981'; this.style.color='white'" 
                        onmouseout="this.style.transform='translateY(0)'; this.style.background='white'; this.style.color='#10b981'">
                         <i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i>
-                        <span>Chat Gratis</span>
+                        <span>Konsultasi Gratis</span>
                     </a>
                 </div>
 
-                <!-- Trust Badges (Guerrilla Marketing: Social Proof) -->
-                <div class="mt-4 pt-3 border-top" style="border-color: rgba(0,0,0,0.1) !important;">
-                    <p class="small text-muted mb-2" style="font-size: 0.75rem; font-weight: 600;">DIPERCAYA OLEH:</p>
-                    <div class="d-flex flex-wrap gap-3 align-items-center justify-content-center justify-content-lg-start">
-                        <div class="px-3 py-2 rounded" style="background: #f8fafc; border: 1px solid #e2e8f0;">
-                            <span class="small fw-semibold" style="color: var(--primary-navy); font-size: 0.75rem;">
-                                <i class="fas fa-graduation-cap me-1" style="color: #3b82f6;"></i>Sekolah & Kampus
-                            </span>
-                        </div>
-                        <div class="px-3 py-2 rounded" style="background: #f8fafc; border: 1px solid #e2e8f0;">
-                            <span class="small fw-semibold" style="color: var(--primary-navy); font-size: 0.75rem;">
-                                <i class="fas fa-store me-1" style="color: #f59e0b;"></i>Toko Online
-                            </span>
-                        </div>
-                        <div class="px-3 py-2 rounded" style="background: #f8fafc; border: 1px solid #e2e8f0;">
-                            <span class="small fw-semibold" style="color: var(--primary-navy); font-size: 0.75rem;">
-                                <i class="fas fa-briefcase me-1" style="color: #10b981;"></i>Bisnis Lokal
-                            </span>
-                        </div>
-                        <div class="px-3 py-2 rounded" style="background: #f8fafc; border: 1px solid #e2e8f0;">
-                            <span class="small fw-semibold" style="color: var(--primary-navy); font-size: 0.75rem;">
-                                <i class="fas fa-building me-1" style="color: #6366f1;"></i>Perusahaan
-                            </span>
-                        </div>
-                    </div>
-                </div>
                 
+                
+                </div>
+                <div class="d-block d-md-none mt-4">
+                    <img src="https://res.cloudinary.com/dxilefb3o/image/upload/f_auto,q_auto/v1770447049/hero_u9hqd7.png" alt="KARDIGI Hero" style="width: 100%; height: auto;">
                 </div>
             </div>
             
         </div>
     </div>
 </section>
+<div class="hero-curve"></div>
+<style>
+.hero-curve{position:absolute;left:50%;transform:translateX(-50%);bottom:-170px;width:115%;height:100px;background:#e7f7ff;border-top-left-radius:100% 90px;border-top-right-radius:100% 90px;z-index:9;box-shadow:0 -2px 0 rgba(0,0,0,0.02);pointer-events:none}
+@media (max-width:575.98px){.hero-curve{bottom:-243px;width:100%;left:0;transform:translateX(0)}}
+</style>
 
-<!-- KENAPA KARDIGI - MERGER SECTION (GUERRILLA MARKETING) -->
-<section class="py-4 bg-white" style="padding-top: 2rem !important;">
-    <div class="container py-3 reveal">
-        <!-- Header dengan Stats -->
-        <div class="row align-items-center g-5 mb-5">
-            <div class="col-lg-6 reveal-on-scroll">
-                <span class="badge bg-orange text-white px-4 py-2 rounded-pill mb-3" style="font-size: 0.9rem;">
-                    <i class="fas fa-crown me-2"></i>PARTNER TRANSFORMASI DIGITAL
-                </span>
-                <h2 class="fw-bold mb-3" style="color: var(--primary-navy); font-size: 2.5rem; line-height: 1.2;">
-                    Kenapa KARDIGI <br>
-                    <span style="color: var(--accent-orange);">Partner Terbaik</span> Bisnis Anda?
-                </h2>
-                <p class="text-muted mb-4" style="font-size: 1.05rem; line-height: 1.7;">
-                    <strong style="color: var(--primary-navy);">KARDIGI</strong> telah dipercaya <strong style="color: var(--accent-orange);">25+ bisnis</strong> se-Indonesia. Kami tidak hanya membuat website—kami ciptakan <strong style="color: var(--primary-navy);">aset digital yang menghasilkan profit</strong>.
-                </p>
+<section class="pt-0 pb-4" style="background: linear-gradient(180deg, #e7f7ff 0%, #ffffff 100%);">
+    <div class="container pt-0 pb-4">
+        <div class="text-center mb-4">
+            <h1 class="fw-bold mt-0" style="color: var(--primary-navy);">Pilih Website Sesuai Kebutuhan Anda</h1>
+            <p class="text-muted">Ratusan bisnis telah mempercayakan kepada kami untuk mengembangkan bisnisnya secara digital.</p>
+        </div>
+        
+        <div class="row g-4 portfolio-grid" id="portfolioGrid">
+            {% if portfolio_websites %}
+                {% for item in portfolio_websites[:6] %}
+                <div class="col-12 col-sm-6 col-md-4 portfolio-item {% if loop.index > 3 %}mobile-hidden{% endif %}" data-index="{{ loop.index }}">
+                    <div class="card border-0 h-100 portfolio-card" style="border-radius: 16px; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(0,0,0,0.08);"
+                         onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 15px 40px rgba(0,0,0,0.15)'"
+                         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 20px rgba(0,0,0,0.08)'">
+                        <div class="position-relative portfolio-img-wrapper" style="padding-top: 65%; overflow: hidden;">
+                            <img src="{{ url_for('static', filename='uploads/' + item.image) }}" 
+                                 alt="{{ item.title }}"
+                                 class="position-absolute top-0 start-0 w-100 h-100"
+                                 style="object-fit: cover; transition: transform 0.4s ease;">
+                            
+                            <div class="portfolio-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column align-items-center justify-content-center gap-2" 
+                                 style="transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);">
+                                <h6 class="portfolio-title fw-bold mb-2 text-center" style="color: #ffffff;">
+                                    {{ item.title }}
+                                </h6>
+                                <div class="portfolio-actions">
+                                  <a href="{% if item.demo_link %}{{ item.demo_link }}{% else %}#{% endif %}" 
+                                     target="{% if item.demo_link %}_blank{% else %}_self{% endif %}"
+                                     class="btn btn-light rounded-pill fw-bold portfolio-btn">
+                                      <i class="fas fa-eye me-2"></i>Lihat Demo
+                                  </a>
+                                  <a href="https://wa.me/6289509951772?text=Halo,%20saya%20mau%20pilih%20template%20{{ item.title }}" 
+                                     target="_blank"
+                                     class="btn btn-orange rounded-pill fw-bold portfolio-btn d-none d-md-inline-flex">
+                                      <i class="fas fa-check-circle me-2"></i>Pilih Template
+                                  </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
                 
-                <!-- Stats Horizontal -->
-                <div class="row g-3 mb-4">
-                    <div class="col-4">
-                        <div class="text-center p-3 rounded-3" style="background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);">
-                            <h3 class="fw-bold mb-1" style="color: var(--accent-orange); font-size: 1.8rem;">25+</h3>
-                            <p class="text-muted mb-0" style="font-size: 0.75rem; font-weight: 600;">Klien Puas</p>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="text-center p-3 rounded-3" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);">
-                            <h3 class="fw-bold mb-1" style="color: #0284c7; font-size: 1.8rem;">3-7</h3>
-                            <p class="text-muted mb-0" style="font-size: 0.75rem; font-weight: 600;">Hari Kerja</p>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="text-center p-3 rounded-3" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);">
-                            <h3 class="fw-bold mb-1" style="color: #16a34a; font-size: 1.8rem;">4.9/5</h3>
-                            <p class="text-muted mb-0" style="font-size: 0.75rem; font-weight: 600;">Rating</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-6 reveal-on-scroll">
-                <div class="position-relative">
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800" 
-                         alt="KARDIGI Team" 
-                         class="img-fluid rounded-4 shadow-lg">
-                    <div class="position-absolute bottom-0 start-0 m-4 p-3 bg-white rounded-3 shadow" style="max-width: 280px;">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="bg-orange rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
-                                <i class="fas fa-check text-white fs-4"></i>
-                            </div>
-                            <div>
-                                <p class="fw-bold mb-0" style="color: var(--primary-navy); font-size: 0.95rem;">Garansi Revisi</p>
-                                <p class="text-muted small mb-0">Hingga puas 100%</p>
+                {% for item in portfolio_websites[6:] %}
+                <div class="col-12 col-sm-6 col-md-4 portfolio-item d-none mobile-hidden" data-index="{{ loop.index + 6 }}">
+                    <div class="card border-0 h-100 portfolio-card" style="border-radius: 16px; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(0,0,0,0.08);"
+                         onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 15px 40px rgba(0,0,0,0.15)'"
+                         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 20px rgba(0,0,0,0.08)'">
+                        <div class="position-relative portfolio-img-wrapper" style="padding-top: 65%; overflow: hidden;">
+                            <img src="{{ url_for('static', filename='uploads/' + item.image) }}" 
+                                 alt="{{ item.title }}"
+                                 class="position-absolute top-0 start-0 w-100 h-100"
+                                 style="object-fit: cover; transition: transform 0.4s ease;">
+                            
+                            <div class="portfolio-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column align-items-center justify-content-center gap-2" 
+                                 style="transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);">
+                                <h6 class="portfolio-title fw-bold mb-2 text-center" style="color: #ffffff;">
+                                    {{ item.title }}
+                                </h6>
+                                <div class="portfolio-actions">
+                                  <a href="{% if item.demo_link %}{{ item.demo_link }}{% else %}#{% endif %}" 
+                                     target="{% if item.demo_link %}_blank{% else %}_self{% endif %}"
+                                     class="btn btn-light rounded-pill fw-bold portfolio-btn">
+                                      <i class="fas fa-eye me-2"></i>Lihat Demo
+                                  </a>
+                                  <a href="https://wa.me/6289509951772?text=Halo,%20saya%20mau%20pilih%20template%20{{ item.title }}" 
+                                     target="_blank"
+                                     class="btn btn-orange rounded-pill fw-bold portfolio-btn d-none d-md-inline-flex">
+                                      <i class="fas fa-check-circle me-2"></i>Pilih Template
+                                  </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- 6 Benefit Cards dalam Grid -->
-        <div class="row g-4 mb-4">
-            <!-- 1. Teknologi Kelas Dunia + Pengerjaan Cepat -->
-            <div class="col-lg-4 col-md-6 reveal-on-scroll">
-                <div class="h-100 p-4 rounded-4 position-relative" 
-                     style="background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%); border: 2px solid #fed7aa; transition: all 0.3s ease;"
-                     onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 12px 30px rgba(245, 158, 11, 0.2)'"
-                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-                    <div class="mb-3">
-                        <div class="d-inline-flex align-items-center justify-content-center rounded-3" 
-                             style="width: 60px; height: 60px; background: linear-gradient(135deg, #f59e0b, #d97706);">
-                            <i class="fas fa-bolt text-white" style="font-size: 1.5rem;"></i>
-                        </div>
-                    </div>
-                    <h5 class="fw-bold mb-2" style="color: var(--primary-navy);">Teknologi Enterprise + Super Cepat</h5>
-                    <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.6;">
-                        Website dibangun dengan <strong style="color: var(--primary-navy);">Python, Flask, React</strong>—teknologi Instagram & Netflix. Pengerjaan <strong>cuma 3-7 hari</strong>, langsung online! <span style="color: #f59e0b; font-weight: 600;">Paket mulai Rp 500rb.</span>
-                    </p>
-                    <div class="d-flex gap-2 flex-wrap">
-                        <span class="badge px-2 py-1" style="background: rgba(245, 158, 11, 0.2); color: #d97706; font-size: 0.7rem;">
-                            <i class="fab fa-python me-1"></i>Python
-                        </span>
-                        <span class="badge px-2 py-1" style="background: rgba(245, 158, 11, 0.2); color: #d97706; font-size: 0.7rem;">
-                            <i class="fab fa-react me-1"></i>React
-                        </span>
-                        <span class="badge px-2 py-1" style="background: rgba(245, 158, 11, 0.2); color: #d97706; font-size: 0.7rem;">
-                            <i class="fas fa-wallet me-1"></i>Budget Friendly
-                        </span>
-                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center">
+                    <p class="text-muted">Belum ada portfolio yang ditambahkan</p>
                 </div>
-            </div>
-
-            <!-- 2. SEO Friendly + Profit-Oriented -->
-            <div class="col-lg-4 col-md-6 reveal-on-scroll">
-                <div class="h-100 p-4 rounded-4 position-relative" 
-                     style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 2px solid #bbf7d0; transition: all 0.3s ease;"
-                     onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 12px 30px rgba(16, 185, 129, 0.2)'"
-                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-                    <div class="mb-3">
-                        <div class="d-inline-flex align-items-center justify-content-center rounded-3" 
-                             style="width: 60px; height: 60px; background: linear-gradient(135deg, #10b981, #059669);">
-                            <i class="fas fa-chart-line text-white" style="font-size: 1.5rem;"></i>
-                        </div>
-                    </div>
-                    <h5 class="fw-bold mb-2" style="color: var(--primary-navy);">SEO-Ready & Conversion-Focused</h5>
-                    <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.6;">
-                        Mudah ditemukan di Google + setiap elemen dirancang untuk <strong style="color: var(--primary-navy);">mengubah pengunjung jadi pembeli</strong>. Fokus 100% pada profit bisnis Anda.
-                    </p>
-                    <div class="d-flex align-items-center gap-2">
-                        <i class="fas fa-check-circle text-success"></i>
-                        <span class="small fw-semibold" style="color: #059669;">Optimasi Google</span>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 mt-2">
-                        <i class="fas fa-check-circle text-success"></i>
-                        <span class="small fw-semibold" style="color: #059669;">CTA Persuasif</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. Garansi Revisi + Support 24/7 -->
-            <div class="col-lg-4 col-md-6 reveal-on-scroll">
-                <div class="h-100 p-4 rounded-4 position-relative" 
-                     style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px solid #bae6fd; transition: all 0.3s ease;"
-                     onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 12px 30px rgba(59, 130, 246, 0.2)'"
-                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-                    <div class="mb-3">
-                        <div class="d-inline-flex align-items-center justify-content-center rounded-3" 
-                             style="width: 60px; height: 60px; background: linear-gradient(135deg, #3b82f6, #2563eb);">
-                            <i class="fas fa-infinity text-white" style="font-size: 1.5rem;"></i>
-                        </div>
-                    </div>
-                    <h5 class="fw-bold mb-2" style="color: var(--primary-navy);">Garansi Revisi + Support Pasca-Rilis</h5>
-                    <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.6;">
-                        <strong style="color: var(--primary-navy);">Revisi tanpa batas</strong> sampai puas. Kami tetap mendampingi setelah website online—maintenance, update, support responsif.
-                    </p>
-                    <div class="d-flex align-items-center gap-2">
-                        <i class="fas fa-headphones text-primary"></i>
-                        <span class="small fw-semibold text-primary">Support Responsif</span>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 mt-2">
-                        <i class="fas fa-tools text-primary"></i>
-                        <span class="small fw-semibold text-primary">Maintenance Gratis</span>
-                    </div>
-                </div>
-            </div>
+            {% endif %}
         </div>
-
-        <!-- CTA Bottom -->
-        <div class="text-center reveal-on-scroll pt-3">
-            <a href="{{ url_for('jasa_website') }}" 
-               class="btn rounded-pill shadow-lg px-5 py-3"
-               style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); 
-                      color: white;
-                      font-weight: 700;
-                      border: 2px solid rgba(255,255,255,0.2);
-                      transition: all 0.3s ease;"
-               onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 30px rgba(245, 158, 11, 0.5)'"
-               onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 20px rgba(245, 158, 11, 0.4)'">
-                <i class="fas fa-arrow-right me-2"></i> Lihat Paket & Harga Website
-            </a>
+        
+        {% if portfolio_websites|length > 3 %}
+        <div class="text-center mt-4 d-md-none" id="mobileToggleContainer">
+            <button id="mobileShowMoreBtn" class="btn btn-orange rounded-pill px-5 py-2 fw-bold shadow" onclick="toggleMobilePortfolio()">
+                <i class="fas fa-chevron-down me-2"></i> Lihat semua contoh
+            </button>
         </div>
+        {% endif %}
+        
+        {% if portfolio_websites|length > 6 %}
+        <div class="text-center mt-4 d-none d-md-block">
+            <button id="loadMoreBtn" class="btn btn-outline-primary rounded-pill px-5 py-2" onclick="loadMorePortfolio()">
+                <i class="fas fa-plus-circle me-2"></i> Lihat 6 Lainnya
+            </button>
+        </div>
+        {% endif %}
     </div>
 </section>
 
+<style>
+.portfolio-overlay { background: rgba(15, 23, 42, 0); opacity: 0; }
+.portfolio-title { transform: translateY(15px); opacity: 0; transition: all 0.4s ease; }
+.portfolio-actions { display: flex; gap: 0.75rem; justify-content: center; align-items: center; width: 100%; }
+.portfolio-btn { transform: translateY(20px); opacity: 0; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); min-width: 150px; padding: 0.6rem 1.2rem; font-size: 0.95rem; }
+.portfolio-btn i { font-size: 1rem; }
+.portfolio-card:hover .portfolio-overlay, .portfolio-card.active .portfolio-overlay { background: rgba(15, 23, 42, 0.85); opacity: 1; }
+.portfolio-card:hover .portfolio-btn, .portfolio-card.active .portfolio-btn { transform: translateY(0); opacity: 1; }
+.portfolio-card:hover .portfolio-title, .portfolio-card.active .portfolio-title { transform: translateY(0); opacity: 1; }
+.portfolio-img-wrapper img:hover { transform: none; }
+.portfolio-item.show-mobile { display: block !important; }
+.portfolio-card { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+@media (max-width: 767.98px) {
+  .portfolio-item.mobile-hidden { display: none; }
+  .portfolio-actions { gap: 0.5rem; padding: 0 1rem; justify-content: center; }
+  .portfolio-btn { min-width: 180px; }
+  .portfolio-title { margin-bottom: 0.75rem; font-size: 1rem; }
+  .portfolio-card.active .portfolio-overlay { background: rgba(15, 23, 42, 0.92); }
+}
+</style>
+
+<script>
+let visibleCount = 6;
+let mobileExpanded = false;
+function toggleMobilePortfolio() {
+    const mobileHiddenItems = document.querySelectorAll('.portfolio-item.mobile-hidden:not(.d-none)');
+    const btn = document.getElementById('mobileShowMoreBtn');
+    if (!mobileExpanded) {
+        mobileHiddenItems.forEach(item => { item.classList.add('show-mobile'); });
+        btn.innerHTML = '<i class="fas fa-chevron-up me-2"></i> Sembunyikan contoh';
+        btn.classList.remove('btn-orange'); btn.classList.add('btn-outline-secondary');
+        mobileExpanded = true;
+    } else {
+        mobileHiddenItems.forEach(item => { item.classList.remove('show-mobile'); });
+        btn.innerHTML = '<i class="fas fa-chevron-down me-2"></i> Lihat semua contoh';
+        btn.classList.remove('btn-outline-secondary'); btn.classList.add('btn-orange');
+        mobileExpanded = false;
+        document.querySelector('.portfolio-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+function loadMorePortfolio() {
+    const items = document.querySelectorAll('.portfolio-item.d-none');
+    const itemsToShow = Array.from(items).slice(0, 6);
+    itemsToShow.forEach(item => { item.classList.remove('d-none'); });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  const cards = document.querySelectorAll('.portfolio-card');
+  const isMobile = window.matchMedia('(max-width: 767.98px)').matches;
+  
+  cards.forEach(card => {
+    const wrapper = card.querySelector('.portfolio-img-wrapper');
+    
+    // Handle mobile touch/click
+    if (isMobile) {
+      let isActive = false;
+      
+      wrapper.addEventListener('click', (e) => {
+        // Jika belum aktif, aktifkan overlay
+        if (!isActive) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          // Tutup card lain yang aktif
+          cards.forEach(c => {
+            if (c !== card) {
+              c.classList.remove('active');
+            }
+          });
+          
+          // Aktifkan card ini
+          card.classList.add('active');
+          isActive = true;
+          
+          // Auto-close setelah 5 detik
+          setTimeout(() => {
+            card.classList.remove('active');
+            isActive = false;
+          }, 5000);
+        }
+      });
+      
+      // Click pada button tidak akan menutup overlay
+      const buttons = card.querySelectorAll('.portfolio-btn');
+      buttons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          // Biarkan link bekerja normal
+        });
+      });
+      
+      // Tutup ketika click di luar card
+      document.addEventListener('click', (e) => {
+        if (!card.contains(e.target)) {
+          card.classList.remove('active');
+          isActive = false;
+        }
+      });
+    }
+  });
+});
+</script>
+
+<section class="pricing-section py-5">
+  <style>
+    .pricing-section { background: linear-gradient(180deg,#ffffff 0%,#f8fafc 100%); }
+    .pricing-badge { display:inline-flex; align-items:center; padding:.5rem 1rem; background:#e2e8f0; color:var(--primary-navy); border-radius:999px; font-weight:700; }
+    .pricing-title { color:var(--primary-navy); }
+    .pricing-subtitle { color:#64748b; }
+    .pricing-card { border:1px solid #e5e7eb; border-radius:20px; background-image: radial-gradient(#e2e8f0 1.2px, transparent 1.2px); background-size:28px 28px; padding:1.25rem; }
+    .pricing-inner { background:#ffffff; border-radius:16px; box-shadow:0 6px 18px rgba(0,0,0,0.06); padding:1.25rem 1.25rem 1.5rem; }
+    .domain-pill { display:inline-flex; align-items:center; gap:.5rem; font-weight:700; color:var(--primary-navy); }
+    .domain-pill .tld { display:inline-block; background:#dbeafe; color:#2563eb; border-radius:12px; padding:.2rem .5rem; font-weight:800; }
+    .price-now { color:var(--primary-navy); font-weight:800; font-size:1.6rem; display:block; }
+    .price-strike { color:#94a3b8; text-decoration:line-through; font-size:.9rem; }
+    .promo-badge { display:inline-block; background:linear-gradient(135deg,#f59e0b,#d97706); color:#0f172a; font-weight:800; border-radius:10px; padding:.2rem .5rem; font-size:.8rem; }
+    .pricing-feat { color:#334155; font-weight:700; margin-bottom:.75rem; }
+    .pricing-list { color:#64748b; font-size:.95rem; }
+    .pricing-desc { color:#64748b; font-size:.98rem; line-height:1.7; margin-bottom:1rem; }
+    .price-now-block { margin-bottom:.5rem; }
+    .price-meta { display:flex; align-items:center; gap:.5rem; margin-bottom:1rem; }
+    .pricing-btn { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; background:linear-gradient(135deg,#f59e0b,#d97706); color:#ffffff; border:none; border-radius:999px; padding:.6rem 1.2rem; font-weight:700; text-decoration:none; box-shadow:0 8px 20px rgba(245,158,11,0.35); transition:transform .2s ease; }
+    .pricing-btn:hover { transform:translateY(-2px); }
+  </style>
+  <div class="container">
+    <div class="text-center mb-4">
+      <span class="pricing-badge">Paket Harga Murah</span>
+      <h2 class="fw-bold pricing-title mt-2">Harga Pas, Website Kelas!</h2>
+      <p class="pricing-subtitle">Membuat website profesional kini lebih murah. Desain modern, mudah digunakan, tanpa khawatir biaya.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-12 col-md-4">
+        <div class="pricing-card h-100">
+          <div class="pricing-inner">
+            <div class="mb-3 domain-pill">KARDIGI START <span class="tld">branding</span></div>
+            <div class="price-now-block mb-2">
+              <span class="price-now">Rp 599.000 <span class="text-muted" style="font-size:.9rem;">/thn</span></span>
+            </div>
+            <div class="price-meta mb-4">
+              <span class="price-strike me-2">Rp 1.077.000</span>
+              <span class="promo-badge">PROMO</span>
+            </div>
+            <div class="mb-2 pricing-feat">Website profil profesional</div>
+            <p class="pricing-desc mb-3">Bangun kredibilitas instan dengan website profil elegan yang mudah ditemukan pelanggan di Google.</p>
+            <a href="{{ url_for('jasa_website') }}" class="pricing-btn">Pesan Sekarang</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="pricing-card h-100">
+          <div class="pricing-inner">
+            <div class="mb-3 domain-pill">KARDIGI GROW <span class="tld">operasional</span></div>
+            <div class="price-now-block mb-2">
+              <span class="price-now">Rp 1.199.000 <span class="text-muted" style="font-size:.9rem;">/thn</span></span>
+            </div>
+            <div class="price-meta mb-4">
+              <span class="price-strike me-2">Rp 2.177.000</span>
+              <span class="promo-badge">PROMO</span>
+            </div>
+            <div class="mb-2 pricing-feat">Sistem pesanan otomatis</div>
+            <p class="pricing-desc mb-3">Kelola pesanan secara otomatis dan hemat biaya komisi aplikasi sepenuhnya.</p>
+            <a href="{{ url_for('jasa_website') }}" class="pricing-btn">Pesan Sekarang</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="pricing-card h-100">
+          <div class="pricing-inner">
+            <div class="mb-3 domain-pill">KARDIGI SCALE <span class="tld">custom</span></div>
+            <div class="price-now-block mb-2">
+              <span class="price-now">Custom <span class="text-muted" style="font-size:.9rem;">/thn</span></span>
+            </div>
+            <div class="price-meta mb-4">
+              <span class="price-strike me-2">MAHAL</span>
+              <span class="promo-badge">PROMO</span>
+            </div>
+            <div class="mb-2 pricing-feat">Solusi digital custom</div>
+            <p class="pricing-desc mb-3">Sistem khusus yang dibangun untuk menyesuaikan fitur yang anda inginkan.</p>
+            <a href="{{ url_for('jasa_website') }}" class="pricing-btn">Pesan Sekarang</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <!-- JAMINAN KEPUASAN (RISK REVERSAL - GUERRILLA MARKETING) -->
-<section class="py-5 position-relative overflow-hidden" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
-    <!-- Decorative Elements -->
-    <div class="position-absolute top-0 start-0 w-100 h-100" style="opacity: 0.05;">
-        <div class="position-absolute" style="top: 10%; left: 5%; width: 200px; height: 200px; background: radial-gradient(circle, #f59e0b, transparent); border-radius: 50%;"></div>
-        <div class="position-absolute" style="bottom: 10%; right: 10%; width: 250px; height: 250px; background: radial-gradient(circle, #3b82f6, transparent); border-radius: 50%;"></div>
-    </div>
-
-    <div class="container py-4 reveal position-relative" style="z-index: 2;">
-        <!-- Header Section -->
-        <div class="text-center mb-5 reveal-on-scroll">
-            <span class="badge px-4 py-2 rounded-pill mb-3" style="background: rgba(245, 158, 11, 0.2); border: 2px solid rgba(245, 158, 11, 0.4); color: #f59e0b; font-weight: 700; font-size: 0.9rem;">
-                <i class="fas fa-shield-alt me-2"></i>GARANSI TANPA RESIKO
-            </span>
-            <h2 class="fw-bold mb-3 text-white" style="font-size: 2.2rem; line-height: 1.3;">
-                KARDIGI Bukan Sekadar Agensi, <br>
-                Tapi <span style="color: var(--accent-orange);">Partner Pertumbuhan</span> Bisnis Anda
-            </h2>
-            <p class="lead mb-0 mx-auto" style="color: rgba(255, 255, 255, 0.85); font-size: 1.05rem; max-width: 650px;">
-                Kami tahu Anda butuh <strong style="color: #f59e0b;">hasil nyata</strong>, bukan sekadar janji teknis. 
-                Itulah mengapa kami berikan <strong style="color: #fff;">Garansi Kepuasan Total</strong>
-            </p>
-        </div>
-
-        <!-- Guarantee Cards Grid -->
-        <div class="row g-4 mb-4">
-            <!-- Card 1: Revisi Tanpa Batas -->
-            <div class="col-lg-3 col-md-6 reveal-on-scroll">
-                <div class="h-100 p-4 rounded-4 text-center" 
-                     style="background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15); transition: all 0.3s ease;"
-                     onmouseover="this.style.background='rgba(255, 255, 255, 0.12)'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(16, 185, 129, 0.2)'"
-                     onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-                    <div class="mb-3">
-                        <div class="mx-auto rounded-circle d-flex align-items-center justify-content-center" 
-                             style="width: 65px; height: 65px; background: linear-gradient(135deg, #10b981, #059669);">
-                            <i class="fas fa-infinity text-white" style="font-size: 1.6rem;"></i>
-                        </div>
-                    </div>
-                    <h5 class="fw-bold mb-2 text-white" style="font-size: 1.1rem;">Revisi Tanpa Batas</h5>
-                    <p class="mb-3 small" style="color: rgba(255, 255, 255, 0.75); line-height: 1.6; font-size: 0.9rem;">
-                        Kami tidak berhenti sampai desain <strong style="color: #fff;">benar-benar sesuai</strong> visi bisnis Anda
-                    </p>
-                    <span class="badge px-3 py-2 rounded-pill" style="background: rgba(16, 185, 129, 0.2); color: #10b981; font-size: 0.75rem; font-weight: 700;">
-                        <i class="fas fa-check-circle me-1"></i>GRATIS
-                    </span>
-                </div>
-            </div>
-
-            <!-- Card 2: Performa Azure -->
-            <div class="col-lg-3 col-md-6 reveal-on-scroll">
-                <div class="h-100 p-4 rounded-4 text-center" 
-                     style="background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15); transition: all 0.3s ease;"
-                     onmouseover="this.style.background='rgba(255, 255, 255, 0.12)'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(59, 130, 246, 0.2)'"
-                     onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-                    <div class="mb-3">
-                        <div class="mx-auto rounded-circle d-flex align-items-center justify-content-center" 
-                             style="width: 65px; height: 65px; background: linear-gradient(135deg, #3b82f6, #2563eb);">
-                            <i class="fas fa-rocket text-white" style="font-size: 1.6rem;"></i>
-                        </div>
-                    </div>
-                    <h5 class="fw-bold mb-2 text-white" style="font-size: 1.1rem;">Performa Tahan Banting</h5>
-                    <p class="mb-3 small" style="color: rgba(255, 255, 255, 0.75); line-height: 1.6; font-size: 0.9rem;">
-                        Dibangun di <strong style="color: #fff;">Microsoft Azure</strong>, kecepatan akses maksimal <strong style="color: #3b82f6;">24/7</strong>
-                    </p>
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" 
-                         alt="Microsoft Azure" 
-                         style="height: 28px;">
-                </div>
-            </div>
-
-            <!-- Card 3: Keamanan Berlapis -->
-            <div class="col-lg-3 col-md-6 reveal-on-scroll">
-                <div class="h-100 p-4 rounded-4 text-center" 
-                     style="background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15); transition: all 0.3s ease;"
-                     onmouseover="this.style.background='rgba(255, 255, 255, 0.12)'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(245, 158, 11, 0.2)'"
-                     onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-                    <div class="mb-3">
-                        <div class="mx-auto rounded-circle d-flex align-items-center justify-content-center" 
-                             style="width: 65px; height: 65px; background: linear-gradient(135deg, #f59e0b, #d97706);">
-                            <i class="fas fa-lock text-white" style="font-size: 1.6rem;"></i>
-                        </div>
-                    </div>
-                    <h5 class="fw-bold mb-2 text-white" style="font-size: 1.1rem;">Keamanan Berlapis</h5>
-                    <p class="mb-3 small" style="color: rgba(255, 255, 255, 0.75); line-height: 1.6; font-size: 0.9rem;">
-                        <strong style="color: #fff;">Proteksi SSL</strong> dan enkripsi terbaru jaga data bisnis Anda tetap aman
-                    </p>
-                    <span class="badge px-3 py-2 rounded-pill" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; font-size: 0.75rem; font-weight: 700;">
-                        <i class="fas fa-shield-alt me-1"></i>SSL GRATIS
-                    </span>
-                </div>
-            </div>
-
-            <!-- Card 4: Konsultasi Gratis -->
-            <div class="col-lg-3 col-md-6 reveal-on-scroll">
-                <div class="h-100 p-4 rounded-4 text-center" 
-                     style="background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15); transition: all 0.3s ease;"
-                     onmouseover="this.style.background='rgba(255, 255, 255, 0.12)'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(236, 72, 153, 0.2)'"
-                     onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-                    <div class="mb-3">
-                        <div class="mx-auto rounded-circle d-flex align-items-center justify-content-center" 
-                             style="width: 65px; height: 65px; background: linear-gradient(135deg, #ec4899, #db2777);">
-                            <i class="fas fa-comments text-white" style="font-size: 1.6rem;"></i>
-                        </div>
-                    </div>
-                    <h5 class="fw-bold mb-2 text-white" style="font-size: 1.1rem;">Konsultasi Gratis</h5>
-                    <p class="mb-3 small" style="color: rgba(255, 255, 255, 0.75); line-height: 1.6; font-size: 0.9rem;">
-                        Bingung mulai dari mana? Ngobrol santai via <strong style="color: #fff;">WhatsApp</strong> tanpa biaya
-                    </p>
-                    <span class="badge px-3 py-2 rounded-pill" style="background: rgba(236, 72, 153, 0.2); color: #ec4899; font-size: 0.75rem; font-weight: 700;">
-                        <i class="fas fa-gift me-1"></i>100% GRATIS
-                    </span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Technology Logos -->
-        <div class="text-center reveal-on-scroll mt-5 pt-4" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
-            <p class="text-white mb-4 fw-semibold" style="font-size: 0.85rem; opacity: 0.7; letter-spacing: 1px; text-transform: uppercase;">
-                Dibangun dengan Teknologi Enterprise
-            </p>
-            <div class="d-flex justify-content-center gap-4 flex-wrap align-items-center">
-                <!-- Python -->
-                <div class="tech-logo-wrapper text-center" style="transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" 
-                         alt="Python" 
-                         style="height: 50px; width: auto; display: block; margin: 0 auto;"
-                         title="Python">
-                    <span style="display: block; margin-top: 0.5rem; font-size: 0.7rem; color: rgba(255, 255, 255, 0.7);">Python</span>
-                </div>
-                <!-- Flask -->
-                <div class="tech-logo-wrapper text-center" style="transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" 
-                         alt="Flask" 
-                         style="height: 50px; width: auto; filter: brightness(0) invert(1); display: block; margin: 0 auto;"
-                         title="Flask">
-                    <span style="display: block; margin-top: 0.5rem; font-size: 0.7rem; color: rgba(255, 255, 255, 0.7);">Flask</span>
-                </div>
-                <!-- React -->
-                <div class="tech-logo-wrapper text-center" style="transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" 
-                         alt="React" 
-                         style="height: 50px; width: auto; display: block; margin: 0 auto;"
-                         title="React">
-                    <span style="display: block; margin-top: 0.5rem; font-size: 0.7rem; color: rgba(255, 255, 255, 0.7);">React</span>
-                </div>
-                <!-- Bootstrap -->
-                <div class="tech-logo-wrapper text-center" style="transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" 
-                         alt="Bootstrap" 
-                         style="height: 50px; width: auto; display: block; margin: 0 auto;"
-                         title="Bootstrap">
-                    <span style="display: block; margin-top: 0.5rem; font-size: 0.7rem; color: rgba(255, 255, 255, 0.7);">Bootstrap</span>
-                </div>
-                <!-- Azure -->
-                <div class="tech-logo-wrapper text-center" style="transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" 
-                         alt="Microsoft Azure" 
-                         style="height: 50px; width: auto; display: block; margin: 0 auto;"
-                         title="Microsoft Azure">
-                    <span style="display: block; margin-top: 0.5rem; font-size: 0.7rem; color: rgba(255, 255, 255, 0.7);">Azure</span>
-                </div>
-                <!-- PostgreSQL -->
-                <div class="tech-logo-wrapper text-center" style="transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" 
-                         alt="PostgreSQL" 
-                         style="height: 50px; width: auto; display: block; margin: 0 auto;"
-                         title="PostgreSQL">
-                    <span style="display: block; margin-top: 0.5rem; font-size: 0.7rem; color: rgba(255, 255, 255, 0.7);">PostgreSQL</span>
-                </div>
-                <!-- Git -->
-                <div class="tech-logo-wrapper text-center" style="transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" 
-                         alt="Git" 
-                         style="height: 50px; width: auto; display: block; margin: 0 auto;"
-                         title="Git">
-                    <span style="display: block; margin-top: 0.5rem; font-size: 0.7rem; color: rgba(255, 255, 255, 0.7);">Git</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<!-- Section dihapus sesuai permintaan -->
 
 <!-- TESTIMONI KLIEN -->
 <section class="testimonial-section py-5 position-relative overflow-hidden">
-    <!-- Animated Background -->
-    <div class="testimonial-bg-animated"></div>
-    
-    <!-- Floating Shapes -->
-    <div class="floating-shape shape-1"></div>
-    <div class="floating-shape shape-2"></div>
-    <div class="floating-shape shape-3"></div>
+    <style>
+      .testimonial-section { background: #f8fafc; }
+      .badge-testimonial { background: #e2e8f0; color: var(--primary-navy); font-weight: 700; }
+      .testimonial-section h2 { color: var(--primary-navy); }
+      .testimonial-section .text-muted { color: #64748b !important; }
+      .testimonial-subtitle { color: var(--primary-navy); opacity: 0.95; }
+      .metric-number { font-weight: 800; font-size: 2rem; color: var(--primary-navy); }
+      .metric-label { color: #64748b; }
+      .testimonial-card { position: relative; border-radius: 16px; background: #ffffff; border: 1px solid #e5e7eb; padding: 1.25rem 1.25rem 1rem; transition: transform .25s ease, box-shadow .25s ease; display: flex; flex-direction: column; gap: .75rem; }
+      .testimonial-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; border-top-left-radius: 16px; border-top-right-radius: 16px; background: linear-gradient(90deg, #f59e0b, #d97706); }
+      .testimonial-card:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+      .quote-icon { position: absolute; top: 12px; right: 12px; font-size: 1.6rem; color: #e5e7eb; }
+      .testimonial-header { display: flex; align-items: center; gap: .75rem; }
+      /* star-rating dihapus */
+      .testimonial-text { 
+        color: #334155; 
+        font-size: .98rem; 
+        line-height: 1.7; 
+        display: -webkit-box; 
+        -webkit-line-clamp: 3; 
+        -webkit-box-orient: vertical; 
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+        min-height: calc(1.7em * 3);
+        border-left: 3px solid rgba(245, 158, 11, 0.7);
+        padding-left: .75rem;
+      }
+      .author-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; }
+      .author-info .author-name { color: var(--primary-navy); margin-bottom: 2px; font-weight: 800; }
+      .author-info .author-role { color: #64748b; font-size: .9rem; font-weight: 500; }
+    </style>
     
     <div class="container py-4 reveal position-relative" style="z-index: 2;">
         <div class="text-center mb-5 reveal-on-scroll">
             <span class="badge-testimonial px-4 py-2 rounded-pill mb-3">
                 <i class="bi bi-chat-quote me-2"></i>TESTIMONI KLIEN
             </span>
-            <h2 class="fw-bold mb-3" style="color: var(--primary-navy); font-size: 2.5rem;">
+            <h2 class="fw-bold mb-3" style="font-size: 4rem;">
                 Apa Kata <span style="color: var(--accent-orange);">Mereka?</span>
             </h2>
-            <p class="text-muted" style="font-size: 1.1rem;">Kepuasan klien adalah prioritas utama kami</p>
+            <p class="testimonial-subtitle" style="font-size: 1.1rem;">Lebih dari 100 bisnis telah mempercayakan kami untuk berkembang secara digital</p>
             
             <!-- Stats Badge -->
-            <div class="d-flex justify-content-center gap-4 mt-4 flex-wrap">
-                <div class="stats-badge">
-                    <div class="stats-number">25+</div>
-                    <div class="stats-label">Klien Puas</div>
+            <div class="row text-center my-4">
+                <div class="col-4 col-md-4 mb-3">
+                    <div class="metric-number">100+</div>
+                    <div class="metric-label">Web bisnis telah dipublish</div>
                 </div>
-                <div class="stats-badge">
-                    <div class="stats-number">4.9/5</div>
-                    <div class="stats-label">Rating</div>
+                <div class="col-4 col-md-4 mb-3">
+                    <div class="metric-number">89%</div>
+                    <div class="metric-label">Penjualan bisnis meningkat</div>
                 </div>
-                <div class="stats-badge">
-                    <div class="stats-number">100%</div>
-                    <div class="stats-label">Kepuasan</div>
+                <div class="col-4 col-md-4 mb-3">
+                    <div class="metric-number">90%</div>
+                    <div class="metric-label">bisnis merasa terbantu</div>
                 </div>
             </div>
         </div>
         
-        <!-- Testimonial Cards Responsive Grid (Mobile & Desktop) -->
         <div class="row g-4 justify-content-center">
             <div class="col-12 col-md-4">
                 <div class="testimonial-card h-100">
-                    <div class="quote-icon">
-                        <i class="bi bi-quote"></i>
-                    </div>
-                    <div class="testimonial-content">
-                        <div class="star-rating mb-3">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
+                    <div class="testimonial-header d-flex align-items-center gap-3 mb-3">
+                        <div class="author-avatar" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                            RH
                         </div>
-                        <p class="testimonial-text">
+                        <div class="author-info">
+                            <h6 class="author-name mb-0"> Rahman Hidayat</h6>
+                            <p class="author-role mb-0">Owner Toko Elektronik Sukabumi</p>
+                        </div>
+                        
+                    </div>
+                    <p class="testimonial-text mb-0">
                             "Website toko online yang dibuatkan KARDIGI sangat membantu meningkatkan penjualan. Desainnya modern dan mudah dikelola. Pengerjaan juga cepat, hanya 5 hari!"
-                        </p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
-                                RH
-                            </div>
-                            <div class="author-info">
-                                <h6 class="author-name"> Rahman Hidayat</h6>
-                                <p class="author-role">Owner Toko Elektronik Sukabumi</p>
-                            </div>
-                        </div>
-                    </div>
+                    </p>
                 </div>
             </div>
             <div class="col-12 col-md-4">
                 <div class="testimonial-card h-100">
-                    <div class="quote-icon">
-                        <i class="bi bi-quote"></i>
-                    </div>
-                    <div class="testimonial-content">
-                        <div class="star-rating mb-3">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
+                    <div class="testimonial-header d-flex align-items-center gap-3 mb-3">
+                        <div class="author-avatar" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">
+                            SM
                         </div>
-                        <p class="testimonial-text">
+                        <div class="author-info">
+                            <h6 class="author-name mb-0">Siti Marinah</h6>
+                            <p class="author-role mb-0">Kepala Sekolah SMPN 1 Cisarua</p>
+                        </div>
+                        
+                    </div>
+                    <p class="testimonial-text mb-0">
                             "Website sekolah kami jadi terlihat profesional berkat KARDIGI. Orang tua murid jadi lebih mudah akses informasi sekolah. Recommended banget!"
-                        </p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">
-                                SM
-                            </div>
-                            <div class="author-info">
-                                <h6 class="author-name">Siti Marinah</h6>
-                                <p class="author-role">Kepala Sekolah SMPN 1 Cisarua</p>
-                            </div>
-                        </div>
-                    </div>
+                    </p>
                 </div>
             </div>
             <div class="col-12 col-md-4">
                 <div class="testimonial-card h-100">
-                    <div class="quote-icon">
-                        <i class="bi bi-quote"></i>
-                    </div>
-                    <div class="testimonial-content">
-                        <div class="star-rating mb-3">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
+                    <div class="testimonial-header d-flex align-items-center gap-3 mb-3">
+                        <div class="author-avatar" style="background: linear-gradient(135deg, #10b981, #059669);">
+                            AP
                         </div>
-                        <p class="testimonial-text">
-                            "Pelayanan KARDIGI sangat memuaskan! Website kampus kami dibuatkan dengan detail dan profesional. Fitur pendaftaran online sangat memudahkan calon mahasiswa baru."
-                        </p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar" style="background: linear-gradient(135deg, #10b981, #059669);">
-                                AP
-                            </div>
-                            <div class="author-info">
-                                <h6 class="author-name">Ahmad Purnomo</h6>
-                                <p class="author-role">Admin Universitas</p>
-                            </div>
+                        <div class="author-info">
+                            <h6 class="author-name mb-0">Ahmad Purnomo</h6>
+                            <p class="author-role mb-0">Admin Universitas</p>
                         </div>
+                        
                     </div>
+                    <p class="testimonial-text mb-0">
+                        "Pelayanan KARDIGI sangat memuaskan! Website kampus kami dibuatkan dengan detail dan profesional. Fitur pendaftaran online sangat memudahkan calon mahasiswa baru."
+                    </p>
                 </div>
             </div>
         </div>
@@ -604,7 +507,7 @@
 <style>
 /* Testimonial Section Styling */
 .testimonial-section {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    background: #f8fafc;
     position: relative;
     overflow: hidden;
 }
@@ -669,22 +572,21 @@
 }
 
 .badge-testimonial {
-    background: rgba(245, 158, 11, 0.2);
-    border: 2px solid rgba(245, 158, 11, 0.4);
-    color: var(--accent-orange);
+    background: #e2e8f0;
+    border: none;
+    color: var(--primary-navy);
     font-weight: 700;
     font-size: 0.9rem;
     display: inline-flex;
     align-items: center;
-    backdrop-filter: blur(10px);
 }
 
 .testimonial-section h2 {
-    color: white !important;
+    color: var(--primary-navy);
 }
 
 .testimonial-section h2 span {
-    color: var(--accent-orange) !important;
+    color: var(--accent-orange);
 }
 
 .testimonial-section .text-muted {
@@ -929,12 +831,14 @@
 <section class="py-5 position-relative overflow-hidden" style="background: white;">
     <div class="container py-4 reveal">
         <div class="text-center mb-5 reveal-on-scroll">
-            <span class="badge bg-orange text-white px-3 py-2 rounded-pill mb-3">ARTIKEL TERBARU</span>
-            <h2 class="fw-bold mb-3" style="color: var(--primary-navy); line-height: 1.2;">
+            <span class="badge-testimonial px-4 py-2 rounded-pill mb-3">
+                ARTIKEL KARDIGI
+            </span>
+            <h1 class="fw-bold mb-3" style="color: var(--primary-navy); line-height: 1.2;">
                 Baca Artikel & Tips <br>
                 <span style="color: var(--accent-orange);">Terkini dari Kami</span>
-            </h2>
-            <p class="text-muted" style="font-size: 1.05rem;">Temukan informasi bermanfaat seputar website, digital marketing, dan bisnis online</p>
+            </h1>
+            <p class="text-muted" style="font-size: 1.05rem;">Temukan solusi untuk mengembangkan bisnis anda melalui digital</p>
         </div>
 
         {% if latest_posts %}
@@ -1202,20 +1106,17 @@
 
 /* Global CTA Section */
 .global-cta-section {
-    background: 
-        linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)),
-        url('https://plus.unsplash.com/premium_photo-1673474112205-037558e54995?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZHVuaWF8ZW58MHx8MHx8fDA%3D');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background: #f8fafc;
     position: relative;
+    overflow: hidden;
 }
 
 .global-cta-section::before {
     content: '';
     position: absolute;
     inset: 0;
-    backdrop-filter: blur(3px);
+    background-image: radial-gradient(#e2e8f0 1.2px, transparent 1.2px);
+    background-size: 28px 28px;
     pointer-events: none;
 }
 
@@ -1264,14 +1165,10 @@
 
 /* Content Card */
 .global-content-card {
-    background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 24px;
-    padding: 4rem 3rem;
-    box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
     position: relative;
     z-index: 2;
 }
@@ -1284,16 +1181,14 @@
 .global-badge {
     display: inline-flex;
     align-items: center;
-    padding: 0.75rem 2rem;
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(245, 158, 11, 0.15));
-    border: 1.5px solid rgba(245, 158, 11, 0.6);
-    border-radius: 50px;
-    color: #fbbf24;
-    font-weight: 600;
+    padding: 0.6rem 1.4rem;
+    background: #e2e8f0;
+    border: none;
+    border-radius: 999px;
+    color: var(--primary-navy);
+    font-weight: 700;
     font-size: 0.95rem;
-    margin-bottom: 2rem;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2);
+    margin-bottom: 1.25rem;
     transition: all 0.3s ease;
 }
 
@@ -1304,12 +1199,11 @@
 }
 
 .global-title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-size: clamp(2.2rem, 5vw, 4rem);
     font-weight: 800;
-    color: #ffffff;
+    color: var(--primary-navy);
     line-height: 1.15;
-    margin-bottom: 2rem;
-    text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.6);
+    margin-bottom: 1rem;
     letter-spacing: -0.02em;
 }
 
@@ -1319,28 +1213,18 @@
 }
 
 .global-description {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     line-height: 1.8;
-    color: #e2e8f0;
-    margin-bottom: 3rem;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
-    max-width: 800px;
+    color: #475569;
+    margin-bottom: 1.75rem;
+    max-width: 820px;
     margin-left: auto;
     margin-right: auto;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 /* Global Stats Row */
-.global-stats-row {
-    display: flex;
-    gap: 2.5rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 3rem;
-    padding: 2rem 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
+.global-stats-row { display: none; }
 
 .global-stat-item {
     display: flex;
@@ -1386,20 +1270,16 @@
 .btn-global-cta {
     display: inline-flex;
     align-items: center;
-    padding: 1.25rem 3.5rem;
-    background: linear-gradient(135deg, var(--accent-orange) 0%, #d97706 100%);
+    padding: 0.9rem 2rem;
+    background: #2563eb;
     color: white;
     text-decoration: none;
-    border-radius: 16px;
+    border-radius: 12px;
     font-weight: 700;
-    font-size: 1.15rem;
-    transition: all 0.4s ease;
-    box-shadow: 
-        0 10px 30px rgba(245, 158, 11, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    position: relative;
-    overflow: hidden;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35);
+    border: none;
 }
 
 .btn-global-cta::before {
@@ -1418,12 +1298,8 @@
 }
 
 .btn-global-cta:hover {
-    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
-    transform: translateY(-4px);
-    box-shadow: 
-        0 15px 40px rgba(245, 158, 11, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    color: white;
+    background: #1d4ed8;
+    transform: translateY(-2px);
 }
 
 .btn-global-cta span {
@@ -1439,6 +1315,54 @@
 
 .btn-global-cta:hover i {
     transform: translateX(5px);
+}
+
+/* Uiverse-style CTA adapted to site theme */
+.cta-uni-btn {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 14px;
+    padding: 2px;
+    transition: transform 0.3s ease;
+    will-change: transform;
+}
+.cta-uni-btn:hover { transform: scale(1.05); }
+.cta-uni-btn:active { transform: scale(0.97); }
+.cta-uni-btn .cta-uni-border {
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    background: linear-gradient(90deg, var(--accent-orange), #2563eb, var(--primary-navy));
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+.cta-uni-btn:hover .cta-uni-border { opacity: 1; }
+.cta-uni-btn .cta-uni-inner {
+    position: relative;
+    display: block;
+    border-radius: 12px;
+    background: var(--primary-navy);
+    color: #ffffff;
+    padding: 0.9rem 1.25rem;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.35);
+}
+.cta-uni-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+.cta-uni-text,
+.cta-uni-content svg {
+    transition: transform 0.5s ease;
+}
+.cta-uni-btn:hover .cta-uni-text,
+.cta-uni-btn:hover .cta-uni-content svg {
+    transform: translateX(4px);
 }
 
 /* Responsive */
@@ -1547,15 +1471,14 @@
                 <div class="global-content-card">
                     <div class="global-cta-content">
                         <span class="global-badge">
-                            <i class="bi bi-globe-americas me-2"></i>Jangkauan Tanpa Batas
+                            <i class="bi bi-globe-americas me-2"></i>Menuju Pasar Global
                         </span>
                         <h2 class="global-title">
-                            Saatnya <span class="highlight-text">Bisnis</span> Anda Mendunia!
+                            Buat Website untuk Capai <span class="highlight-text">Pasar Global</span>
                         </h2>
                         <p class="global-description">
-                            Tidak ada lagi batasan geografis untuk bisnis Anda! Dengan website profesional, 
-                            customer dari Jakarta, Surabaya, bahkan luar negeri bisa menemukan produk Anda 24/7. 
-                            Bayangkan omset yang terus bertambah karena jangkauan market yang semakin luas.
+                            Perluas jangkauan bisnis Anda ke seluruh dunia dengan website profesional. 
+                            Dengan tampilan yang menarik dan mudah diakses, Anda bisa menjangkau lebih banyak pelanggan internasional dan meningkatkan penjualan.
                         </p>
                         <!-- Stats Row -->
                         <div class="global-stats-row">
@@ -1587,9 +1510,16 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="{{ url_for('jasa_website') }}" class="btn-global-cta">
-                            <span>Mulai Sekarang</span>
-                            <i class="bi bi-arrow-right ms-2"></i>
+                        <a href="{{ url_for('jasa_website') }}" class="cta-uni-btn">
+                            <span class="cta-uni-border"></span>
+                            <span class="cta-uni-inner">
+                                <span class="cta-uni-content">
+                                    <span class="cta-uni-text">Buat Website Sekarang</span>
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                      <path fill-rule="evenodd" clip-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"/>
+                                    </svg>
+                                </span>
+                            </span>
                         </a>
                     </div>
                 </div>

@@ -123,7 +123,8 @@
                         {% if post.image %}
                         <img src="{{ url_for('static', filename='uploads/' + post.image) }}" 
                              class="card-image" 
-                             alt="{{ post.title }}">
+                             alt="{{ post.title }}"
+                             loading="lazy" decoding="async">
                         {% else %}
                         <div class="card-placeholder">
                             <div class="placeholder-gradient"></div>
@@ -523,9 +524,7 @@
     transition: transform 0.5s ease;
 }
 
-.article-card:hover .card-image {
-    transform: scale(1.1);
-}
+.article-card:hover .card-image { transform: none; }
 
 .card-placeholder {
     width: 100%;

@@ -108,12 +108,17 @@ def logout():
 def home(): 
     # Ambil 3 artikel blog terbaru yang sudah dipublish
     latest_posts = BlogPost.query.filter_by(published=True).order_by(BlogPost.created_at.desc()).limit(3).all()
-    return render_template('index.html', latest_posts=latest_posts)
+    portfolio_websites = PortfolioWebsite.query.order_by(PortfolioWebsite.id.desc()).all()
+    return render_template('index.html', latest_posts=latest_posts, portfolio_websites=portfolio_websites)
 
 @app.route('/jasa-website')
 def jasa_website(): 
-    portfolio_website = PortfolioWebsite.query.order_by(PortfolioWebsite.id.desc()).all()
-    return render_template('jasa_website.html', portfolio=portfolio_website)
+    page = request.args.get('page', 1, type=int)
+    per_page = 9
+    portfolio_pagination = PortfolioWebsite.query.order_by(PortfolioWebsite.id.desc()).paginate(page=page, per_page=per_page, error_out=False)
+    return render_template('jasa_website.html', 
+                           portfolio_pagination=portfolio_pagination, 
+                           portfolio=portfolio_pagination.items)
 
 # --- BLOG ROUTES ---
 @app.route('/blog')
