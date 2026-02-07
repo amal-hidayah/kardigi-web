@@ -9,7 +9,7 @@
         <div class="row g-2 align-items-center" style="min-height: 80vh;">
             <div class="col-lg-6 order-1 order-lg-2 d-none d-md-block">
                 <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
-                    <img src="https://res.cloudinary.com/dxilefb3o/image/upload/f_auto,q_auto/v1770447049/hero_u9hqd7.png" alt="KARDIGI Hero" style="width: clamp(520px, 48vw, 1000px); height: auto;">
+                    <img src="https://res.cloudinary.com/dxilefb3o/image/upload/f_auto,q_auto/v1770447049/hero_u9hqd7.png" alt="KARDIGI Hero" class="hero-image-animate" style="width: clamp(520px, 48vw, 1000px); height: auto;">
                 </div>
             </div>
             <!-- KOLOM KIRI: TEKS HERO -->
@@ -82,21 +82,122 @@
                 
                 </div>
                 <div class="d-block d-md-none mt-4">
-                    <img src="https://res.cloudinary.com/dxilefb3o/image/upload/f_auto,q_auto/v1770447049/hero_u9hqd7.png" alt="KARDIGI Hero" style="width: 100%; height: auto;">
+                    <img src="https://res.cloudinary.com/dxilefb3o/image/upload/f_auto,q_auto/v1770447049/hero_u9hqd7.png" alt="KARDIGI Hero" class="hero-image-animate" style="width: 100%; height: auto;">
                 </div>
             </div>
             
         </div>
     </div>
+    <!-- Hero Curve Overlay -->
+    <div class="hero-bottom-curve"></div>
 </section>
-<div class="hero-curve"></div>
+
 <style>
-.hero-curve{position:absolute;left:50%;transform:translateX(-50%);bottom:-170px;width:115%;height:100px;background:#e7f7ff;border-top-left-radius:100% 90px;border-top-right-radius:100% 90px;z-index:9;box-shadow:0 -2px 0 rgba(0,0,0,0.02);pointer-events:none}
-@media (max-width:575.98px){.hero-curve{bottom:-243px;width:100%;left:0;transform:translateX(0)}}
+/* Hero Bottom Curve */
+.hero-section {
+  position: relative;
+}
+
+.hero-bottom-curve {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 120px;
+  background: #e7f7ff;
+  border-top-left-radius: 50% 80px;
+  border-top-right-radius: 50% 80px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+@media (max-width: 1199.98px) {
+  .hero-bottom-curve {
+    height: 100px;
+    border-top-left-radius: 50% 70px;
+    border-top-right-radius: 50% 70px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .hero-bottom-curve {
+    height: 80px;
+    border-top-left-radius: 50% 60px;
+    border-top-right-radius: 50% 60px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero-bottom-curve {
+    height: 80px;
+    border-top-left-radius: 50% 60px;
+    border-top-right-radius: 50% 60px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .hero-bottom-curve {
+    height: 100px;
+    border-top-left-radius: 50% 70px;
+    border-top-right-radius: 50% 70px;
+  }
+}
+
+/* Hero Image Animation */
+@keyframes heroImageFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.hero-image-animate {
+  animation: heroImageFadeIn 1s ease-out forwards;
+  opacity: 0;
+}
+
+@media (max-width: 767.98px) {
+  @keyframes heroImageFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+}
+
+/* Portfolio Section Spacing */
+.portfolio-section {
+  padding-top: 6rem !important;
+}
+
+@media (max-width: 1199.98px) {
+  .portfolio-section { padding-top: 5rem !important; }
+}
+
+@media (max-width: 991.98px) {
+  .portfolio-section { padding-top: 4.5rem !important; }
+}
+
+@media (max-width: 767.98px) {
+  .portfolio-section { padding-top: 4rem !important; }
+}
+
+@media (max-width: 575.98px) {
+  .portfolio-section { padding-top: 3.5rem !important; }
+}
 </style>
 
-<section class="pt-0 pb-4" style="background: linear-gradient(180deg, #e7f7ff 0%, #ffffff 100%);">
-    <div class="container pt-0 pb-4">
+<section class="portfolio-section py-5" style="background: linear-gradient(180deg, #e7f7ff 0%, #ffffff 100%);">
+    <div class="container">
         <div class="text-center mb-4">
             <h1 class="fw-bold mt-0" style="color: var(--primary-navy);">Pilih Website Sesuai Kebutuhan Anda</h1>
             <p class="text-muted">Ratusan bisnis telah mempercayakan kepada kami untuk mengembangkan bisnisnya secara digital.</p>
